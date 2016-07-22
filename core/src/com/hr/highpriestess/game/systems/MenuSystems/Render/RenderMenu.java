@@ -49,13 +49,10 @@ public class RenderMenu extends IteratingSystem{
             Bounds ebound = boundsCm.get(e);
             AnimationBehind etop = animateBehindCm.get(e);
             Animation anim = etop.getAnimation();
-            System.out.println(etop.getAnimation());
             anim.setPlayMode(Animation.PlayMode.NORMAL);
             anim.setFrameDuration(0.1f);
             if (!etop.getAnimationRepeating()) {
-                TextureRegion[] frames = etop.getAnimation().getKeyFrames();
-                TextureRegion currentFrame = frames[etop.getCurrentFrame()];
-                batch.draw(etop.getAnimation().getKeyFrame(Gdx.graphics.getDeltaTime() * etop.getCurrentFrame()),
+                batch.draw(etop.getAnimation().getKeyFrame(etop.getEllapsedTime()),
                         ebound.x, ebound.y, ebound.width, ebound.height);
             }
 

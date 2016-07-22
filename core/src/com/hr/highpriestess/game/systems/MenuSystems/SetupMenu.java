@@ -27,7 +27,7 @@ public class SetupMenu extends BaseEntitySystem {
          */
         float multiplier = cameraSystem.getZOOM();
         EntityMakerMenu.createLabel(G.menuWorld, 0, 0, "HI", assetSystem.sprites.get("menuAnim1"));
-        //EntityMakerMenu.createLabel(G.menuWorld, 40, 200, "bye");
+        EntityMakerMenu.createLabel(G.menuWorld, 40, 200, "bye", assetSystem.sprites.get("menuAnim1"));
     }
 
     @Override

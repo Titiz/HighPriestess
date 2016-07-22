@@ -19,8 +19,8 @@ public class AnimationSequence extends Component {
 
     private final List<Animation> animationSequence;
 
-    public AnimationSequence(List<Animation> anim) {
-        animationSequence = anim;
+    public AnimationSequence(List<Animation> animSeq) {
+        animationSequence = animSeq;
     }
 
 

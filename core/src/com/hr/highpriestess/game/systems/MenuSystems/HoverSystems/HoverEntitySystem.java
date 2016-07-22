@@ -30,6 +30,14 @@ public abstract class HoverEntitySystem extends IteratingSystem {
     }
 
 
+    protected final boolean isHovered(int e) {
+        boolean bol = false;
+        if (hoverBehaviorCm.get(e).isHovered()){
+            bol = true;
+        }
+        return bol;
+    }
+
 
 
 

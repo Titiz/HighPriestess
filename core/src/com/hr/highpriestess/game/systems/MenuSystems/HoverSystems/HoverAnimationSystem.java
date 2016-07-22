@@ -25,24 +25,23 @@ public class HoverAnimationSystem extends HoverEntitySystem {
     protected void process(int e) {
         AnimationBehind etop = animationBehind.get(e);
 
-
-
-
-
-        if (etop.getForward()) {
+        System.out.println(etop.getEllapsedTime());
+        if (isHovered(e) &&
+                etop.getAnimation().getKeyFrameIndex(etop.getEllapsedTime()) <
+                        etop.getAnimation().getKeyFrames().length-1) {
             etop.addEllapsedTime(Gdx.graphics.getDeltaTime());
-        } else {
+        } else if (etop.getAnimation().getKeyFrameIndex(etop.getEllapsedTime()) > 0 && !isHovered(e)) {
             etop.addEllapsedTime(-Gdx.graphics.getDeltaTime());
         }
 
-        TextureRegion[] frames = etop.getAnimation().getKeyFrames();
-        if (tickAt(e,0) && etop.getCurrentFrame() > 0 ) {
-            etop.changeCurrentFrame(-1);
-        } else if (hoverBehaviorCm.get(e).isHovered() &&
-                etop.getAnimation().getKeyFrames().length-1 > etop.getCurrentFrame()){
-            etop.changeCurrentFrame(1);
-            System.out.println(etop.getCurrentFrame());
-        }
+
+
+
+
+
+
+
+
     }
 
 
