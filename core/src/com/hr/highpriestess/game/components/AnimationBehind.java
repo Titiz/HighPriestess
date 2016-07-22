@@ -16,7 +16,27 @@ public class AnimationBehind extends Component {
     private Boolean framesGoForward = true;
     private Boolean animationRepeating = false;
     private Animation animationAfter = null;
+    private Animation animationBefore = null;
     private int currentFrame = 0;
+    private float maxFrameTime;
+
+    public float getMaxFrameTime() {
+        return maxFrameTime;
+    }
+
+    public void setMaxFrameTime(float maxFrameTime) {
+        this.maxFrameTime = maxFrameTime;
+    }
+
+    public Animation getActiveAnimation() {
+        return activeAnimation;
+    }
+
+    public void setActiveAnimation(Animation activeAnimation) {
+        this.activeAnimation = activeAnimation;
+    }
+
+    private Animation activeAnimation;
 
     public int getCurrentFrame() {
         return currentFrame;
@@ -42,8 +62,17 @@ public class AnimationBehind extends Component {
     private Boolean isStopped = false;
 
 
-    public AnimationBehind(Animation anim) {
+    public AnimationBehind(Animation animationBefore, Animation anim, Animation animationAfter) {
+        animationBefore.setPlayMode(Animation.PlayMode.LOOP);
+        animationAfter.setPlayMode(Animation.PlayMode.LOOP);
+        this.animationBefore = animationBefore;
         this.animation = anim;
+        this.animationAfter = animationAfter;
+        setActiveAnimation(this.getAnimationBefore());
+    }
+
+    public Animation getAnimationBefore() {
+        return animationBefore;
     }
 
     public Boolean getAnimationRepeating() {

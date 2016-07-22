@@ -51,11 +51,10 @@ public class RenderMenu extends IteratingSystem{
             Animation anim = etop.getAnimation();
             anim.setPlayMode(Animation.PlayMode.NORMAL);
             anim.setFrameDuration(0.1f);
-            if (!etop.getAnimationRepeating()) {
-                batch.draw(etop.getAnimation().getKeyFrame(etop.getEllapsedTime()),
-                        ebound.x, ebound.y, ebound.width, ebound.height);
+            batch.draw(etop.getActiveAnimation().getKeyFrame(etop.getEllapsedTime()),
+                    ebound.x, ebound.y, ebound.width, ebound.height);
             }
 
         }
     }
-}
+

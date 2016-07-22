@@ -3,6 +3,7 @@ package com.hr.highpriestess.game.systems.MenuSystems;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.util.EntityMakerMenu;
 
@@ -26,8 +27,12 @@ public class SetupMenu extends BaseEntitySystem {
          * This is where we setup all parts of the Menu.
          */
         float multiplier = cameraSystem.getZOOM();
-        EntityMakerMenu.createLabel(G.menuWorld, 0, 0, "HI", assetSystem.sprites.get("menuAnim1"));
-        EntityMakerMenu.createLabel(G.menuWorld, 40, 200, "bye", assetSystem.sprites.get("menuAnim1"));
+        Animation[] anims = new Animation[3];
+        anims[1] = assetSystem.sprites.get("menuAnim1");
+        anims[0] = assetSystem.sprites.get("menuAnim1Before");
+        anims[2] = assetSystem.sprites.get("menuAnim1After");
+        EntityMakerMenu.createLabel(G.menuWorld, 0, 0, "HI", anims);
+        EntityMakerMenu.createLabel(G.menuWorld, 40, 200, "bye", anims);
     }
 
     @Override

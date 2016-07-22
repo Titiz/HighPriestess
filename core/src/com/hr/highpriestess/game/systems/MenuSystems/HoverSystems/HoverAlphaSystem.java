@@ -2,6 +2,7 @@ package com.hr.highpriestess.game.systems.MenuSystems.HoverSystems;
 
 import com.artemis.*;
 import com.artemis.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +11,8 @@ import com.hr.highpriestess.game.components.Text;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+
+import java.awt.*;
 
 
 public class HoverAlphaSystem extends HoverEntitySystem{
@@ -53,7 +56,7 @@ public class HoverAlphaSystem extends HoverEntitySystem{
         BitmapFont font = assetSystem.font;
 
         if (changeAlphaCm.has(e) && alphaCm.get(e).getAlpha() < 1.0f) {
-            alphaCm.get(e).changeAlpha(0.06f);
+            alphaCm.get(e).changeAlpha(0.2f* Gdx.graphics.getDeltaTime());
         }else if (alphaCm.get(e).getAlpha() > 0.0f) {
                 alphaCm.get(e).changeAlpha(-0.01f);
             }

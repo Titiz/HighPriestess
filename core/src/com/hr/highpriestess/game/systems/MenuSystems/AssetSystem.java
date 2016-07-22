@@ -73,14 +73,16 @@ public class AssetSystem extends BaseSystem {
         font.getData().scale(5);
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);
-        Texture texture = new Texture("Blood.png");
-        TextureRegion[] regions = new TextureRegion[12];
-        for (int i = 0; i < 12; i++) {
-            regions[i] = new TextureRegion(texture, 1024*i, 0, 1024, 1024);
-        }
-        sprites.put("menuAnim1", new Animation(0.5f, regions));
+        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
+        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
+        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, new Texture("Blood3.png"), 0.1f);
+
+
 
     }
+
+
+
 
     @Override
     protected void processSystem() {
