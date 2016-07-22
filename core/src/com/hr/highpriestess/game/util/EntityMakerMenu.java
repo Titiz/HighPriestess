@@ -24,6 +24,8 @@ public class EntityMakerMenu {
                         getEntity();
         return entity;
     }
+
+
     private static EntityEdit createNew(final World world, final float x, final float y) {
         return world.createEntity()
                 .edit();
