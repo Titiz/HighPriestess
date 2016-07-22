@@ -16,13 +16,12 @@ public class HighPriestessMain extends Game {
 		public void create () {
 			Gdx.app.setLogLevel(Application.LOG_DEBUG);
 			G.game = this;
+
 			goMenu();
 		}
 
 		public void goMenu() {
 			setScreen(new MenuScreen(this));
 		}
+}
 
-	public void goGame() {
-	}
-	}

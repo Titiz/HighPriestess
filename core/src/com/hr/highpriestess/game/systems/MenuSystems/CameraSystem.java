@@ -1,4 +1,4 @@
-package com.hr.highpriestess.game.systems;
+package com.hr.highpriestess.game.systems.MenuSystems;
 
 import com.artemis.BaseSystem;
 import com.badlogic.gdx.Gdx;

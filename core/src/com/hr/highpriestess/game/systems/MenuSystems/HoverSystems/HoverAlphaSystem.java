@@ -1,4 +1,4 @@
-package com.hr.highpriestess.game.systems;
+package com.hr.highpriestess.game.systems.MenuSystems.HoverSystems;
 
 import com.artemis.*;
 import com.artemis.systems.IteratingSystem;
@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hr.highpriestess.game.components.*;
 import com.hr.highpriestess.game.components.Text;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 
 
-public class HoverAlpha extends IteratingSystem{
+public class HoverAlphaSystem extends HoverEntitySystem{
 
     private ComponentMapper<HoverableText>  hoverableTextcm;
     private ComponentMapper<Text> textCm;
@@ -20,20 +22,21 @@ public class HoverAlpha extends IteratingSystem{
     //passive systems.
     private AssetSystem assetSystem;
     private CollisionSystem collisionSystem;
+    private HoverLabelSystem hoverLabelSystem;
 
     private SpriteBatch batch = new SpriteBatch();
 
     ComponentMapper<HoverableText> hovCm;
+    ComponentMapper<HoverBehavior> hoverBehaviorCm;
     ComponentMapper<ChangingAlpha> changeAlphaCm;
     ComponentMapper<Alpha> alphaCm;
     ComponentMapper<AnimationBehind> animationBehind;
 
-    int ticksEntered = 0;
 
 
 
 
-    public HoverAlpha() {
+    public HoverAlphaSystem() {
         super(Aspect.all(Text.class, HoverBehavior.class, Alpha.class, Bounds.class));
 
 
@@ -56,32 +59,11 @@ public class HoverAlpha extends IteratingSystem{
             }
 
 
-        if (collisionSystem.collidesWithMouse(e)) {
-            // behavior to create only one label.
-            ticksEntered += 1;
-
-        } else {
-            ticksEntered = 0;
+        if (tickAt(e, 0))
             changeAlphaCm.remove(e);
-            if (animationBehind.has(e))
-            animationBehind.get(e).setForward(false);
-        }
-        if (ticksEntered == 1) {
-            changeAlphaCm.create(e);
-            animationBehind.create(e);
-            Animation anim = assetSystem.sprites.get("menuAnim1");
-            anim.setPlayMode(Animation.PlayMode.NORMAL);
-            animationBehind.get(e).setAnimation(anim);
-            animationBehind.get(e).setForward(true);
-            font.setColor(255, 255, 255, 1);
-            Label.LabelStyle style = new Label.LabelStyle(font, font.getColor());
-            Label label = new Label(textCm.get(e).getText(), style);
-            label.setPosition(boundsCm.get(e).x, boundsCm.get(e).y);
-            boundsCm.get(e).width = label.getPrefWidth();
-            boundsCm.get(e).height = label.getPrefHeight();
-            hovCm.create(e);
-            hovCm.get(e).setLabel(label);
 
+        if (tickAt(e, 1)) {
+            changeAlphaCm.create(e);
         }
 
 

@@ -1,20 +1,16 @@
-package com.hr.highpriestess.game.systems.RenderSystems;
+package com.hr.highpriestess.game.systems.MenuSystems.Render;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
-import com.artemis.Entity;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.hr.highpriestess.game.components.*;
-import com.hr.highpriestess.game.systems.CameraSystem;
-import com.hr.highpriestess.game.systems.AssetSystem;
-
-import static com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP;
+import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 
 /**
  * Created by Titas on 2016-07-20.
@@ -50,31 +46,19 @@ public class RenderMenu extends IteratingSystem{
 
     public void draw_animation_behind(int e) {
         if (animateBehindCm.has(e)) {
+            Bounds ebound = boundsCm.get(e);
             AnimationBehind etop = animateBehindCm.get(e);
             Animation anim = etop.getAnimation();
+            System.out.println(etop.getAnimation());
             anim.setPlayMode(Animation.PlayMode.NORMAL);
             anim.setFrameDuration(0.1f);
-            // we check whether the animation is a repeating one
-
-
-
-            if (etop.getForward()) {
-                etop.addEllapsedTime(Gdx.graphics.getDeltaTime());
-            } else {
-                etop.addEllapsedTime(-Gdx.graphics.getDeltaTime());
-            }
-
-            Bounds bounds = boundsCm.get(e);
-            batch.draw(anim.getKeyFrame(etop.getEllapsedTime(), true), bounds.x, bounds.y, bounds.width, bounds.height);
-
-            if (etop.getEllapsedTime() < 0){
-                animateBehindCm.remove(e);
-            }
             if (!etop.getAnimationRepeating()) {
-                // we check if the current frame is the last frame of the animation
-            if (etop.getAnimation().isAnimationFinished(etop.getEllapsedTime())) {
-                animateBehindCm.remove(e);
-            }}
+                TextureRegion[] frames = etop.getAnimation().getKeyFrames();
+                TextureRegion currentFrame = frames[etop.getCurrentFrame()];
+                batch.draw(etop.getAnimation().getKeyFrame(Gdx.graphics.getDeltaTime() * etop.getCurrentFrame()),
+                        ebound.x, ebound.y, ebound.width, ebound.height);
+            }
+
         }
     }
 }

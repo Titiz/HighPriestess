@@ -5,10 +5,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
-import com.hr.highpriestess.HighPriestessMain;
-import com.hr.highpriestess.game.components.HoverableText;
-import com.hr.highpriestess.game.systems.*;
-import com.hr.highpriestess.game.systems.RenderSystems.RenderMenu;
+import com.hr.highpriestess.game.systems.MenuSystems.*;
+import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAlphaSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAnimationSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverLabelSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.MouseHoverSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.Render.RenderMenu;
 
 /**
  * Created by Titas on 2016-07-18.
@@ -25,10 +27,16 @@ public class MenuScreen extends AbstractScreen {
                         new SetupMenu(),
 
                         //setup the necessary Entities
-                        new HoverAlpha(),
+
                         new AssetSystem(),
                         new CollisionSystem(),
                         new CameraSystem(),
+
+                        //mouseSystems
+                        new HoverAlphaSystem(),
+                        new MouseHoverSystem(),
+                        new HoverLabelSystem(),
+                        new HoverAnimationSystem(),
                         new OpenOnClick(),
                         //render Methods
                         new RenderMenu()

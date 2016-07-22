@@ -1,13 +1,9 @@
-package com.hr.highpriestess.game.systems;
+package com.hr.highpriestess.game.systems.MenuSystems;
 
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
-import com.hr.highpriestess.HighPriestessMain;
 import com.hr.highpriestess.game.components.Bounds;
 
 
