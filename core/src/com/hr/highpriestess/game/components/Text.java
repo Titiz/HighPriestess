@@ -12,6 +12,16 @@ public class Text extends Component {
     private String text;
     private BitmapFont font;
 
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
+    }
+
+    private Label label = null;
+
 
     public Text(String text) {
         this.text = text;

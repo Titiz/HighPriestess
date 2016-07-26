@@ -8,7 +8,7 @@ import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
 import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAlphaSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAnimationSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverLabelSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.LabelSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.MouseHoverSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.Render.RenderMenu;
 
@@ -27,17 +27,18 @@ public class MenuScreen extends AbstractScreen {
                         new SetupMenu(),
 
                         //setup the necessary Entities
-
+                        new LayerManager(),
                         new AssetSystem(),
                         new CollisionSystem(),
                         new CameraSystem(),
 
                         //mouseSystems
+
                         new HoverAlphaSystem(),
                         new MouseHoverSystem(),
-                        new HoverLabelSystem(),
                         new HoverAnimationSystem(),
                         new OpenOnClick(),
+                        new LabelSystem(),
                         //render Methods
                         new RenderMenu()
                 ).build();
@@ -58,4 +59,6 @@ public class MenuScreen extends AbstractScreen {
     public void dispose() {
         this.world.dispose();
     }
+
+
 }

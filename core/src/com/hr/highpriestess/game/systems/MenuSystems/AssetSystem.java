@@ -70,7 +70,6 @@ public class AssetSystem extends BaseSystem {
 
     public AssetSystem() {
         font = new BitmapFont();
-        font.getData().scale(5);
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);
         add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);

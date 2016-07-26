@@ -5,23 +5,31 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hr.highpriestess.screens.GameScreen;
 import com.hr.highpriestess.screens.MenuScreen;
 
 public class HighPriestessMain extends Game {
 
-		@Override
-		public void create () {
-			Gdx.app.setLogLevel(Application.LOG_DEBUG);
-			G.game = this;
+	@Override
+	public void create() {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.graphics.setWindowedMode(1280, 1024);
+		G.game = this;
 
-			goMenu();
-		}
+		goMenu();
+	}
 
-		public void goMenu() {
-			setScreen(new MenuScreen(this));
-		}
+	public void goMenu() {
+		setScreen(new MenuScreen(this));
+	}
+
+
+	public void goGame() {
+		setScreen(new GameScreen(this));
+	}
+
 }
-

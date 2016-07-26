@@ -11,6 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.hr.highpriestess.game.components.*;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.MouseHoverSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.LayerManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Titas on 2016-07-20.
@@ -21,28 +26,45 @@ public class RenderMenu extends IteratingSystem{
     ComponentMapper<Alpha> alphaCm;
     ComponentMapper<AnimationBehind> animateBehindCm;
     ComponentMapper<Bounds> boundsCm;
+    ComponentMapper<Layer> layerCm;
+    ComponentMapper<Text> textCm;
+    ComponentMapper<HoverBehavior> hoverBehaviorCm;
 
     SpriteBatch batch = new SpriteBatch();
     CameraSystem cameraSystem;
     AssetSystem assetSystem;
     private float elapsedTime = 0;
+    private LayerManager layerManager;
+
+    List<Integer> renderLayers = new ArrayList<Integer>();
 
     public RenderMenu() {
-        super(Aspect.all(HoverableText.class));
+        super(Aspect.all(Bounds.class).one(AnimationBehind.class, Text.class));
     }
 
 
     @Override
     public void process(int e) {
-        Label label = hovCm.get(e).getLabel();
-        batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.begin();
-        draw_animation_behind(e);
-        label.draw(batch, alphaCm.get(e).getAlpha());
-
-        batch.end();
+        if (layerManager.getActiveLayer() == layerCm.get(e).getLayer()) {
+            batch.setProjectionMatrix(cameraSystem.camera.combined);
+            batch.begin();
+            draw_animation_behind(e);
+            draw_label(e);
+            batch.end();
+        }
     }
 
+
+    public void draw_label(int e) {
+        if (textCm.has(e)){
+            Label label = textCm.get(e).getLabel();
+            if (alphaCm.has(e)) {
+                label.draw(batch, alphaCm.get(e).getAlpha());
+            }
+            else
+                label.draw(batch, 1);
+        }
+    }
 
     public void draw_animation_behind(int e) {
         if (animateBehindCm.has(e)) {
@@ -51,8 +73,11 @@ public class RenderMenu extends IteratingSystem{
             Animation anim = etop.getAnimation();
             anim.setPlayMode(Animation.PlayMode.NORMAL);
             anim.setFrameDuration(0.1f);
+            if (!hoverBehaviorCm.has(e))
+                etop.addEllapsedTime(Gdx.graphics.getDeltaTime());
             batch.draw(etop.getActiveAnimation().getKeyFrame(etop.getEllapsedTime()),
                     ebound.x, ebound.y, ebound.width, ebound.height);
+
             }
 
         }

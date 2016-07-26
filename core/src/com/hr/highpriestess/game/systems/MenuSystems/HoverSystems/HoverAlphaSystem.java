@@ -11,6 +11,7 @@ import com.hr.highpriestess.game.components.Text;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.LabelSystem;
 
 import java.awt.*;
 
@@ -25,7 +26,7 @@ public class HoverAlphaSystem extends HoverEntitySystem{
     //passive systems.
     private AssetSystem assetSystem;
     private CollisionSystem collisionSystem;
-    private HoverLabelSystem hoverLabelSystem;
+    private LabelSystem hoverLabelSystem;
 
     private SpriteBatch batch = new SpriteBatch();
 
@@ -49,11 +50,11 @@ public class HoverAlphaSystem extends HoverEntitySystem{
 
 
     protected final void process(int e) {
+        System.out.println(alphaCm.get(e).getAlpha());
         /**
          * Experimental class that tells if the mouse is hovering over some entity
          * This should be separated into more classes.
          */
-        BitmapFont font = assetSystem.font;
 
         if (changeAlphaCm.has(e) && alphaCm.get(e).getAlpha() < 1.0f) {
             alphaCm.get(e).changeAlpha(0.2f* Gdx.graphics.getDeltaTime());

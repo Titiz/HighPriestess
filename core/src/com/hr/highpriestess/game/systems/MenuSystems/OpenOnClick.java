@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.hr.highpriestess.game.components.Bounds;
 import com.hr.highpriestess.game.components.ClickOpen;
 import com.hr.highpriestess.game.components.HoverBehavior;
+import com.hr.highpriestess.game.components.Layer;
+import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.MouseHoverSystem;
 
 /**
  * Created by Titas on 2016-07-21.
@@ -15,25 +17,25 @@ import com.hr.highpriestess.game.components.HoverBehavior;
 public class OpenOnClick extends IteratingSystem {
 
     CollisionSystem collisionSystem;
+    LayerManager layerManager;
     ComponentMapper<ClickOpen> clickOpenCm;
     ComponentMapper<Bounds> boundsCm;
-    ComponentMapper<HoverBehavior> hovCm;
+    ComponentMapper<HoverBehavior> hoverBehaviorCm;
+    ComponentMapper<Layer> layerCm;
 
 
     public OpenOnClick() {
-        super(Aspect.all(ClickOpen.class));
+        super(Aspect.all(ClickOpen.class, Layer.class));
     }
 
     protected void process(int e){
-        if (hovCm.get(e).isHovered() && !clickOpenCm.get(e).isClicked()){
+        if (hoverBehaviorCm.get(e).isHovered() && !clickOpenCm.get(e).isClicked()){
             if (Gdx.input.isButtonPressed(0)) {
-                System.out.println(clickOpenCm.get(e).isClicked());
                 clickOpenCm.get(e).setClicked(true);
-                clickOpenCm.get(e).setIdentifier("NEXT");
-                System.out.println(clickOpenCm.get(e).getIdentifier());
+                layerManager.setActiveLayer(layerCm.get(e).getNextActiveLayer());
 
             }
-        } else if (clickOpenCm.get(e).isClicked() && !hovCm.get(e).isHovered()) {
+        } else if (clickOpenCm.get(e).isClicked() && !hoverBehaviorCm.get(e).isHovered()) {
             clickOpenCm.get(e).setClicked(false);
         }
     }

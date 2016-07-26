@@ -18,6 +18,8 @@ public class SetupMenu extends BaseEntitySystem {
     CameraSystem cameraSystem;
     AssetSystem assetSystem;
 
+
+
     public SetupMenu() {
         super(Aspect.all());
     }
@@ -31,8 +33,12 @@ public class SetupMenu extends BaseEntitySystem {
         anims[1] = assetSystem.sprites.get("menuAnim1");
         anims[0] = assetSystem.sprites.get("menuAnim1Before");
         anims[2] = assetSystem.sprites.get("menuAnim1After");
-        EntityMakerMenu.createLabel(G.menuWorld, 0, 0, "HI", anims);
-        EntityMakerMenu.createLabel(G.menuWorld, 40, 200, "bye", anims);
+        EntityMakerMenu.createHoverTextAnimation(G.menuWorld, 100, 100, "Play", anims, "Play", new int[] {0, 2});
+        EntityMakerMenu.createHoverTextAnimation(G.menuWorld, 300, 300, "margin", anims, "margin", new int[] {0, 2});
+        EntityMakerMenu.createHoverTextAnimation(G.menuWorld, 40, 200, "bye", anims, "Options", new int[] {1, 0});
+        EntityMakerMenu.createHoverTextAnimationNoAlpha(G.menuWorld, 200, 200, "Continue", anims, "NewGame", new int[] {2, -1});
+        EntityMakerMenu.createHoverTextAnimationNoAlpha(G.menuWorld, 200, 100, "New Game", anims, "NewGame", new int[] {2, 0});
+        EntityMakerMenu.createTitle(G.menuWorld, 400, 200, "High Priestess", anims, new int [] {0, 0});
     }
 
     @Override

@@ -7,7 +7,12 @@ import com.artemis.Component;
  */
 public class ClickOpen extends Component {
 
-    String identifier;
+    private final String identifier;
+
+    public ClickOpen(String identifier) {
+        this.identifier = identifier;
+    }
+
 
     public boolean isClicked() {
         return clicked;
@@ -22,8 +27,5 @@ public class ClickOpen extends Component {
     public String getIdentifier() {
         return identifier;
     }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
 }
+
