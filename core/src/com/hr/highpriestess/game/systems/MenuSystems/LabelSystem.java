@@ -48,7 +48,6 @@ public class LabelSystem extends IteratingSystem {
     protected void process(int e) {
         if (textCm.get(e).getLabel() == null) {
             makeLabel(e);
-            System.out.println("DONE");
         }
     }
 }

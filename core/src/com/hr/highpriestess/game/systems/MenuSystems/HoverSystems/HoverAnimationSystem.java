@@ -40,7 +40,6 @@ public class HoverAnimationSystem extends HoverEntitySystem {
 
         }
         if (etop.getActiveAnimation() == etop.getAnimation()) {
-            System.out.println(etop.getEllapsedTime());
             if (isHovered(e) &&
                     currentFrame < etop.getAnimation().getKeyFrames().length - 1) {
                 etop.addEllapsedTime(Gdx.graphics.getDeltaTime());

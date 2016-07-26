@@ -42,8 +42,8 @@ public class EntityMakerMenu {
     }
 
     public static Entity createTitle(final World world, final float x, final float y,
-                                                         final String text, final Animation[] anim,
-                                                         int[] layer) {
+                                          final String text, final Animation[] anim,
+                                          int[] layer) {
         Entity entity =  createNew(world)
                 .add(new Text(text))
                 .add(new AnimationBehind(anim[0], anim[1], anim[2]))
@@ -52,6 +52,17 @@ public class EntityMakerMenu {
                         getEntity();
         return entity;
     }
+
+    public static Entity createTransition(final World world) {
+        Entity entity =  createNew(world)
+                .add(new Transition())
+                .add(new Bounds (0, 0, 0, 0))
+                .add(new Layer(100, 100)).
+                        getEntity();
+        return entity;
+    }
+
+
 
 
     private static EntityEdit createNew(final World world) {

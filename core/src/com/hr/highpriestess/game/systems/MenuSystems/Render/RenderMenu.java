@@ -29,6 +29,7 @@ public class RenderMenu extends IteratingSystem{
     ComponentMapper<Layer> layerCm;
     ComponentMapper<Text> textCm;
     ComponentMapper<HoverBehavior> hoverBehaviorCm;
+    ComponentMapper<Transition> transCm;
 
     SpriteBatch batch = new SpriteBatch();
     CameraSystem cameraSystem;
@@ -39,7 +40,7 @@ public class RenderMenu extends IteratingSystem{
     List<Integer> renderLayers = new ArrayList<Integer>();
 
     public RenderMenu() {
-        super(Aspect.all(Bounds.class).one(AnimationBehind.class, Text.class));
+        super(Aspect.all(Bounds.class).one(AnimationBehind.class, Text.class, Transition.class));
     }
 
 
@@ -51,6 +52,20 @@ public class RenderMenu extends IteratingSystem{
             draw_animation_behind(e);
             draw_label(e);
             batch.end();
+        }
+        batch.begin();
+        draw_transition(e);
+        batch.end();
+    }
+
+
+    public void draw_transition(int e){
+        if (transCm.has(e)) {
+
+            Animation trans = transCm.get(e).getTransition();
+            float time = transCm.get(e).getEllapsedTime();
+            if (transCm.get(e).getTransition() != null)
+                batch.draw(trans.getKeyFrame(time), 0, 0, (float)Gdx.graphics.getWidth(), (float)Gdx.graphics.getHeight());
         }
     }
 

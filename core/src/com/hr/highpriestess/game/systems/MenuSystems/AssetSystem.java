@@ -27,6 +27,7 @@ public class AssetSystem extends BaseSystem {
     public Texture tileset;
     public HashMap<String, Animation> sprites = new HashMap<String, Animation>();
     public HashMap<String, Sound> sounds = new HashMap<String, Sound>();
+    public HashMap<Integer, Animation> transitions = new HashMap<Integer, Animation>();
 
 
 
@@ -66,6 +67,20 @@ public class AssetSystem extends BaseSystem {
         return sprites.put(identifier, new Animation(frameDuration, regions));
     }
 
+    public Animation add(final int identifier, int x1, int y1, int w, int h, int repeatX, int repeatY, Texture texture, float frameDuration) {
+
+        TextureRegion[] regions = new TextureRegion[repeatX*repeatY];
+
+        int count = 0;
+        for (int y = 0; y < repeatY; y++) {
+            for (int x = 0; x < repeatX; x++) {
+                regions[count++] = new TextureRegion(texture, x1 + w * x, y1 + h * y, w, h);
+
+            }
+        }
+
+        return transitions.put(identifier, new Animation(frameDuration, regions));
+    }
 
 
     public AssetSystem() {
@@ -75,6 +90,7 @@ public class AssetSystem extends BaseSystem {
         add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
         add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
         add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, new Texture("Blood3.png"), 0.1f);
+        add(2, 0, 0, 1024, 1024, 12, 1, new Texture("Blood3.png"), 0.1f);
 
 
 

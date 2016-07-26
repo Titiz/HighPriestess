@@ -39,6 +39,7 @@ public class SetupMenu extends BaseEntitySystem {
         EntityMakerMenu.createHoverTextAnimationNoAlpha(G.menuWorld, 200, 200, "Continue", anims, "NewGame", new int[] {2, -1});
         EntityMakerMenu.createHoverTextAnimationNoAlpha(G.menuWorld, 200, 100, "New Game", anims, "NewGame", new int[] {2, 0});
         EntityMakerMenu.createTitle(G.menuWorld, 400, 200, "High Priestess", anims, new int [] {0, 0});
+        EntityMakerMenu.createTransition(G.menuWorld);
     }
 
     @Override

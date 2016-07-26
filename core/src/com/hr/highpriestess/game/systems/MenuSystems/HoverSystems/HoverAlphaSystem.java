@@ -50,7 +50,6 @@ public class HoverAlphaSystem extends HoverEntitySystem{
 
 
     protected final void process(int e) {
-        System.out.println(alphaCm.get(e).getAlpha());
         /**
          * Experimental class that tells if the mouse is hovering over some entity
          * This should be separated into more classes.
