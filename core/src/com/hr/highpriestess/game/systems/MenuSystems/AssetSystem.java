@@ -89,7 +89,7 @@ public class AssetSystem extends BaseSystem {
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);
 
-        OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer("map1.tmx")
+
 
         add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
         add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
