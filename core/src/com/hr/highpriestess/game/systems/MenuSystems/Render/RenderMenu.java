@@ -37,6 +37,7 @@ public class RenderMenu extends IteratingSystem{
     private float elapsedTime = 0;
     private LayerManager layerManager;
 
+
     List<Integer> renderLayers = new ArrayList<Integer>();
 
     public RenderMenu() {
@@ -46,22 +47,21 @@ public class RenderMenu extends IteratingSystem{
 
     @Override
     public void process(int e) {
-        if (layerManager.getActiveLayer() == layerCm.get(e).getLayer()) {
+        if (layerManager.getActiveLayer() == layerCm.get(e).getLayer() ||transCm.has(e) ) {
             batch.setProjectionMatrix(cameraSystem.camera.combined);
             batch.begin();
             draw_animation_behind(e);
             draw_label(e);
+            draw_transition(e);
             batch.end();
         }
-        batch.begin();
-        draw_transition(e);
-        batch.end();
     }
+
+
 
 
     public void draw_transition(int e){
         if (transCm.has(e)) {
-
             Animation trans = transCm.get(e).getTransition();
             float time = transCm.get(e).getEllapsedTime();
             if (transCm.get(e).getTransition() != null)
@@ -86,8 +86,8 @@ public class RenderMenu extends IteratingSystem{
             Bounds ebound = boundsCm.get(e);
             AnimationBehind etop = animateBehindCm.get(e);
             Animation anim = etop.getAnimation();
-            anim.setPlayMode(Animation.PlayMode.NORMAL);
             anim.setFrameDuration(0.1f);
+            // ellapsed time is added to those who are not managed by hoverSystem.
             if (!hoverBehaviorCm.has(e))
                 etop.addEllapsedTime(Gdx.graphics.getDeltaTime());
             batch.draw(etop.getActiveAnimation().getKeyFrame(etop.getEllapsedTime()),

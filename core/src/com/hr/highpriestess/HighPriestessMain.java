@@ -32,4 +32,5 @@ public class HighPriestessMain extends Game {
 		setScreen(new GameScreen(this));
 	}
 
+
 }

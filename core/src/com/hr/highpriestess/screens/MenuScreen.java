@@ -39,7 +39,9 @@ public class MenuScreen extends AbstractScreen {
                         new HoverAnimationSystem(),
                         new OpenOnClick(),
                         new LabelSystem(),
+
                         //render Methods
+
                         new RenderMenu()
                 ).build();
         G.menuWorld = new World(config);

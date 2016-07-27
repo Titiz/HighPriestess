@@ -26,12 +26,14 @@ public class MouseHoverSystem extends IteratingSystem {
     ComponentMapper<Bounds> boundsCm;
     ComponentMapper<HoverBehavior> hovCm;
     CollisionSystem collisionSystem;
-    LayerManager layerManager;
     ComponentMapper<Layer> layerCm;
+    LayerManager layerManager;
 
     protected void process(int e) {
         int activeLayer = layerManager.getActiveLayer();
-        if (activeLayer == layerCm.get(e).getLayer()) {
+
+        if (activeLayer == layerCm.get(e).getLayer() &&
+                layerManager.isTransitionOver()) {
             if (collisionSystem.collidesWithMouse(e)) {
                 hovCm.get(e).setHovered(true);
                 hovCm.get(e).incrementTicks();
