@@ -1,4 +1,4 @@
-package com.hr.highpriestess.game.components;
+package com.hr.highpriestess.game.components.Menu;
 
 import com.artemis.Component;
 

@@ -3,14 +3,11 @@ package com.hr.highpriestess.game.systems.MenuSystems.HoverSystems;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
-import com.hr.highpriestess.game.components.Bounds;
-import com.hr.highpriestess.game.components.HoverBehavior;
-import com.hr.highpriestess.game.components.Layer;
+import com.hr.highpriestess.game.components.Menu.Bounds;
+import com.hr.highpriestess.game.components.Menu.HoverBehavior;
+import com.hr.highpriestess.game.components.Menu.Layer;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.LayerManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

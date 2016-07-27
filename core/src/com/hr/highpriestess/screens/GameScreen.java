@@ -7,6 +7,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.systems.GameSystems.MapSystem;
+import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
 import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAlphaSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAnimationSystem;
@@ -27,23 +29,9 @@ public class GameScreen extends AbstractScreen {
         WorldConfiguration config = new WorldConfigurationBuilder()
                 .with(
                         // make the menu
-                        new SetupMenu(),
-
-                        //setup the necessary Entities
-                        new LayerManager(),
-                        new AssetSystem(),
-                        new CollisionSystem(),
                         new CameraSystem(),
-
-                        //mouseSystems
-
-                        new HoverAlphaSystem(),
-                        new MouseHoverSystem(),
-                        new HoverAnimationSystem(),
-                        new OpenOnClick(),
-                        new LabelSystem(),
-                        //render Methods
-                        new RenderMenu()
+                        new MapSystem(),
+                        new TilemapRender()
                 ).build();
         G.gameWorld = new World(config);
 

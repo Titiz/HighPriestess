@@ -3,7 +3,7 @@ package com.hr.highpriestess.game.systems.MenuSystems.HoverSystems;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
-import com.hr.highpriestess.game.components.HoverBehavior;
+import com.hr.highpriestess.game.components.Menu.HoverBehavior;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 
 /**

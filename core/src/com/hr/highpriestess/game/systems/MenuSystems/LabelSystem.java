@@ -1,12 +1,14 @@
 package com.hr.highpriestess.game.systems.MenuSystems;
 
 import com.artemis.Aspect;
-import com.artemis.Component;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.hr.highpriestess.game.components.*;
+import com.hr.highpriestess.game.components.Menu.Bounds;
+import com.hr.highpriestess.game.components.Menu.HoverBehavior;
+import com.hr.highpriestess.game.components.Menu.HoverableText;
+import com.hr.highpriestess.game.components.Menu.Text;
 
 /**
  * Created by Titas on 2016-07-25.

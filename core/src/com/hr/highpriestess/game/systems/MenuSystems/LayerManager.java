@@ -1,14 +1,11 @@
 package com.hr.highpriestess.game.systems.MenuSystems;
 
 import com.artemis.*;
-import com.artemis.systems.IteratingSystem;
-import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.hr.highpriestess.G;
-import com.hr.highpriestess.game.components.AnimationBehind;
-import com.hr.highpriestess.game.components.Layer;
-import com.hr.highpriestess.game.components.Transition;
+import com.hr.highpriestess.game.components.Menu.Layer;
+import com.hr.highpriestess.game.components.Menu.Transition;
 import com.hr.highpriestess.game.util.EntityMakerMenu;
 
 /**

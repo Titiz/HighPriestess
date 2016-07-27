@@ -4,8 +4,7 @@ import com.artemis.Entity;
 import com.artemis.EntityEdit;
 import com.artemis.World;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.hr.highpriestess.G;
-import com.hr.highpriestess.game.components.*;
+import com.hr.highpriestess.game.components.Menu.*;
 
 
 public class EntityMakerMenu {

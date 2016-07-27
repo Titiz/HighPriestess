@@ -1,19 +1,13 @@
 package com.hr.highpriestess.game.systems.MenuSystems.HoverSystems;
 
 import com.artemis.*;
-import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.hr.highpriestess.game.components.*;
-import com.hr.highpriestess.game.components.Text;
+import com.hr.highpriestess.game.components.Menu.*;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.LabelSystem;
-
-import java.awt.*;
 
 
 public class HoverAlphaSystem extends HoverEntitySystem{

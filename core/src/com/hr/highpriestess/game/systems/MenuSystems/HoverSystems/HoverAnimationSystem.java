@@ -3,10 +3,8 @@ package com.hr.highpriestess.game.systems.MenuSystems.HoverSystems;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.hr.highpriestess.game.components.AnimationBehind;
-import com.hr.highpriestess.game.components.HoverBehavior;
+import com.hr.highpriestess.game.components.Menu.AnimationBehind;
+import com.hr.highpriestess.game.components.Menu.HoverBehavior;
 
 
 /**

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.HashMap;
@@ -88,7 +89,6 @@ public class AssetSystem extends BaseSystem {
         font = new BitmapFont();
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);
-
 
 
         add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);

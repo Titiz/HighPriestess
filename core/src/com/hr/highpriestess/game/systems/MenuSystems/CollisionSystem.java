@@ -4,7 +4,7 @@ import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
-import com.hr.highpriestess.game.components.Bounds;
+import com.hr.highpriestess.game.components.Menu.Bounds;
 
 
 
