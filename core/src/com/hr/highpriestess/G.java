@@ -12,7 +12,7 @@ import java.util.List;
 public class G {
 
 
-    public static final int CELL_SIZE = 32;
+    public static final int CELL_SIZE = 16;
 
     public static MenuScreen screen;
     public static World gameWorld;

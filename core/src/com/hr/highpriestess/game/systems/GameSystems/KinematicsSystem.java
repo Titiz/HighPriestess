@@ -24,7 +24,6 @@ public class KinematicsSystem extends IteratingSystem {
         Kinematics eKin = kinCm.get(e);
 
         ebounds.changeX(eKin.getVx());
-        System.out.println(ebounds.x);
 
     }
 }

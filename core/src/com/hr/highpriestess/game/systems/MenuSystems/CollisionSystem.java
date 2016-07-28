@@ -39,6 +39,19 @@ public class CollisionSystem extends BaseSystem{
         return bol;
     }
 
+    public boolean twoEntityCollision(int e1, int e2) {
+        final Bounds e1bounds = bm.getSafe(e1);
+        final Bounds e2bounds = bm.getSafe(e2);
+        boolean isCollide = false;
+
+        if (e1bounds.x < e2bounds.x + e2bounds.width && e1bounds.x + e1bounds.width > e2bounds.x) {
+            if (e2bounds.y < e1bounds.y + e1bounds.height && e2bounds.y + e2bounds.height > e1bounds.y) {
+                isCollide = true;
+            }
+        }
+        return isCollide;
+    }
+
     protected void processSystem(){
 
     }

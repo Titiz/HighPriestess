@@ -38,5 +38,6 @@ public class CameraSystem extends BaseSystem{
         this.camera.position.x = 0;
         this.camera.position.y = 0;
         camera.setToOrtho(false, Gdx.graphics.getWidth() * ZOOM, Gdx.graphics.getHeight() * ZOOM);
+        camera.update();
     }
 }

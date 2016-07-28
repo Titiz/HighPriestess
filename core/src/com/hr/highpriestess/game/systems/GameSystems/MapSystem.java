@@ -6,6 +6,7 @@ package com.hr.highpriestess.game.systems.GameSystems;
 
 import com.artemis.BaseSystem;
 
+import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -34,6 +35,8 @@ public class MapSystem extends BaseSystem {
     private boolean isSetup = false;
     private HashMap<String, TiledMap> maps = new HashMap<String, TiledMap>();
     CameraSystem cameraSystem;
+    GroupManager groupManager;
+    EntitySpawnerSystem entitySpawnerSystem;
 
 
     public MapSystem() {
@@ -65,7 +68,6 @@ public class MapSystem extends BaseSystem {
         width = layers.get(0).getWidth();
         height = layers.get(0).getHeight();
 
-
         isSetup = false;
     }
 
@@ -85,16 +87,17 @@ public class MapSystem extends BaseSystem {
                     final TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
                     if (cell != null) {
                         final MapProperties properties = cell.getTile().getProperties();
-
                         if ( properties.containsKey("entity")) {
-                            EntityMakerGame.createPlayer(G.gameWorld, tx*G.CELL_SIZE, ty*G.CELL_SIZE);
+                            System.out.println(properties.get("entity"));
+                            entitySpawnerSystem.spawnEntity(tx*G.CELL_SIZE, ty*G.CELL_SIZE, properties);
                             layer.setCell(tx, ty, null);
+                        }
                         }
                     }
                 }
             }
         }
-    }
+
 
 
 
