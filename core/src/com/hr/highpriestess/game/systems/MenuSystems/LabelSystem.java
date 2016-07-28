@@ -42,6 +42,7 @@ public class LabelSystem extends IteratingSystem {
             scale += 0.01f;
             label.setFontScale(scale);
         }
+
         label.setPosition(boundsCm.get(e).x, boundsCm.get(e).y);
         textCm.get(e).setLabel(label);
     }

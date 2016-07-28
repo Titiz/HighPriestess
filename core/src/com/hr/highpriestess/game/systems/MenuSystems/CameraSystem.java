@@ -31,6 +31,12 @@ public class CameraSystem extends BaseSystem{
 
     @Override
     protected void processSystem() {
+        camera.update();
+    }
 
+    public void reset() {
+        this.camera.position.x = 0;
+        this.camera.position.y = 0;
+        camera.setToOrtho(false, Gdx.graphics.getWidth() * ZOOM, Gdx.graphics.getHeight() * ZOOM);
     }
 }

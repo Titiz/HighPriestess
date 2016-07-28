@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.Map;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
@@ -91,9 +93,13 @@ public class AssetSystem extends BaseSystem {
         fontLarge.getData().scale(3);
 
 
+
         add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
         add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
         add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, new Texture("Blood3.png"), 0.1f);
+        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, new Texture("background.png"), 1f);
+
+        add("playerWalkingAnimation", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
 
 
         add(-1, 0, 0, 80, 1072, 22, 1, new Texture("trans.png"), 0.1f);

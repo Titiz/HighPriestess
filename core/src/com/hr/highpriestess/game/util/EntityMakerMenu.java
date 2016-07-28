@@ -3,7 +3,9 @@ package com.hr.highpriestess.game.util;
 import com.artemis.Entity;
 import com.artemis.EntityEdit;
 import com.artemis.World;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.hr.highpriestess.game.components.Menu.*;
 
 
@@ -37,6 +39,15 @@ public class EntityMakerMenu {
                 .add(new ClickOpen(ID))
                 .add(new Layer(layer[0], layer[1])).
                         getEntity();
+        return entity;
+    }
+
+    public static Entity createBackground(final World world, final float x, final float y, String filePath) {
+        Entity entity =  createNew(world)
+                .add(new Bounds(x, y, 0, 0))
+                .add(new ImageComponent(new Texture(filePath)))
+                .add(new Layer(100, 100))
+                        .getEntity();
         return entity;
     }
 

@@ -17,7 +17,7 @@ public class HighPriestessMain extends Game {
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		Gdx.graphics.setWindowedMode(1280, 1024);
+		Gdx.graphics.setWindowedMode(640, 480);
 		G.game = this;
 
 		goMenu();

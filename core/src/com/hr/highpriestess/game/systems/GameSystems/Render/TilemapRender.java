@@ -14,20 +14,32 @@ public class TilemapRender extends BaseSystem{
 
     public MyMapRendererImpl renderer;
     private CameraSystem cameraSystem;
+    private MapSystem mapSystem;
+    private boolean isRendererMade = false;
+
+
+    private void makeRenderer() {
+        if (!isRendererMade) {
+            renderer = new MyMapRendererImpl(mapSystem.map);
+            isRendererMade = true;
+        }
+    }
 
 
 
-    MapSystem mapSystem;
+
     @Override
     protected void processSystem() {
+        makeRenderer();
         for (MapLayer layer : mapSystem.map.getLayers()) {
             if (layer.isVisible()) {
-                if (!layer.getName().equals("infront")) {
                     renderLayer((TiledMapTileLayer) layer);
                 }
             }
-        }
     }
+
+
+
 
     private void renderLayer(final TiledMapTileLayer layer) {
         renderer.setView(cameraSystem.camera);

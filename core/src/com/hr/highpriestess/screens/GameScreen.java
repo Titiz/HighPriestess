@@ -7,16 +7,15 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.systems.GameSystems.ControllerSystem;
+import com.hr.highpriestess.game.systems.GameSystems.KinematicsSystem;
 import com.hr.highpriestess.game.systems.GameSystems.MapSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
-import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAlphaSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.HoverAnimationSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.MouseHoverSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.Render.RenderMenu;
 
 /**
- * Created by Titas on 2016-07-23.
+ * @author Titas
+ * @version
  */
 public class GameScreen extends AbstractScreen {
 
@@ -31,6 +30,11 @@ public class GameScreen extends AbstractScreen {
                         // make the menu
                         new CameraSystem(),
                         new MapSystem(),
+
+                        new KinematicsSystem(),
+                        new ControllerSystem(),
+
+
                         new TilemapRender()
                 ).build();
         G.gameWorld = new World(config);

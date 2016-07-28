@@ -1,9 +1,6 @@
 package com.hr.highpriestess.game.components.Menu;
 
 import com.artemis.Component;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-
 
 
 public class Bounds extends Component {
@@ -22,6 +19,16 @@ public class Bounds extends Component {
         this.height = height;
         this.centerX = x+width/2;
         this.centerY = y+height/2;
+    }
+
+    public void changeX(float deltaX) {
+        this.x += deltaX;
+        this.centerX += deltaX;
+    }
+
+    public void changeY(float deltaY) {
+        this.y += deltaY;
+        this.centerY += deltaY;
     }
 
 }

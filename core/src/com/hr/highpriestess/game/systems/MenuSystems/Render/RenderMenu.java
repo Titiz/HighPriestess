@@ -28,6 +28,7 @@ public class RenderMenu extends IteratingSystem{
     ComponentMapper<Text> textCm;
     ComponentMapper<HoverBehavior> hoverBehaviorCm;
     ComponentMapper<Transition> transCm;
+    ComponentMapper<ImageComponent> imageComponentCm;
 
     SpriteBatch batch = new SpriteBatch();
     CameraSystem cameraSystem;
@@ -36,18 +37,20 @@ public class RenderMenu extends IteratingSystem{
     private LayerManager layerManager;
 
 
+
     List<Integer> renderLayers = new ArrayList<Integer>();
 
     public RenderMenu() {
-        super(Aspect.all(Bounds.class).one(AnimationBehind.class, Text.class, Transition.class));
+        super(Aspect.all(Bounds.class).one(AnimationBehind.class, Text.class, Transition.class, ImageComponent.class));
     }
 
 
     @Override
     public void process(int e) {
-        if (layerManager.getActiveLayer() == layerCm.get(e).getLayer() ||transCm.has(e) ) {
+        if (layerManager.getActiveLayer() == layerCm.get(e).getLayer() || transCm.has(e) || imageComponentCm.has(e) ) {
             batch.setProjectionMatrix(cameraSystem.camera.combined);
             batch.begin();
+            draw_background(e);
             draw_animation_behind(e);
             draw_label(e);
             draw_transition(e);
@@ -57,6 +60,15 @@ public class RenderMenu extends IteratingSystem{
 
 
 
+
+    public void draw_background(int e) {
+        if (imageComponentCm.has(e)) {
+            ImageComponent entity = imageComponentCm.get(e);
+            System.out.println("SADA");
+            batch.draw(entity.getImg(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        }
+    }
 
     public void draw_transition(int e){
         if (transCm.has(e)) {
