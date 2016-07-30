@@ -3,6 +3,7 @@ package com.hr.highpriestess.game.systems.MenuSystems;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.managers.TagManager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -17,6 +18,8 @@ import java.util.HashMap;
 
 
 public class AssetSystem extends BaseSystem {
+
+    String TAG = AssetSystem.class.getName();
 
     /**
      * System to load assets into the game.
@@ -105,6 +108,7 @@ public class AssetSystem extends BaseSystem {
         add(-1, 0, 0, 80, 1072, 22, 1, new Texture("trans.png"), 0.1f);
 
 
+        Gdx.app.debug(TAG, "Assets have loaded");
 
     }
 

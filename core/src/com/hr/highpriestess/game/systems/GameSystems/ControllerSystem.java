@@ -18,6 +18,8 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
  */
 public class ControllerSystem extends BaseSystem {
 
+
+
     ComponentMapper<Kinematics> kinCm;
     CameraSystem cameraSystem;
     MapSystem mapSystem;

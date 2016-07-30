@@ -7,6 +7,7 @@ package com.hr.highpriestess.game.systems.GameSystems;
 import com.artemis.BaseSystem;
 
 import com.artemis.managers.GroupManager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -28,15 +29,18 @@ import java.util.HashMap;
 
 public class MapSystem extends BaseSystem {
 
+    String TAG = MapSystem.class.getName();
+
     public TiledMap map;
     private int width;
     private int height;
     private Array<TiledMapTileLayer> layers;
     private boolean isSetup = false;
-    private HashMap<String, TiledMap> maps = new HashMap<String, TiledMap>();
+    private HashMap<String, String> maps = new HashMap<String, String>();
     CameraSystem cameraSystem;
     GroupManager groupManager;
     EntitySpawnerSystem entitySpawnerSystem;
+    EntityClearerSystem entityClearerSystem;
 
 
     public MapSystem() {
@@ -44,21 +48,26 @@ public class MapSystem extends BaseSystem {
 
 
     public void addMap(String mapString, String name) {
-        map = new TmxMapLoader().load(mapString);
-        maps.put(name, map);
+        maps.put(name, mapString);
     }
 
 
     protected void initialize() {
+        String activeMapName = "Monastery";
         addMap("map1.tmx", "Monastery");
         addMap("map2.tmx", "Outside");
-        String activeMapName = "Monastery";
         setActiveMap(activeMapName);
+        Gdx.app.debug(TAG, "Initialized with mapName " + activeMapName);
     }
 
     public void setActiveMap(String activeMapName) {
+
+
+        Gdx.app.debug(TAG, "activeMap changed");
+
         cameraSystem.reset();
-        map = maps.get(activeMapName);
+        String fileName = maps.get(activeMapName);
+        map = new TmxMapLoader().load(fileName);
 
         layers = new Array<TiledMapTileLayer>();
         for ( MapLayer rawLayer : map.getLayers() )
@@ -77,10 +86,9 @@ public class MapSystem extends BaseSystem {
 
 
     protected void setup() {
-        for (TiledMapTileLayer layer : layers) {
 
-//            private HashMap<String, TiledMapTileLayer> layerIndex = new HashMap<String, TiledMapTileLayer>();
-//            layerIndex.put(layer.getName(), layer);
+        entityClearerSystem.clearEntities();
+        for (TiledMapTileLayer layer : layers) {
 
             for (int ty = 0; ty < height; ty++) {
                 for (int tx = 0; tx < width; tx++) {
@@ -88,7 +96,6 @@ public class MapSystem extends BaseSystem {
                     if (cell != null) {
                         final MapProperties properties = cell.getTile().getProperties();
                         if ( properties.containsKey("entity")) {
-                            System.out.println(properties.get("entity"));
                             entitySpawnerSystem.spawnEntity(tx*G.CELL_SIZE, ty*G.CELL_SIZE, properties);
                             layer.setCell(tx, ty, null);
                         }
@@ -96,6 +103,7 @@ public class MapSystem extends BaseSystem {
                     }
                 }
             }
+        Gdx.app.debug(TAG, "Setup Finished");
         }
 
 

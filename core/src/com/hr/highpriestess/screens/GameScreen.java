@@ -31,13 +31,20 @@ public class GameScreen extends AbstractScreen {
                         new GroupManager(),
                         new TagManager(),
 
+                        G.assetSystem,
+
+                        new MapSystem(),
+                        new ChangeMapSystem(),
+
+
                         new EntitySpawnerSystem(),
+                        new EntityClearerSystem(),
 
                         new CollisionSystem(),
                         new CameraSystem(),
-                        new MapSystem(),
+
                         new KinematicsSystem(),
-                        new ChangeMapSystem(),
+
                         new ControllerSystem(),
 
 
