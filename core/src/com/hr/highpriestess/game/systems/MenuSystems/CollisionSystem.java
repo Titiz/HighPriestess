@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 
 
-
 public class CollisionSystem extends BaseSystem{
     /**
      * System that uses the bounds of an Entity to see if it collides with other things.

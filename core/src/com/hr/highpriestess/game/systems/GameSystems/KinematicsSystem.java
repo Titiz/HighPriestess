@@ -17,7 +17,6 @@ public class KinematicsSystem extends IteratingSystem {
     public KinematicsSystem() {
         super(Aspect.all(Kinematics.class, Bounds.class));
     }
-
     @Override
     protected void process(int e) {
         Bounds ebounds = boundsCm.get(e);

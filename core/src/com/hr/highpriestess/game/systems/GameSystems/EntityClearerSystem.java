@@ -49,7 +49,7 @@ public class EntityClearerSystem extends BaseSystem {
     public void clearEntities() {
 
             deleteEntities("player", tagManager);
-
+            deleteEntities("enemy", groupManager);
             deleteEntities("gate", groupManager );
 
 

@@ -20,6 +20,7 @@ public class G {
     public static MenuScreen screen;
     public static World gameWorld;
     public static World menuWorld;
+    public static World defenceWorld;
     public static HighPriestessMain game;
 
 }

@@ -38,15 +38,19 @@ public class EntitySpawnerSystem extends BaseSystem {
 
     public void spawnEntity(float x, float y, String entity) {
         if (entity.equals("player")) {
-            Entity player = EntityMakerGame.createPlayer(G.gameWorld, x, y);
+            Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y);
             tagManager.register(entity, player);
             Gdx.app.debug(TAG, "Player spawned at X:" + x + " Y:" + y);
         }
         else if (entity.equals("gate")) {
             String nextLevel = (String) properties.get(entity);
-            Entity gate = EntityMakerGame.createChanger(G.gameWorld, x, y, nextLevel);
+            Entity gate = EntityMakerGame.createChanger(this.getWorld(), x, y, nextLevel);
             groupManager.add(gate, entity);
             Gdx.app.debug(TAG, "Gate spawned at X:" + x + " Y:" + y);
+        } else if (entity.equals("enemy")) {
+            Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
+            groupManager.add(enemy, entity);
+            Gdx.app.debug(TAG, "Enemy spawned at X:" + x + " Y:" + y);
         }
     }
 

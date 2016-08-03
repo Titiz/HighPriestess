@@ -64,7 +64,6 @@ public class RenderMenu extends IteratingSystem{
     public void draw_background(int e) {
         if (imageComponentCm.has(e)) {
             ImageComponent entity = imageComponentCm.get(e);
-            System.out.println("SADA");
             batch.draw(entity.getImg(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         }

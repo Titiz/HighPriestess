@@ -32,4 +32,3 @@ public class Bounds extends Component {
     }
 
 }
-

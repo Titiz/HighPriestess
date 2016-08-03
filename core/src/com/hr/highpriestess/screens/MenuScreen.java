@@ -61,7 +61,7 @@ public class MenuScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        this.world.dispose();
+        G.menuWorld.dispose();
     }
 
 

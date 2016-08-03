@@ -1,5 +1,9 @@
 package com.hr.highpriestess.screens;
 
+/**
+ * Created by Titas on 2016-08-02.
+ */
+
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
@@ -10,23 +14,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.*;
+import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.MakeSelectionSquare;
+import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.Render.RenderSelectionSquare;
+import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.SelectSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
-import com.hr.highpriestess.game.systems.MenuSystems.*;
+import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+
+
 
 /**
  * @author Titas
  * @version
  */
 
-// screen for the wandering sequence of the game
+//Defence mode screen for the defence sequence of the game.
 
-public class GameScreen extends AbstractScreen {
+public class DefenceScreen extends AbstractScreen {
 
     Game game;
     World world;
 
-    public GameScreen(Game game) {
+    public DefenceScreen(Game game) {
 
         this.game = game;
         WorldConfiguration config = new WorldConfigurationBuilder()
@@ -37,25 +47,28 @@ public class GameScreen extends AbstractScreen {
 
                         G.assetSystem,
 
-                        new MapSystem("Monastery"),
-                        new ChangeMapSystem(),
+                        new MapSystem("Outside"),
 
 
                         new EntitySpawnerSystem(),
                         new EntityClearerSystem(),
 
+                        new SelectSystem(),
+
+
+                        new MakeSelectionSquare(),
                         new CollisionSystem(),
                         new CameraSystem(),
 
                         new KinematicsSystem(),
 
-                        new ControllerSystem(),
 
 
                         new TilemapRender(),
-                        new EntityRenderSystem()
+                        new EntityRenderSystem(),
+                        new RenderSelectionSquare()
                 ).build();
-        G.gameWorld = new World(config);
+        G.defenceWorld = new World(config);
 
     }
 
@@ -64,7 +77,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        G.gameWorld.dispose();
+        G.defenceWorld.dispose();
     }
 
 
@@ -75,8 +88,8 @@ public class GameScreen extends AbstractScreen {
         // clear the game
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // process the menuWorld
-        G.gameWorld.process();
+        // process the defenceWorld
+        G.defenceWorld.process();
 
     }
 }

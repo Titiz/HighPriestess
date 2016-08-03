@@ -39,11 +39,13 @@ public class MapSystem extends BaseSystem {
     private HashMap<String, String> maps = new HashMap<String, String>();
     CameraSystem cameraSystem;
     GroupManager groupManager;
+    String activeMapName;
     EntitySpawnerSystem entitySpawnerSystem;
     EntityClearerSystem entityClearerSystem;
 
 
-    public MapSystem() {
+    public MapSystem(String startingMap) {
+        this.activeMapName = startingMap;
     }
 
 
@@ -53,7 +55,6 @@ public class MapSystem extends BaseSystem {
 
 
     protected void initialize() {
-        String activeMapName = "Monastery";
         addMap("map1.tmx", "Monastery");
         addMap("map2.tmx", "Outside");
         setActiveMap(activeMapName);

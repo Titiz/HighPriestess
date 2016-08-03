@@ -5,10 +5,10 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.hr.highpriestess.screens.DefenceScreen;
 import com.hr.highpriestess.screens.GameScreen;
 import com.hr.highpriestess.screens.MenuScreen;
 
@@ -29,7 +29,13 @@ public class HighPriestessMain extends Game {
 
 
 	public void goGame() {
+		getScreen().dispose();
 		setScreen(new GameScreen(this));
+	}
+
+	public void goDefence() {
+		setScreen(new DefenceScreen(this));
+
 	}
 
 

@@ -3,13 +3,9 @@ package com.hr.highpriestess.game.systems.GameSystems;
 import com.artemis.*;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
-import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.ImmutableBag;
-import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.hr.highpriestess.game.components.Game.ChangeMap;
-import com.hr.highpriestess.game.components.Game.Player;
-import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 
 
