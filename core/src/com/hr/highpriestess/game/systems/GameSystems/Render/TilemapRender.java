@@ -3,7 +3,8 @@ package com.hr.highpriestess.game.systems.GameSystems.Render;
 import com.artemis.BaseSystem;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.hr.highpriestess.game.systems.GameSystems.MapSystem;
+import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
+import com.hr.highpriestess.game.systems.GameSystems.GameMapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.util.MyMapRendererImpl;
 
@@ -14,6 +15,11 @@ public class TilemapRender extends BaseSystem{
 
     public MyMapRendererImpl renderer;
     private CameraSystem cameraSystem;
+
+    public void setMapSystem(MapSystem mapSystem) {
+        this.mapSystem = mapSystem;
+    }
+
     private MapSystem mapSystem;
     private boolean isRendererMade = false;
 

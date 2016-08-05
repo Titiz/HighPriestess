@@ -18,7 +18,7 @@ public class ChangeMapSystem extends BaseSystem {
     private TagManager tagManager;
 
 
-    private MapSystem mapSystem;
+    private GameMapSystem gameMapSystem;
     private CollisionSystem collisionSystem;
     private ComponentMapper<ChangeMap> changeMapCm;
     int playerEntity;
@@ -34,7 +34,7 @@ public class ChangeMapSystem extends BaseSystem {
                 if (collisionSystem.twoEntityCollision(changeMapBox.getId(), player.getId())) {
                     Gdx.app.debug(TAG, " Collision detected of Player with ChangeBox '" +
                             changeMapCm.get(changeMapBox.getId()).getNextMap() + "'");
-                    mapSystem.setActiveMap(changeMapCm.get(changeMapBox.getId()).getNextMap());
+                    gameMapSystem.setActiveMap(changeMapCm.get(changeMapBox.getId()).getNextMap());
                     break;
                 }
 

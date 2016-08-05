@@ -14,9 +14,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.*;
-import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.MakeSelectionSquare;
+import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
+import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.*;
 import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.Render.RenderSelectionSquare;
-import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.SelectSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
@@ -47,18 +47,23 @@ public class DefenceScreen extends AbstractScreen {
 
                         G.assetSystem,
 
-                        new MapSystem("Outside"),
+                        new DefenceMapSystem(),
+                        new WaveMapSystem(),
 
 
-                        new EntitySpawnerSystem(),
-                        new EntityClearerSystem(),
+                        new DefenceEntitySpawnerSystem(),
+                        new DefenceEntityClearerSystem(),
 
                         new SelectSystem(),
+                        new SelectMoveSystem(),
 
 
                         new MakeSelectionSquare(),
                         new CollisionSystem(),
+
+
                         new CameraSystem(),
+                        new MouseCameraSystem(),
 
                         new KinematicsSystem(),
 

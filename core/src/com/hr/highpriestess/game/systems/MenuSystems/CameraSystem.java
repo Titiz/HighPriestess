@@ -17,7 +17,11 @@ public class CameraSystem extends BaseSystem{
         return ZOOM;
     }
 
-            public static float ZOOM = 1.0f;
+    public static void setZOOM(float ZOOM) {
+        CameraSystem.ZOOM = ZOOM;
+    }
+
+    public static float ZOOM = 1f;
 
     public CameraSystem() {
         camera = new OrthographicCamera(Gdx.graphics.getWidth() * ZOOM, Gdx.graphics.getHeight() * ZOOM);

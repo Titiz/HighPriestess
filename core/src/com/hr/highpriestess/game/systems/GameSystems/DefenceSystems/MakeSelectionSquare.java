@@ -1,14 +1,12 @@
 package com.hr.highpriestess.game.systems.GameSystems.DefenceSystems;
 
 import com.artemis.BaseSystem;
-import com.artemis.Component;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.hr.highpriestess.game.components.Menu.Bounds;
-import com.hr.highpriestess.game.systems.GameSystems.EntityClearerSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.util.EntityMakerDefence;
 
@@ -76,8 +74,8 @@ public class MakeSelectionSquare extends BaseSystem {
             }
 
         }
-        if (Gdx.input.isButtonPressed(1)) {
-            EntityMakerDefence.create(this.getWorld(), mousePos.x, mousePos.y);
-        }
+        //if (Gdx.input.isButtonPressed(1)) {
+            //EntityMakerDefence.create(this.getWorld(), mousePos.x, mousePos.y);
+        //}
     }
 }

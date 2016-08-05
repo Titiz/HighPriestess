@@ -4,6 +4,7 @@ import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
+import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
@@ -14,9 +15,12 @@ import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 
 /**
- * Created by Titas on 2016-08-02.
+ * Used to create apply the selected status
  */
 public class SelectSystem extends BaseEntitySystem {
+
+
+
 
     String TAG = SelectSystem.class.getName();
 
@@ -32,6 +36,8 @@ public class SelectSystem extends BaseEntitySystem {
 
     boolean selectionSquareAlive = false;
 
+    GroupManager groupManager;
+
     public SelectSystem() {
         super(Aspect.all(Selectable.class, Bounds.class));
     }
@@ -39,7 +45,15 @@ public class SelectSystem extends BaseEntitySystem {
 
     @Override
     protected void processSystem() {
+
+        // While the square exists in the world
         if (tagManager.isRegistered("selectionSquare")) {
+
+            for (int i = 0; i < selectedEntities.size(); i++) {
+                selectableCm.get(selectedEntities.get(i)).setSelected(false);
+                groupManager.remove(this.world.getEntity(selectedEntities.get(i)), "selected");
+            }
+            selectedEntities.clear();
             selectionSquareAlive = true;
             int selectSquare = tagManager.getEntity("selectionSquare").getId();
             IntBag actives = subscription.getEntities();
@@ -63,15 +77,18 @@ public class SelectSystem extends BaseEntitySystem {
 
 
                 }
+                // This happens when the square dissapears.
             }} else if (selectionSquareAlive) {
                 for (int i = 0; i < selectedEntities.size(); i++) {
                     selectableCm.get(selectedEntities.get(i)).setSelected(true);
+                    groupManager.add(this.getWorld().getEntity(selectedEntities.get(i)), "selected");
                     Gdx.app.debug(TAG, selectedEntities.get(i) + " is selected");
                 }
                 if (selectedEntities.size() == 0) {
                     Gdx.app.debug(TAG, "Nothing is selected");
+
                 }
-                selectedEntities.clear();
+
                 lowestSelectedLayer = 999;
                 selectionSquareAlive = false;
             }

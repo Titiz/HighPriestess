@@ -17,7 +17,6 @@ public class G {
 
 
     public static AssetSystem assetSystem;
-    public static MenuScreen screen;
     public static World gameWorld;
     public static World menuWorld;
     public static World defenceWorld;

@@ -21,7 +21,7 @@ public class ControllerSystem extends BaseSystem {
     ComponentMapper<Kinematics> kinCm;
     ComponentMapper<Anim> animCm;
     CameraSystem cameraSystem;
-    MapSystem mapSystem;
+    GameMapSystem gameMapSystem;
     ComponentMapper<Bounds> boundsCm;
 
     TagManager tagManager;
@@ -49,8 +49,8 @@ public class ControllerSystem extends BaseSystem {
             entity.setVx(0*Gdx.graphics.getDeltaTime());
 
         cameraSystem.camera.position.x = boundsCm.get(player).x;
-        if (cameraSystem.camera.position.x <= Gdx.graphics.getWidth()/2)
-            cameraSystem.camera.position.x = Gdx.graphics.getWidth()/2;
+        if (cameraSystem.camera.position.x <= cameraSystem.camera.viewportWidth/2)
+            cameraSystem.camera.position.x = cameraSystem.camera.viewportWidth/2;
 
 
 

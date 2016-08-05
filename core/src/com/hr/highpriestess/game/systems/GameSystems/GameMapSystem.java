@@ -9,14 +9,12 @@ import com.artemis.BaseSystem;
 import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
-import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
-import com.hr.highpriestess.game.util.EntityMakerGame;
+import com.hr.highpriestess.game.util.MapSetupHolder;
 
 import java.util.HashMap;
 
@@ -27,24 +25,22 @@ import java.util.HashMap;
  * @author Daan van Yperen
  */
 
-public class MapSystem extends BaseSystem {
+public class GameMapSystem extends MapSystem {
 
-    String TAG = MapSystem.class.getName();
+    String TAG = GameMapSystem.class.getName();
 
-    public TiledMap map;
-    private int width;
-    private int height;
+
     private Array<TiledMapTileLayer> layers;
     private boolean isSetup = false;
     private HashMap<String, String> maps = new HashMap<String, String>();
     CameraSystem cameraSystem;
     GroupManager groupManager;
     String activeMapName;
-    EntitySpawnerSystem entitySpawnerSystem;
-    EntityClearerSystem entityClearerSystem;
+    GameEntitySpawnerSystem gameEntitySpawnerSystem;
+    GameEntityClearerSystem gameEntityClearerSystem;
 
 
-    public MapSystem(String startingMap) {
+    public GameMapSystem(String startingMap) {
         this.activeMapName = startingMap;
     }
 
@@ -55,6 +51,7 @@ public class MapSystem extends BaseSystem {
 
 
     protected void initialize() {
+        // add all of the maps and their reference names here
         addMap("map1.tmx", "Monastery");
         addMap("map2.tmx", "Outside");
         setActiveMap(activeMapName);
@@ -81,34 +78,6 @@ public class MapSystem extends BaseSystem {
         isSetup = false;
     }
 
-    /**
-     * Spawn map entities.
-     */
-
-
-    protected void setup() {
-
-        entityClearerSystem.clearEntities();
-        for (TiledMapTileLayer layer : layers) {
-
-            for (int ty = 0; ty < height; ty++) {
-                for (int tx = 0; tx < width; tx++) {
-                    final TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
-                    if (cell != null) {
-                        final MapProperties properties = cell.getTile().getProperties();
-                        if ( properties.containsKey("entity")) {
-                            entitySpawnerSystem.spawnEntity(tx*G.CELL_SIZE, ty*G.CELL_SIZE, properties);
-                            layer.setCell(tx, ty, null);
-                        }
-                        }
-                    }
-                }
-            }
-        Gdx.app.debug(TAG, "Setup Finished");
-        }
-
-
-
 
     @Override
     protected void processSystem() {
@@ -116,7 +85,9 @@ public class MapSystem extends BaseSystem {
         if ( !isSetup )
         {
             isSetup = true;
-            setup();
+            MapSetupHolder.setup(gameEntityClearerSystem,
+                    gameEntitySpawnerSystem,
+                    layers, width, height);
         }
     }
 

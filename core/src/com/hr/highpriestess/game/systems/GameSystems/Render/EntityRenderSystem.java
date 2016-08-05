@@ -98,8 +98,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
         animCm.get(e).age += Gdx.graphics.getDeltaTime();
 
-        for (Entity ent : groupManager.getEntities("gate")) {
-        }
+
 
 
 
