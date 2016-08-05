@@ -23,8 +23,6 @@ public class SelectMatrixCreator{
     public static int[][] makeMatrix(ImmutableBag<Entity> entities) {
         int size = entities.size();
         int matrix_size = (int) (Math.log(size)/Math.log(2))+1;
-        System.out.println(Math.log(size)/Math.log(2));
-        System.out.println("Matrix size:" + matrix_size);
         int [][] matrix = new int [matrix_size] [matrix_size];
         if(matrix_size == 1) {
             matrix[0][0] = entities.get(0).getId();
@@ -32,15 +30,12 @@ public class SelectMatrixCreator{
             int row = 0;
             int collumn = -1;
             for (Entity e : entities) {
-                System.out.println("row % (matrix_size-1) == 0" + (row % (matrix_size) == 0));
                 if (Math.abs(row) % (matrix_size) == 0) {
                     collumn += 1;
                     row = 0;
 
                 }
                 row += 1;
-                System.out.println("Row: " + row);
-                System.out.println("Col: " + collumn);
                 matrix[row - 1][collumn] = e.getId();
             }
         }

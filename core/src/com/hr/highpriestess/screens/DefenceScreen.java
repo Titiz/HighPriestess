@@ -56,6 +56,7 @@ public class DefenceScreen extends AbstractScreen {
 
                         new SelectSystem(),
                         new SelectMoveSystem(),
+                        new MoveDestinationSystem(),
 
 
                         new MakeSelectionSquare(),

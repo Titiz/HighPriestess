@@ -14,6 +14,11 @@ public class Kinematics extends Component {
     private float ax;
     private float ay;
 
+    public Kinematics(float max_vx, float max_vy) {
+        this.max_vx = max_vx;
+        this.max_vy = max_vy;
+    }
+
 
     public float getVx() {
         return vx;
@@ -70,6 +75,7 @@ public class Kinematics extends Component {
     public void change_vy () {
         this.vy += this.ay;
     }
+
 
 
 }

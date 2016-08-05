@@ -52,7 +52,6 @@ public class WaveMapSystem extends MapSystem {
             TiledMapTileLayer layer = layers.get(wave);
             for (int ty = 0; ty < height; ty++) {
                 final TiledMapTileLayer.Cell cell = layer.getCell(current_col, ty);
-                System.out.println("X: " + current_col + " Y: " + ty);
                 if (cell != null) {
                     final MapProperties properties = cell.getTile().getProperties();
                     if (properties.containsKey("entity")) {
