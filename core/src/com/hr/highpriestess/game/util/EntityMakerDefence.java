@@ -4,6 +4,7 @@ import com.artemis.Entity;
 import com.artemis.EntityEdit;
 import com.artemis.World;
 import com.hr.highpriestess.game.components.Game.Anim;
+import com.hr.highpriestess.game.components.Game.Defence.AttackStats;
 import com.hr.highpriestess.game.components.Game.Defence.Selectable;
 import com.hr.highpriestess.game.components.Game.Kinematics;
 import com.hr.highpriestess.game.components.Menu.Bounds;
@@ -28,14 +29,36 @@ public class EntityMakerDefence {
     }
 
 
-    public static Entity create(final World world, final float x, final float y
+    public static Entity createEnemy(final World world, final float x, final float y
     ) {
 
         Entity entity = createNew(world)
                 .add(new Kinematics(5, 5))
                 .add(new Bounds(x, y, 32, 32))
                 .add(new Anim("menuAnim1Before", Anim.Layer.ENEMY))
+                .add(new Selectable(1))
+                .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
+                        2, AttackStats.AttackSpeed.SLOW,
+                        AttackStats.Range.MELEE,
+                        AttackStats.ArmorType.MEDIUM,
+                        AttackStats.MagicalArmorType.NONE))
+                .getEntity();
+        return entity;
+    }
+
+    public static Entity createAlly(final World world, final float x, final float y
+    ) {
+
+        Entity entity = createNew(world)
+                .add(new Kinematics(5, 5))
+                .add(new Bounds(x, y, 32, 32))
+                .add(new Anim("menuAnim1After", Anim.Layer.DEFAULT))
                 .add(new Selectable(0))
+                .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
+                        2, AttackStats.AttackSpeed.SLOW,
+                        AttackStats.Range.MELEE,
+                        AttackStats.ArmorType.MEDIUM,
+                        AttackStats.MagicalArmorType.NONE))
                 .getEntity();
         return entity;
     }

@@ -4,6 +4,7 @@ import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -27,6 +28,7 @@ public class AssetSystem extends BaseSystem {
      * processSystem should stay empty.
      */
 
+    AssetManager assetManager;
 
     public final BitmapFont font;
     public final BitmapFont fontLarge;
@@ -91,6 +93,7 @@ public class AssetSystem extends BaseSystem {
 
 
     public AssetSystem() {
+        assetManager = new AssetManager();
         font = new BitmapFont();
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);

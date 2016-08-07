@@ -17,13 +17,20 @@ public class DefenceEntitySpawnerSystem extends EntitySpawnerSystem {
 
 
     String TAG = DefenceEntitySpawnerSystem.class.getName();
+    GroupManager groupManager;
 
 
     public void spawnEntity(float x, float y, String entity) {
         if (entity.equals("orc")) {
-            Entity orc = EntityMakerDefence.create(this.getWorld(), x, y);
-            Gdx.app.debug(TAG, "Orc spawned at X:" + x + " Y:" + y);
+            Entity orc = EntityMakerDefence.createEnemy(this.getWorld(), x, y);
+            groupManager.add(orc, "enemies");
+
+        } else
+        if (entity.equals("ally")) {
+            Entity ally = EntityMakerDefence.createAlly(this.getWorld(), x, y);
+            groupManager.add(ally, "allies");
         }
+        Gdx.app.debug(TAG, entity + " spawned at X:" + x + " Y:" + y);
     }
 
 

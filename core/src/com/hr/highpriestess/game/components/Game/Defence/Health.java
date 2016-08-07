@@ -8,10 +8,23 @@ import com.artemis.Component;
 public class Health extends Component {
 
 
-    private final int health;
+    private final int maxHealth;
+    private int health;
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     public Health(int health) {
-        this.health = health;
+        setHealth(health);
+        maxHealth = health;
+    }
 
+    public void changeHealth(int health) {
+        this.health += health;
     }
 }
