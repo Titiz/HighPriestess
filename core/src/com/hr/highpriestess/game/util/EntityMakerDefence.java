@@ -3,6 +3,7 @@ package com.hr.highpriestess.game.util;
 import com.artemis.Entity;
 import com.artemis.EntityEdit;
 import com.artemis.World;
+import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Anim;
 import com.hr.highpriestess.game.components.Game.Defence.AttackStats;
 import com.hr.highpriestess.game.components.Game.Defence.Selectable;
@@ -33,8 +34,8 @@ public class EntityMakerDefence {
     ) {
 
         Entity entity = createNew(world)
-                .add(new Kinematics(5, 5))
-                .add(new Bounds(x, y, 32, 32))
+                .add(new Kinematics(0.5f, 0.5f))
+                .add(new Bounds(x, y, G.UNIT_SIZE, G.UNIT_SIZE))
                 .add(new Anim("menuAnim1Before", Anim.Layer.ENEMY))
                 .add(new Selectable(1))
                 .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
@@ -50,8 +51,8 @@ public class EntityMakerDefence {
     ) {
 
         Entity entity = createNew(world)
-                .add(new Kinematics(5, 5))
-                .add(new Bounds(x, y, 32, 32))
+                .add(new Kinematics(0.5f, 0.5f))
+                .add(new Bounds(x, y, G.UNIT_SIZE, G.UNIT_SIZE))
                 .add(new Anim("menuAnim1After", Anim.Layer.DEFAULT))
                 .add(new Selectable(0))
                 .add(new AttackStats(AttackStats.DamageType.PHYSICAL,

@@ -61,12 +61,13 @@ public class SelectSystem extends BaseEntitySystem {
                 int e = actives.get(i);
                 if (!selectedEntities.contains(e)) {
                     if (collisionSystem.twoEntityCollision(e, selectSquare)) {
-                        System.out.println("Collision detected");
-                        if (lowestSelectedLayer < selectableCm.get(e).getSelectionLayer()) {
+                        if (lowestSelectedLayer > selectableCm.get(e).getSelectionLayer()) {
                             selectedEntities.clear();
+                            Gdx.app.debug(TAG, "selectedEntities were cleared");
                             lowestSelectedLayer = selectableCm.get(e).getSelectionLayer();
                             selectedEntities.add(e);
-                        } else {
+
+                        } else if (lowestSelectedLayer == selectableCm.get(e).getSelectionLayer()) {
                             selectedEntities.add(e);
                         }
                     }

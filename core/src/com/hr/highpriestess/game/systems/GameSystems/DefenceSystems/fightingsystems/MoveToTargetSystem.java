@@ -2,9 +2,10 @@ package com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.fightingsys
 
 import com.artemis.*;
 import com.artemis.managers.GroupManager;
-import com.artemis.systems.IteratingSystem;
-import com.artemis.utils.ImmutableBag;
+import com.artemis.utils.IntBag;
+import com.hr.highpriestess.game.components.Game.Defence.Movement.MoveToDestination;
 import com.hr.highpriestess.game.components.Game.Defence.Target;
+import com.hr.highpriestess.game.components.Menu.Bounds;
 
 /**
  * This System moves a given target to the location of the target
@@ -16,6 +17,8 @@ public class MoveToTargetSystem extends BaseEntitySystem {
     GroupManager groupManager;
 
     ComponentMapper<Target> targetCm;
+    ComponentMapper<MoveToDestination> moveToDestinationCm;
+    ComponentMapper<Bounds> boundsCm;
 
 
     public MoveToTargetSystem() {
@@ -25,8 +28,17 @@ public class MoveToTargetSystem extends BaseEntitySystem {
 
     @Override
     protected void processSystem() {
-        ImmutableBag<Entity> entities = groupManager.getEntities("selected");
-        ImmutableBag<Entity> enemies = groupManager.getEntities("enemies");
+        IntBag entities = subscription.getEntities();
+        for (int i = 0; i < entities.size(); i++) {
+            int e = entities.get(i);
+            moveToDestinationCm.create(e);
+            if (!moveToDestinationCm.get(e).ignoreSurroundings) {
+                int eTarget = targetCm.get(e).getTarget();
+                Bounds targetXY = boundsCm.get(eTarget);
+                moveToDestinationCm.get(e).setFinalXY(targetXY.x, targetXY.y);
+            }
+        }
+
 
     }
 }

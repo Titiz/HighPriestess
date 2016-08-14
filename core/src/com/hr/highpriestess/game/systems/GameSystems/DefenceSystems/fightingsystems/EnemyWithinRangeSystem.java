@@ -43,7 +43,8 @@ public class EnemyWithinRangeSystem extends BaseSystem {
         ImmutableBag<Entity> e2s = groupManager.getEntities(e2Name);
         for (int i = 0; i < e1s.size(); i++) {
             Entity e1 = e1s.get(i);
-            if (!targetCm.has(e1.getId())) {
+            if (!targetCm.has(e1.getId()) || Utilities.distance(e1, this.world.getEntity(targetCm.get(e1.getId()).getTarget())) > VIEW_RANGE) {
+                targetCm.remove(e1);
                 Entity e2 = getClosestEntity(e2s, e1);
                 if (Utilities.distance(e1, e2) < VIEW_RANGE) {
                     targetCm.create(e1.getId());

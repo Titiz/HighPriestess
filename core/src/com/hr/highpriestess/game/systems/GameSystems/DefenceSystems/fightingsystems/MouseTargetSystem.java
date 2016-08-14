@@ -4,10 +4,7 @@ import com.artemis.*;
 import com.artemis.managers.GroupManager;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.compression.lzma.Base;
-import com.hr.highpriestess.game.components.Game.Defence.MoveToDestination;
-import com.hr.highpriestess.game.components.Game.Defence.Selectable;
+import com.hr.highpriestess.game.components.Game.Defence.Movement.MoveToDestination;
 import com.hr.highpriestess.game.components.Game.Defence.Target;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
@@ -60,10 +57,13 @@ public class MouseTargetSystem extends BaseSystem{
                             }
                             targetCm.get(allyID).mouseTarget = true;
                             Bounds enemyXY = boundsCm.get(enemyID);
-                            moveToDestinationCm.create(allyID);
-                            moveToDestinationCm.get(allyID).setFinalXY(enemyXY.x, enemyXY.y);
+                            //moveToDestinationCm.create(allyID);
+                            //moveToDestinationCm.get(allyID).setFinalXY(enemyXY.x, enemyXY.y);
                             Gdx.app.debug(TAG, allyID + " has set target " + enemyID);
 
+
+                        } else if (moveToDestinationCm.has(allyID)){
+                            moveToDestinationCm.get(allyID).ignoreSurroundings = true;
 
                         }
                     }

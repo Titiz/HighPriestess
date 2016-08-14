@@ -55,7 +55,7 @@ public class WaveMapSystem extends MapSystem {
                 if (cell != null) {
                     final MapProperties properties = cell.getTile().getProperties();
                     if (properties.containsKey("entity")) {
-                        defenceEntitySpawnerSystem.spawnEntity(width * G.CELL_SIZE, ty * G.CELL_SIZE * 2, properties);
+                        defenceEntitySpawnerSystem.spawnEntity(400, ty * G.CELL_SIZE * 2, properties);
                     }
                 }
             }

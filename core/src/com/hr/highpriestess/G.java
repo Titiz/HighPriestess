@@ -14,12 +14,20 @@ public class G {
 
 
     public static final int CELL_SIZE = 16;
+    public static final int UNIT_SIZE = 20;
+
 
 
     public static AssetSystem assetSystem;
     public static World gameWorld;
     public static World menuWorld;
+
+
     public static World defenceWorld;
+    public static int[][] defenceGrid;
+
+
+
     public static HighPriestessMain game;
 
 }
