@@ -8,6 +8,7 @@ import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.util.EntityMakerMenu;
 
 
+
 public class SetupMenu extends BaseEntitySystem {
 
 
@@ -26,7 +27,7 @@ public class SetupMenu extends BaseEntitySystem {
 
     private void setup(){
         /**
-         * This is where we setup all parts of the Menu.
+         * Manual setup of the menu.
          */
         float multiplier = cameraSystem.getZOOM();
         Animation[] anims = new Animation[3];

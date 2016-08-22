@@ -15,8 +15,7 @@ import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
 
 /**
- * @author Titas
- * @version
+ * Game mode screen for the walking part of the game.
  */
 
 // screen for the wandering sequence of the game

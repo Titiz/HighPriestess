@@ -9,6 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.hr.highpriestess.game.components.Menu.*;
 
 
+/**
+ * Class that stores the entities used in the menu
+ */
+
 public class EntityMakerMenu {
     /**
      * Class that holds the creation

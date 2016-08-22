@@ -29,11 +29,10 @@ import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 
 
 /**
- * @author Titas
- * @version
+ * Defence mode screen for the defence sequence of the game.
  */
 
-//Defence mode screen for the defence sequence of the game.
+
 
 public class DefenceScreen extends AbstractScreen {
 

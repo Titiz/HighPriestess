@@ -10,7 +10,7 @@ import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSyste
 import sun.misc.BASE64Decoder;
 
 /**
- * Created by Titas on 2016-08-03.
+ * Class that hold the function to setup the map.
  */
 public class MapSetupHolder {
 
@@ -28,6 +28,7 @@ public class MapSetupHolder {
                     final TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
                     if (cell != null) {
                         final MapProperties properties = cell.getTile().getProperties();
+                        // we use tiles having the key entity to create the entities in the game.
                         if ( properties.containsKey("entity")) {
                             entitySpawnerSystem.spawnEntity(tx* G.CELL_SIZE, ty*G.CELL_SIZE, properties);
                             layer.setCell(tx, ty, null);

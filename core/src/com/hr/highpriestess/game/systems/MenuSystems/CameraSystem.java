@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class CameraSystem extends BaseSystem{
     /**
      * This class serves to create two camera objects, one for the gui, one for the game itself.
+     * This is the camera that is now used everywhere, but this might change.
      */
     public final OrthographicCamera camera;
     public final OrthographicCamera guiCamera;

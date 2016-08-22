@@ -28,6 +28,8 @@ public class AssetSystem extends BaseSystem {
      * processSystem should stay empty.
      */
 
+
+    // TODO: Load assets through the assetmanager.
     AssetManager assetManager;
 
     public final BitmapFont font;

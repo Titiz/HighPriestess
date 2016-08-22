@@ -3,7 +3,8 @@ package com.hr.highpriestess.screens;
 import com.badlogic.gdx.Screen;
 
 /**
- * Created by Titas on 2016-07-18.
+ * class used to simplify the coding for the remainder of the screens.
+ * screen are the system holders that will determine how it all operates.
  */
 public abstract class AbstractScreen implements Screen {
 

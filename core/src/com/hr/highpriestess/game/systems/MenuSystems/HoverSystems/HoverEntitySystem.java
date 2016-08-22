@@ -7,7 +7,8 @@ import com.hr.highpriestess.game.components.Menu.HoverBehavior;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 
 /**
- * Created by Titas on 2016-07-22.
+ * Class that is used for all Entity systems that need some
+ * kind of hovering behavior.
  */
 public abstract class HoverEntitySystem extends IteratingSystem {
 

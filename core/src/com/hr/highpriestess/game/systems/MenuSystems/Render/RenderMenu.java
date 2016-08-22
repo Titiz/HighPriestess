@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Titas on 2016-07-20.
+ * Class that renders the menu.
+ * TODO: make it a little cleaner and MAYBE make it organize layers itself.
  */
 public class RenderMenu extends IteratingSystem{
 
@@ -35,6 +36,8 @@ public class RenderMenu extends IteratingSystem{
     AssetSystem assetSystem;
     private float elapsedTime = 0;
     private LayerManager layerManager;
+
+
 
 
 

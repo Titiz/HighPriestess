@@ -10,7 +10,8 @@ import com.hr.highpriestess.game.components.Menu.HoverBehavior;
 import com.hr.highpriestess.game.components.Menu.Layer;
 
 /**
- * Created by Titas on 2016-07-21.
+ * System that changes the active layer when an entity
+ * with the clickopen component is clicked.
  */
 
 public class OpenOnClick extends IteratingSystem {

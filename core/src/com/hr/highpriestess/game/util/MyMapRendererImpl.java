@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 /**
- * Created by Titas on 2016-07-27.
+ * A holder for the rendering of the map. used to make the rendering code a little cleaner.
  */
 public class MyMapRendererImpl extends OrthogonalTiledMapRenderer {
     public MyMapRendererImpl(TiledMap map) {

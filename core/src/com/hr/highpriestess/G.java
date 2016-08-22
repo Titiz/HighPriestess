@@ -10,6 +10,10 @@ import com.sun.scenario.Settings;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that stores important constants which can be accessed from anywhere in the  game
+ */
+
 public class G {
 
 

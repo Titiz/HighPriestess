@@ -11,7 +11,7 @@ import com.hr.highpriestess.game.components.Menu.HoverableText;
 import com.hr.highpriestess.game.components.Menu.Text;
 
 /**
- * Created by Titas on 2016-07-25.
+ * System that creates labels given the bounds of the label.
  */
 public class LabelSystem extends IteratingSystem {
 

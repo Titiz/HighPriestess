@@ -12,7 +12,7 @@ import com.hr.highpriestess.game.components.Menu.*;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 
 /**
- * Created by Titas on 2016-07-28.
+ * Class that stores the entities that can be created in the walking part of the game.
  */
 public class EntityMakerGame {
 

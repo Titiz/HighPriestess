@@ -8,8 +8,16 @@ import com.hr.highpriestess.game.components.Menu.HoverBehavior;
 
 
 /**
- * Created by Titas on 2016-07-22.
+ * class that plays animation on hover on the entities
+ * that have the animationbehind component
+ *
+ * This requires that an an entity have 3 animations:
+ * 1. loop that plays while there is no hover.
+ * 2. a transition animation that plays once
+ * 3. looping animation that begins playing after the transition and plays while the mouse still hovers over the entity.
  */
+
+
 public class HoverAnimationSystem extends HoverEntitySystem {
 
     ComponentMapper<AnimationBehind> animationBehind;
@@ -27,6 +35,10 @@ public class HoverAnimationSystem extends HoverEntitySystem {
 
         int currentFrame = etop.getActiveAnimation().getKeyFrameIndex(etop.getEllapsedTime());
 
+        // here we check what the active animation and do actions accordingly.
+        // generally we just increment the ellapsed time if the mouse hovers the entity
+        // and decrease it otherwise.
+        // we also have to change the animation once it plays through once and the mouse is still hovering.
 
         if (etop.getActiveAnimation() == etop.getAnimationBefore()) {
             if (!isHovered(e)) {
@@ -49,6 +61,10 @@ public class HoverAnimationSystem extends HoverEntitySystem {
             }
 
 
+
+            // behavior for the inverse movement of the animation.
+
+
             if (currentFrame > 0 && !isHovered(e)) {
                 etop.addEllapsedTime(-Gdx.graphics.getDeltaTime());
             } else if (!isHovered(e)) {
@@ -57,6 +73,8 @@ public class HoverAnimationSystem extends HoverEntitySystem {
             }
         }
 
+
+            //
 
             if (etop.getActiveAnimation() == etop.getAnimationAfter()) {
                 if (isHovered(e) &&

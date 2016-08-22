@@ -10,6 +10,12 @@ import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.LabelSystem;
 
 
+/**
+ * class that changes the alpha of the objects
+ * that are hovered and have the alpha class
+ */
+
+
 public class HoverAlphaSystem extends HoverEntitySystem{
 
     private ComponentMapper<HoverableText>  hoverableTextcm;
@@ -35,7 +41,7 @@ public class HoverAlphaSystem extends HoverEntitySystem{
 
 
     public HoverAlphaSystem() {
-        super(Aspect.all(Text.class, HoverBehavior.class, Alpha.class, Bounds.class));
+        super(Aspect.all(HoverBehavior.class, Alpha.class, Bounds.class));
 
 
     }
@@ -44,12 +50,8 @@ public class HoverAlphaSystem extends HoverEntitySystem{
 
 
     protected final void process(int e) {
-        /**
-         * Experimental class that tells if the mouse is hovering over some entity
-         * This should be separated into more classes.
-         */
 
-        if (changeAlphaCm.has(e) && alphaCm.get(e).getAlpha() < 1.0f) {
+        if (alphaCm.get(e).getAlpha() < 1.0f) {
             alphaCm.get(e).changeAlpha(0.2f* Gdx.graphics.getDeltaTime());
         }else if (alphaCm.get(e).getAlpha() > 0.0f) {
                 alphaCm.get(e).changeAlpha(-0.01f);

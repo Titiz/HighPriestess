@@ -9,8 +9,13 @@ import com.hr.highpriestess.game.components.Menu.Transition;
 import com.hr.highpriestess.game.util.EntityMakerMenu;
 
 /**
- * Created by Titas on 2016-07-23.
+ * Layer manager deals with what layers can be interacted with in the menu.
+ * This allows to make multiple separate interactable menus
+ * say go from menu -> settings means changing the active layer.
  */
+
+
+// TODO: make the layer be a ENUM rather than an int.
 public class LayerManager extends BaseEntitySystem {
 
 

@@ -12,6 +12,8 @@ import com.hr.highpriestess.game.systems.MenuSystems.LayerManager;
 
 /**
  *  Simply used to tell if the mouse is hovering over something.
+ *  Has a timer which increments when the entity is hovered, and is 0 otherwise.
+ *
  */
 public class MouseHoverSystem extends IteratingSystem {
 

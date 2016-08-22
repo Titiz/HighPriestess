@@ -13,7 +13,7 @@ import com.hr.highpriestess.game.systems.MenuSystems.HoverSystems.MouseHoverSyst
 import com.hr.highpriestess.game.systems.MenuSystems.Render.RenderMenu;
 
 /**
- * Created by Titas on 2016-07-18.
+ * menu screen for the menu part of the game.
  */
 public class MenuScreen extends AbstractScreen {
     Game game;

@@ -11,7 +11,7 @@ import com.hr.highpriestess.game.components.Game.Kinematics;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 
 /**
- * Created by Titas on 2016-08-02.
+ * Class that stores the entities that can be created in the defence part of the game
  */
 public class EntityMakerDefence {
 
