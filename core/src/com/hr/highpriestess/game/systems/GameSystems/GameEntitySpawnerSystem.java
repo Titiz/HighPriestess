@@ -10,7 +10,7 @@ import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSyste
 import com.hr.highpriestess.game.util.EntityMakerGame;
 
 /**
- * Created by Titas on 2016-07-28.
+ * Used in  the GameMapSystem to spawn certain entities based on description on map.
  */
 public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
 

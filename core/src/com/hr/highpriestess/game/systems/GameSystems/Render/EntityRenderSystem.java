@@ -14,7 +14,7 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import java.util.*;
 
 /**
- * Created by Titas on 2016-07-31.
+ * This is supposed to render all entities in the world.
  */
 public class EntityRenderSystem extends BaseEntitySystem  {
 

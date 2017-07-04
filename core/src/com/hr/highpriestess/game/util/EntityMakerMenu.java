@@ -15,7 +15,7 @@ import com.hr.highpriestess.game.components.Menu.*;
 
 public class EntityMakerMenu {
     /**
-     * Class that holds the creation
+     * Class that holds the creations
      */
     public static Entity createHoverTextAnimation(final World world, final float x, final float y,
                                                   final String text, final Animation[] anim, String ID,

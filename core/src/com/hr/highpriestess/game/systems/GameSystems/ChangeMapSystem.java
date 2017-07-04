@@ -27,6 +27,7 @@ public class ChangeMapSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
+        /** Checks collisions of the changeMapBoxes with the player to see if the map must be changed **/
          ImmutableBag<Entity> changeMapBoxes = groupManager.getEntities("gate");
          Entity player = tagManager.getEntity("player");
 

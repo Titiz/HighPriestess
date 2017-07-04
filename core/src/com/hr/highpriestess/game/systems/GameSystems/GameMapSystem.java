@@ -22,7 +22,7 @@ import java.util.HashMap;
 /**
  * Handles map loading.
  *
- * @author Daan van Yperen
+ * Based on implementation of Daan van Yperen
  */
 
 public class GameMapSystem extends MapSystem {

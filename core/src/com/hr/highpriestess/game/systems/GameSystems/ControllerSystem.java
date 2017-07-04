@@ -29,7 +29,7 @@ public class ControllerSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
-
+        /** Controls player input **/
         int player = tagManager.getEntity("player").getId();
         Kinematics entity = kinCm.getSafe(player);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {

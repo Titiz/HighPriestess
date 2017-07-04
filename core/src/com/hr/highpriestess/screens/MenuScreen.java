@@ -55,9 +55,9 @@ public class MenuScreen extends AbstractScreen {
         // clear the game
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // process the menuWorld
+    // process the menuWorld
         G.menuWorld.process();
-    }
+}
 
     @Override
     public void dispose() {

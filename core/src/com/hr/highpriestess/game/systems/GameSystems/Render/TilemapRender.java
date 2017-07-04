@@ -9,7 +9,7 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.util.MyMapRendererImpl;
 
 /**
- * Created by Titas on 2016-07-27.
+ * Renders all of the tiles shown on the tmx file.
  */
 public class TilemapRender extends BaseSystem{
 

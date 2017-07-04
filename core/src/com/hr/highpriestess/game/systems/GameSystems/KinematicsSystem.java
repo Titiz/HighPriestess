@@ -7,7 +7,7 @@ import com.hr.highpriestess.game.components.Game.Kinematics;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 
 /**
- * Created by Titas on 2016-07-28.
+ * Moves the player and other entities with velocity.
  */
 public class KinematicsSystem extends IteratingSystem {
 
