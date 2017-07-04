@@ -40,8 +40,9 @@ public class GameScreen extends AbstractScreen {
                         new ChangeMapSystem(),
 
 
-                        new GameEntitySpawnerSystem(),
                         new GameEntityClearerSystem(),
+                        new GameEntitySpawnerSystem(),
+
 
                         new CollisionSystem(),
                         new CameraSystem(),

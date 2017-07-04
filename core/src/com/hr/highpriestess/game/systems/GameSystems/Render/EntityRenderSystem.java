@@ -82,7 +82,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
 
     protected void process(int e) {
-        Animation animation = assetSystem.get(animCm.get(e).id);
+        Animation animation = assetSystem.get(animCm.get(e).activeId);
         animation.setPlayMode(Animation.PlayMode.LOOP);
         TextureRegion currentFrame = animation.getKeyFrame(animCm.get(e).age);
 

@@ -6,7 +6,6 @@ import com.artemis.World;
 import com.artemis.managers.GroupManager;
 import com.hr.highpriestess.game.components.Game.Anim;
 import com.hr.highpriestess.game.components.Game.ChangeMap;
-import com.hr.highpriestess.game.components.Game.Controller;
 import com.hr.highpriestess.game.components.Game.Kinematics;
 import com.hr.highpriestess.game.components.Menu.*;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
@@ -27,8 +26,7 @@ public class EntityMakerGame {
         Entity entity = createNew(world)
                 .add(new Kinematics(5, 5))
                 .add(new Bounds(x, y, 32, 32))
-                .add(new Anim("idlePlayer", Anim.Layer.PLAYER))
-                .add(new Controller())
+                .add(new Anim(Anim.Layer.PLAYER, "idlePlayer"))
                 .getEntity();
         return entity;
     }
@@ -39,7 +37,7 @@ public class EntityMakerGame {
         Entity entity = createNew(world)
                 .add(new Kinematics(5, 5))
                 .add(new Bounds(x, y, 32, 32))
-                .add(new Anim("menuAnim1Before", Anim.Layer.ENEMY))
+                .add(new Anim(Anim.Layer.ENEMY, "menuAnim1Before"))
                 .getEntity();
         return entity;
     }

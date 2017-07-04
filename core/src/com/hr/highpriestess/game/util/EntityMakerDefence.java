@@ -36,7 +36,7 @@ public class EntityMakerDefence {
         Entity entity = createNew(world)
                 .add(new Kinematics(0.5f, 0.5f))
                 .add(new Bounds(x, y, G.UNIT_SIZE, G.UNIT_SIZE))
-                .add(new Anim("menuAnim1Before", Anim.Layer.ENEMY))
+                .add(new Anim(Anim.Layer.ENEMY, "menuAnim1Before"))
                 .add(new Selectable(1))
                 .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
                         2, AttackStats.AttackSpeed.SLOW,
@@ -53,7 +53,7 @@ public class EntityMakerDefence {
         Entity entity = createNew(world)
                 .add(new Kinematics(0.5f, 0.5f))
                 .add(new Bounds(x, y, G.UNIT_SIZE, G.UNIT_SIZE))
-                .add(new Anim("menuAnim1After", Anim.Layer.DEFAULT))
+                .add(new Anim(Anim.Layer.DEFAULT, "menuAnim1After"))
                 .add(new Selectable(0))
                 .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
                         2, AttackStats.AttackSpeed.SLOW,
