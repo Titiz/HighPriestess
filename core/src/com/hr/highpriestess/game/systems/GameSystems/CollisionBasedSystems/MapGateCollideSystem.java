@@ -1,4 +1,4 @@
-package com.hr.highpriestess.game.systems.GameSystems;
+package com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems;
 
 import com.artemis.*;
 import com.artemis.managers.GroupManager;
@@ -6,14 +6,15 @@ import com.artemis.managers.TagManager;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.hr.highpriestess.game.components.Game.ChangeMap;
+import com.hr.highpriestess.game.systems.GameSystems.GameMapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
 
 
-public class ChangeMapSystem extends BaseSystem {
+public class MapGateCollideSystem extends BaseSystem {
 
 
 
-    private String TAG = ChangeMapSystem.class.getName();
+    private String TAG = MapGateCollideSystem.class.getName();
     private GroupManager groupManager;
     private TagManager tagManager;
 

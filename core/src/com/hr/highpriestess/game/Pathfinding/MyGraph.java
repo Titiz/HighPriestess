@@ -6,7 +6,7 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BinaryHeap;
-import com.sun.deploy.util.ArrayUtil;
+
 
 /**
  * Created by Titas on 2016-08-11.
