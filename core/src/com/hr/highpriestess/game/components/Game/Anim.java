@@ -20,12 +20,12 @@ public class Anim extends Component {
         DEFAULT,
     }
 
-    public static enum Animations
+    public static enum AnimStates
     {
         IDLE,
         WALKING,
-
-
+        TALKING,
+        RUNNING
     }
 
 

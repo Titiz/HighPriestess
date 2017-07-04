@@ -107,7 +107,8 @@ public class AssetSystem extends BaseSystem {
         add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, new Texture("Blood3.png"), 0.1f);
         add("menuMainBackground", 0, 0, 1280, 960, 1, 1, new Texture("background.png"), 1f);
 
-        add("idlePlayer", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
+        add("idlePlayer", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
+        add("movingPlayer", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
 
 
         add(-1, 0, 0, 80, 1072, 22, 1, new Texture("trans.png"), 0.1f);

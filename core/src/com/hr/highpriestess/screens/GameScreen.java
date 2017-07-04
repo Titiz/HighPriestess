@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.*;
+import com.hr.highpriestess.game.systems.GameSystems.AnimationSystems.StateSelectSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
@@ -46,6 +47,7 @@ public class GameScreen extends AbstractScreen {
 
                         new CollisionSystem(),
                         new CameraSystem(),
+                        new StateSelectSystem(),
 
                         new KinematicsSystem(),
 

@@ -26,7 +26,7 @@ public class EntityMakerGame {
         Entity entity = createNew(world)
                 .add(new Kinematics(5, 5))
                 .add(new Bounds(x, y, 32, 32))
-                .add(new Anim(Anim.Layer.PLAYER, "idlePlayer"))
+                .add(new Anim(Anim.Layer.PLAYER, "idlePlayer", "movingPlayer"))
                 .getEntity();
         return entity;
     }

@@ -3,6 +3,7 @@ package com.hr.highpriestess.game.systems.GameSystems;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
+import com.hr.highpriestess.game.components.Game.Anim;
 import com.hr.highpriestess.game.components.Game.Kinematics;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 
@@ -13,6 +14,7 @@ public class KinematicsSystem extends IteratingSystem {
 
     ComponentMapper<Kinematics> kinCm;
     ComponentMapper<Bounds> boundsCm;
+    ComponentMapper<Anim> animCm;
 
     public KinematicsSystem() {
         super(Aspect.all(Kinematics.class, Bounds.class));
