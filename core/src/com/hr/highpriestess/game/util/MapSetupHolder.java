@@ -1,13 +1,12 @@
 package com.hr.highpriestess.game.util;
 
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntityClearerSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
-import sun.misc.BASE64Decoder;
 
 /**
  * Class that hold the function to setup the map.

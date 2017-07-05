@@ -13,6 +13,7 @@ public class MyMapRendererImpl extends OrthogonalTiledMapRenderer {
     }
 
     public void renderLayer(TiledMapTileLayer layer) {
+
         beginRender();
         super.renderTileLayer(layer);
         endRender();

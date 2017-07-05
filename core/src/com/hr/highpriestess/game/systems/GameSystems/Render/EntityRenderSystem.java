@@ -3,9 +3,12 @@ package com.hr.highpriestess.game.systems.GameSystems.Render;
 import com.artemis.*;
 import com.artemis.managers.GroupManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.Vector3;
 import com.hr.highpriestess.game.components.Game.Anim;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
@@ -21,6 +24,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
     String TAG = EntityRenderSystem.class.getName();
 
     SpriteBatch batch = new SpriteBatch();
+    private ShaderProgram currentShader;
 
     AssetSystem assetSystem;
 
@@ -30,19 +34,39 @@ public class EntityRenderSystem extends BaseEntitySystem  {
     GroupManager groupManager;
     CameraSystem cameraSystem;
 
+    // list that keeps the entities in the order they need to be rendered. Awesome.
+    private List<Integer> sortedEntities = new ArrayList<Integer>();
 
-
+    // boolean to track if entities need to be reorganized
+    boolean entities_mixed = true;
 
 
 
     public EntityRenderSystem() {
         super(Aspect.all(Anim.class, Bounds.class));
+
+        final String ambientPixelShader = new FileHandle("ambientPixelShader.glsl").readString();
+        final String vertexShader = new FileHandle("vertexShader.glsl").readString();
+
+
+        currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
+
+        Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
+
+        ShaderProgram.pedantic = false;
+        currentShader.begin();
+        currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+                ambientColor.z, 0.8f);
+        currentShader.end();
+
     }
 
-    // list that keeps the entities in the order they need to be rendered. Awesome.
-    private List<Integer> sortedEntities = new ArrayList<Integer>();
-    // boolean to track if entities need to be reorganized
-    boolean entities_mixed = true;
+
+
+
+
+
+
 
     class layerSortComperator implements Comparator<Integer> {
 
@@ -73,9 +97,15 @@ public class EntityRenderSystem extends BaseEntitySystem  {
             entities_mixed = false;
             Collections.sort(sortedEntities, new layerSortComperator());
         }
+        batch.setProjectionMatrix(cameraSystem.camera.combined);
+        batch.setShader(currentShader);
+        batch.begin();
         for (int e : sortedEntities) {
             process(e);
         }
+        batch.end();
+
+
     }
 
 
@@ -91,12 +121,12 @@ public class EntityRenderSystem extends BaseEntitySystem  {
         float width = boundsCm.get(e).width;
         float height = boundsCm.get(e).height;
 
-        batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.begin();
         batch.draw(currentFrame, x, y, width, height);
-        batch.end();
 
         animCm.get(e).age += Gdx.graphics.getDeltaTime();
+
+
+
 
 
 
