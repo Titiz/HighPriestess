@@ -45,12 +45,13 @@ public class SetupMenu extends BaseEntitySystem {
 
     @Override
     protected void processSystem() {
-        // setup is called once and then the processing continues by doing nothing
-        // TODO: Potentially find a way to call this once in total.
+        // setup is called once and then system is removed.
         if (!isSetup) {
             isSetup = true;
             setup();
             Gdx.app.debug(TAG, "SETUP COMPLETED");
+        } else {
+            this.dispose();
         }
     }
 }
