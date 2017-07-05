@@ -26,13 +26,15 @@ public class GameScreen extends AbstractScreen {
 
     Game game;
     World world;
+    String TAG = GameScreen.class.getName();
 
     public GameScreen(Game game) {
-
+        Gdx.app.debug(TAG, "New GameScreen has been made");
         this.game = game;
+        Gdx.app.debug(TAG, "Game reference made");
         WorldConfiguration config = new WorldConfigurationBuilder()
                 .with(
-                        // make the menu
+
                         new GroupManager(),
                         new TagManager(),
 
@@ -58,7 +60,9 @@ public class GameScreen extends AbstractScreen {
                         new TilemapRender(),
                         new EntityRenderSystem()
                 ).build();
+        Gdx.app.debug(TAG, "Configuration for the world created");
         G.gameWorld = new World(config);
+        Gdx.app.debug(TAG, "World created");
 
     }
 
@@ -78,7 +82,7 @@ public class GameScreen extends AbstractScreen {
         // clear the game
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // process the menuWorld
+        // process the gameWorld
         G.gameWorld.process();
 
     }

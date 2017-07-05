@@ -14,6 +14,8 @@ import com.hr.highpriestess.screens.MenuScreen;
 
 public class HighPriestessMain extends Game {
 
+	String TAG = HighPriestessMain.class.getName();
+
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
@@ -29,8 +31,11 @@ public class HighPriestessMain extends Game {
 
 
 	public void goGame() {
+		Gdx.app.debug(TAG, "Preparing to switch to gameScreen");
 		getScreen().dispose();
+		Gdx.app.debug(TAG, "Disposed of old screen");
 		setScreen(new GameScreen(this));
+		Gdx.app.debug(TAG, "GameScreen is now the current screen");
 	}
 
 	public void goDefence() {

@@ -45,19 +45,22 @@ public class EntityRenderSystem extends BaseEntitySystem  {
     public EntityRenderSystem() {
         super(Aspect.all(Anim.class, Bounds.class));
 
-        final String ambientPixelShader = new FileHandle("ambientPixelShader.glsl").readString();
-        final String vertexShader = new FileHandle("vertexShader.glsl").readString();
-
-
-        currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
-
-        Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
-
-        ShaderProgram.pedantic = false;
-        currentShader.begin();
-        currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-                ambientColor.z, 0.8f);
-        currentShader.end();
+//        final String ambientPixelShader = Gdx.files.internal("ambientPixelShader.glsl").readString();
+//        final String vertexShader = Gdx.files.internal("vertexShader.glsl").readString();
+//        Gdx.app.debug("AMBIENT:", ambientPixelShader);
+//        Gdx.app.debug("VERTEX:", vertexShader);
+//
+//        currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
+//
+//        Gdx.app.debug(TAG, "SHADER MADE");
+//
+//        Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
+//
+//        ShaderProgram.pedantic = false;
+//        currentShader.begin();
+//        currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+//                ambientColor.z, 0.7f);
+//        currentShader.end();
 
     }
 
@@ -124,13 +127,6 @@ public class EntityRenderSystem extends BaseEntitySystem  {
         batch.draw(currentFrame, x, y, width, height);
 
         animCm.get(e).age += Gdx.graphics.getDeltaTime();
-
-
-
-
-
-
-
 
     }
 }

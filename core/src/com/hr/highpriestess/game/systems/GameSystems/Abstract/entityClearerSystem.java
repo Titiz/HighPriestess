@@ -27,7 +27,7 @@ public abstract class EntityClearerSystem extends BaseSystem {
     protected final void deleteEntities(String identifier, TagManager tagManager){
         Entity entity = tagManager.getEntity(identifier);
         removeEntityFromWorld(entity);
-        //agManager.unregister(identifier);  not sure if needed
+        //tagManager.unregister(identifier);  not sure if needed
 
     }
 

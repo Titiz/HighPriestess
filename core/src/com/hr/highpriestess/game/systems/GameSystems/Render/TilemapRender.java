@@ -32,22 +32,22 @@ public class TilemapRender extends BaseSystem{
     private void makeRenderer() {
         if (!isRendererMade) {
 
-            ShaderProgram currentShader;
-            final String ambientPixelShader = new FileHandle("ambientPixelShader.glsl").readString();
-            final String vertexShader = new FileHandle("vertexShader.glsl").readString();
-
-
-            currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
-
-            Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
-
-            ShaderProgram.pedantic = false;
-            currentShader.begin();
-            currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-                    ambientColor.z, 0.8f);
-            currentShader.end();
+//            ShaderProgram currentShader;
+//            final String ambientPixelShader = new FileHandle("ambientPixelShader.glsl").readString();
+//            final String vertexShader = new FileHandle("vertexShader.glsl").readString();
+//
+//
+//            currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
+//
+//            Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
+//
+//            ShaderProgram.pedantic = false;
+//            currentShader.begin();
+//            currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+//                    ambientColor.z, 0.8f);
+//            currentShader.end();
             SpriteBatch batch = new SpriteBatch();
-            batch.setShader(currentShader);
+//            batch.setShader(currentShader);
             renderer = new OrthogonalTiledMapRenderer(mapSystem.map, batch);
             isRendererMade = true;
         }
