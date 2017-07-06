@@ -45,7 +45,7 @@ public class SetupMenu extends BaseEntitySystem {
 
     @Override
     protected void processSystem() {
-        // setup is called once and then system is removed.
+        // setup is called once and then this system is removed.
         if (!isSetup) {
             isSetup = true;
             setup();

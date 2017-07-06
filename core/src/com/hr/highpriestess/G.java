@@ -20,6 +20,12 @@ public class G {
     public static final int CELL_SIZE = 16;
     public static final int UNIT_SIZE = 20;
 
+    public enum Layer
+    {
+        ENEMY,
+        PLAYER,
+        DEFAULT,
+    }
 
 
     public static AssetSystem assetSystem;

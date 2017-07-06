@@ -2,6 +2,7 @@ package com.hr.highpriestess.game.components.Game;
 
 import com.artemis.Component;
 import com.badlogic.gdx.graphics.Color;
+import com.hr.highpriestess.G;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -13,12 +14,7 @@ public class Anim extends Component {
 
     public boolean flippedX;
 
-    public static enum Layer
-    {
-        ENEMY,
-        PLAYER,
-        DEFAULT,
-    }
+
 
     public static enum AnimStates
     {
@@ -31,7 +27,7 @@ public class Anim extends Component {
 
 
     public String activeId;
-    public Layer layer = Layer.DEFAULT;
+    public G.Layer layer = G.Layer.DEFAULT;
     public String ids[]; // This will store all of the animations.
 
 
@@ -41,7 +37,7 @@ public class Anim extends Component {
     public float rotation = 0;
     public final Color color = new Color(1, 1, 1, 1);
 
-    public Anim(Layer layer, String... ids) {
+    public Anim(G.Layer layer, String... ids) {
         activeId = ids[0];
         this.ids = ids;
         this.layer = layer;
