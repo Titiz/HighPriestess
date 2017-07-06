@@ -1,6 +1,7 @@
 package com.hr.highpriestess.game.systems.GameSystems.Render;
 
 import com.artemis.BaseSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -27,27 +28,28 @@ public class TilemapRender extends BaseSystem{
 
     private MapSystem mapSystem;
     private boolean isRendererMade = false;
+    ShaderProgram currentShader;
 
 
     private void makeRenderer() {
         if (!isRendererMade) {
 
-//            ShaderProgram currentShader;
-//            final String ambientPixelShader = new FileHandle("ambientPixelShader.glsl").readString();
-//            final String vertexShader = new FileHandle("vertexShader.glsl").readString();
-//
-//
-//            currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
-//
-//            Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
-//
-//            ShaderProgram.pedantic = false;
-//            currentShader.begin();
-//            currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-//                    ambientColor.z, 0.8f);
+
+            final String ambientPixelShader = Gdx.files.internal("ambientPixelShader.glsl").readString();
+            final String vertexShader = Gdx.files.internal("vertexShader.glsl").readString();
+
+
+            currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
+
+            Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
+
+            ShaderProgram.pedantic = false;
+            currentShader.begin();
+            currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+                    ambientColor.z, 0.8f);
 //            currentShader.end();
             SpriteBatch batch = new SpriteBatch();
-//            batch.setShader(currentShader);
+            batch.setShader(currentShader);
             renderer = new OrthogonalTiledMapRenderer(mapSystem.map, batch);
             isRendererMade = true;
         }
