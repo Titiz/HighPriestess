@@ -18,22 +18,27 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
     String TAG = GameEntitySpawnerSystem.class.getName();
 
 
-    public void spawnEntity(float x, float y, String entity) {
-        if (entity.equals("player")) {
+    public void spawnEntity(float x, float y, String entityName) {
+        if (entityName.equals("player")) {
             Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y);
-            tagManager.register(entity, player);
+            tagManager.register(entityName, player);
             Gdx.app.debug(TAG, "Player spawned at X:" + x + " Y:" + y);
         }
-        else if (entity.equals("gate")) {
-            String nextLevel = (String) properties.get(entity);
+        else if (entityName.equals("gate")) {
+            String nextLevel = (String) properties.get(entityName);
             Entity gate = EntityMakerGame.createChanger(this.getWorld(), x, y, nextLevel);
-            groupManager.add(gate, entity);
+            groupManager.add(gate, entityName);
             Gdx.app.debug(TAG, "Gate spawned at X:" + x + " Y:" + y);
-        } else if (entity.equals("enemy")) {
+        } else if (entityName.equals("enemy")) {
             Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
-            groupManager.add(enemy, entity);
+            groupManager.add(enemy, entityName);
             Gdx.app.debug(TAG, "Enemy spawned at X:" + x + " Y:" + y);
+        } else if (entityName.equals("tracker")) {
+            Entity tracker = EntityMakerGame.createTracker(this.getWorld());
+            tagManager.register(entityName,tracker);
+            Gdx.app.debug(TAG, "Tracker Entity spawned");
         }
+
     }
 
 

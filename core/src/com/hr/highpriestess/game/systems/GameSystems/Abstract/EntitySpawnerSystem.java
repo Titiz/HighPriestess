@@ -24,7 +24,17 @@ public abstract class EntitySpawnerSystem extends BaseSystem {
         spawnEntity(x, y, entity);
     }
 
+    public void spawnEntity(MapProperties properties) {
+        this.properties = properties;
+        final String entity = (String) properties.get("entity");
+        spawnEntity(0, 0, entity);
+    }
+
     public abstract void spawnEntity(float x, float y, String entity);
+
+    public void spawnEntity(String entity) {
+        spawnEntity(0, 0, entity);
+    };
 
 
 }

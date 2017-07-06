@@ -41,6 +41,7 @@ public class GameScreen extends AbstractScreen {
                         G.assetSystem,
 
                         new GameMapSystem("Monastery"),
+                        new EntityLayeringSystem(),
                         new MapGateCollideSystem(),
 
 

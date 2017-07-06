@@ -6,12 +6,18 @@ package com.hr.highpriestess.game.systems.GameSystems;
 
 import com.artemis.BaseSystem;
 
+import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
+import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntityClearerSystem;
+import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.util.MapSetupHolder;
@@ -34,6 +40,7 @@ public class GameMapSystem extends MapSystem {
     private boolean isSetup = false;
     private HashMap<String, String> maps = new HashMap<String, String>();
     CameraSystem cameraSystem;
+    TagManager tagManager;
     GroupManager groupManager;
     String activeMapName;
     GameEntitySpawnerSystem gameEntitySpawnerSystem;
@@ -84,12 +91,19 @@ public class GameMapSystem extends MapSystem {
 
         if ( !isSetup )
         {
+            setup();
             isSetup = true;
-            MapSetupHolder.setup(gameEntityClearerSystem,
-                    gameEntitySpawnerSystem,
-                    layers, width, height);
         }
     }
 
+    private void setup() {
+
+
+        gameEntitySpawnerSystem.spawnEntity("tracker");
+        Entity tracker = tagManager.getEntity("tracker");
+        MapSetupHolder.setup(gameEntityClearerSystem,
+                gameEntitySpawnerSystem,
+                layers, width, height, tracker);
+    }
 }
 

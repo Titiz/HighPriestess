@@ -8,6 +8,8 @@ import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Anim;
 import com.hr.highpriestess.game.components.Game.ChangeMap;
 import com.hr.highpriestess.game.components.Game.Kinematics;
+import com.hr.highpriestess.game.components.Game.Tracker.LayerEntityTracker;
+import com.hr.highpriestess.game.components.Game.Tracker.*;
 import com.hr.highpriestess.game.components.Menu.*;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 
@@ -50,6 +52,14 @@ public class EntityMakerGame {
                 .add(new ChangeMap(nextMap))
                 .getEntity();
 
+        return entity;
+    }
+
+    public static Entity createTracker(final World world) {
+        Entity entity = createNew(world)
+                .add(new LayerEntityTracker())
+                .add(new ShaderHolder())
+                .getEntity();
         return entity;
     }
 
