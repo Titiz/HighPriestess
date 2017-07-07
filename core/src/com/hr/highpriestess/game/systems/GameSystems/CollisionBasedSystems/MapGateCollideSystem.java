@@ -42,8 +42,8 @@ public class MapGateCollideSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
+        /** Here we check if the entity has a trigger component or a interactible component to change map accordingly **/
         Entity collidedEntity = playerCm.get(player).collidingEntity;
-        Gdx.app.debug(TAG, playerCm.get(player).isActiveButtonClicked.toString());
         if (collidedEntity!= null && changeMapCm.has(collidedEntity)) {
             if (triggerCm.has(collidedEntity)) {
                 gameMapSystem.setActiveMap(changeMapCm.get(collidedEntity).getNextMap());

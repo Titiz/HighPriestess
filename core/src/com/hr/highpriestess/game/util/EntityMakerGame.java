@@ -69,10 +69,10 @@ public class EntityMakerGame {
         return entity;
     }
 
-    public static Entity createDoor(final World world, final float x, final float y, String nextMap) {
+    public static Entity createDoor(final World world, final float x, final float y, String nextMap, String interactLabel) {
         Entity entity = createNew(world)
                 .add(new Bounds(x, y, 32, 32))
-                .add(new Interactible())
+                .add(new Interactible(interactLabel))
                 .add(new ChangeMap(nextMap))
                 .getEntity();
         return entity;

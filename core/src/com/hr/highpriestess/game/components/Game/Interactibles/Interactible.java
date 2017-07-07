@@ -7,5 +7,14 @@ import com.artemis.Component;
  */
 public class Interactible extends Component {
 
+    public String label; //What is used to make little text to tell the user what action can be taken.
+
+
     public Interactible() {}
+
+    public Interactible(String label) {
+        this.label = label;
+    }
+
+
 }

@@ -37,8 +37,12 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Gdx.app.debug(TAG, "Tracker Entity spawned");
         } else if (entityName.equals("door")) {
             String nextLevel = (String) properties.get("gate");
-            Gdx.app.debug("NEXT LEVEL", nextLevel);
-            EntityMakerGame.createDoor(this.getWorld(), x, y, nextLevel);
+            String interactLabel = (String) properties.get("interactLabel");
+            EntityMakerGame.createDoor(this.getWorld(), x, y, nextLevel, interactLabel);
+            Gdx.app.debug(TAG, "Door spawned at X:" + x + " Y:" + y);
+            Gdx.app.debug("nextLevel", nextLevel);
+            Gdx.app.debug("interactLabel", interactLabel);
+
         }
 
     }

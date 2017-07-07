@@ -24,6 +24,7 @@
    <properties>
     <property name="entity" value="door"/>
     <property name="gate" value="Outside"/>
+    <property name="interactLabel" value="Enter"/>
    </properties>
   </tile>
  </tileset>

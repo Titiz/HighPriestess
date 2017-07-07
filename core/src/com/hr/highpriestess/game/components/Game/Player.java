@@ -8,7 +8,8 @@ import com.artemis.Entity;
  */
 public class Player extends Component {
 
-    public Entity collidingEntity;
-    public Boolean isActiveButtonClicked;
+    public Entity collidingEntity; //To see with what entity the player is currently colliding
+    public Boolean isActiveButtonClicked; //To see whether the activate button is clicked
+
 
 }

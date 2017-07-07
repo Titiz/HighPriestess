@@ -45,6 +45,8 @@ public class LabelSystem extends IteratingSystem {
 
         label.setPosition(boundsCm.get(e).x, boundsCm.get(e).y);
         textCm.get(e).setLabel(label);
+
+
     }
 
     @Override
