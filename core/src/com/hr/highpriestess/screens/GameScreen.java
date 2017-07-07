@@ -12,6 +12,7 @@ import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.*;
 import com.hr.highpriestess.game.systems.GameSystems.AnimationSystems.StateSelectSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.MapGateCollideSystem;
+import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.TriggerCollisionSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityLayeringSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
@@ -41,22 +42,29 @@ public class GameScreen extends AbstractScreen {
 
                         G.assetSystem,
 
+
+
                         new GameMapSystem("Monastery"),
                         new EntityLayeringSystem(),
-                        new MapGateCollideSystem(),
 
+                        new ControllerSystem(),
+                        new TriggerCollisionSystem(),
+                        new MapGateCollideSystem(),
 
                         new GameEntityClearerSystem(),
                         new GameEntitySpawnerSystem(),
 
 
-                        new CollisionSystem(),
+
+                        new CollisionUtilSystem(),
+
+
                         new CameraSystem(),
                         new StateSelectSystem(),
 
                         new KinematicsSystem(),
 
-                        new ControllerSystem(),
+
 
 
                         new TilemapRender(),

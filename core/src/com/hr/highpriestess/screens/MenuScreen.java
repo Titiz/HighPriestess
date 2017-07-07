@@ -31,7 +31,7 @@ public class MenuScreen extends AbstractScreen {
                         new LayerManager(),
                         G.assetSystem,
 
-                        new CollisionSystem(),
+                        new CollisionUtilSystem(),
                         new CameraSystem(),
 
                         //mouseSystems

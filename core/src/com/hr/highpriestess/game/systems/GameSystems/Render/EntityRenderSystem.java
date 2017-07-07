@@ -46,7 +46,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
     private List<Integer> sortedEntities = new ArrayList<Integer>();
 
     // boolean to track if entities need to be reorganized
-    boolean entities_mixed = true;
+    //    boolean entities_mixed = true;
 
 
 
@@ -55,42 +55,32 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
     }
 
+//
+//    class layerSortComperator implements Comparator<Integer> {
+//
+//        @Override
+//        public int compare(Integer e1, Integer e2) {
+//            return animCm.get(e1).layer.compareTo(animCm.get(e2).layer);
+//        }
+//    }
 
-
-
-
-
-
-
-    class layerSortComperator implements Comparator<Integer> {
-
-        @Override
-        public int compare(Integer e1, Integer e2) {
-            return animCm.get(e1).layer.compareTo(animCm.get(e2).layer);
-        }
-    }
-
-
-    protected void inserted (int e) {
-        sortedEntities.add(e);
-        entities_mixed = true;
-        Gdx.app.debug(TAG, e + " was added");
-    }
-
-    protected void removed (int e) {
-        sortedEntities.remove((Integer) e);
-        Gdx.app.debug(TAG, e + " was removed");
-
-    }
+//
+//    protected void inserted (int e) {
+//        sortedEntities.add(e);
+//        entities_mixed = true;
+//        Gdx.app.debug(TAG, e + " was added");
+//    }
+//
+//    protected void removed (int e) {
+//        sortedEntities.remove((Integer) e);
+//        Gdx.app.debug(TAG, e + " was removed");
+//
+//    }
 
 
     @Override
     protected void processSystem() {
 
-        if (entities_mixed) {
-            entities_mixed = false;
-            Collections.sort(sortedEntities, new layerSortComperator());
-        }
         Entity tracker = tagManager.getEntity("tracker");
 
         HashMap<G.Layer, Array<Integer>> layerMap = layCm.get(tracker).LayerMap;

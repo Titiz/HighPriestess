@@ -2,17 +2,14 @@ package com.hr.highpriestess.game.systems.GameSystems.DefenceSystems;
 
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
-import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
-import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.hr.highpriestess.game.components.Game.Defence.Selectable;
 import com.hr.highpriestess.game.components.Menu.Bounds;
-import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 
 /**
  * Used to create apply the selected status
@@ -25,7 +22,7 @@ public class SelectSystem extends BaseEntitySystem {
     String TAG = SelectSystem.class.getName();
 
     boolean entitiesSelected;
-    CollisionSystem collisionSystem;
+    CollisionUtilSystem collisionUtilSystem;
     TagManager tagManager;
 
     ComponentMapper<Selectable> selectableCm;
@@ -60,7 +57,7 @@ public class SelectSystem extends BaseEntitySystem {
             for (int i = 0; i < actives.size(); i++) {
                 int e = actives.get(i);
                 if (!selectedEntities.contains(e)) {
-                    if (collisionSystem.twoEntityCollision(e, selectSquare)) {
+                    if (collisionUtilSystem.twoEntityCollision(e, selectSquare)) {
                         if (lowestSelectedLayer > selectableCm.get(e).getSelectionLayer()) {
                             selectedEntities.clear();
                             Gdx.app.debug(TAG, "selectedEntities were cleared");

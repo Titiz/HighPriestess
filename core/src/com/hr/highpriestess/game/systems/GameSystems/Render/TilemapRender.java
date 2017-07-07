@@ -50,7 +50,7 @@ public class TilemapRender extends BaseSystem{
             currentShader.begin();
             currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
                     ambientColor.z, 0.8f);
-//            currentShader.end();
+            currentShader.end();
             SpriteBatch batch = new SpriteBatch();
             batch.setShader(currentShader);
             renderer = new OrthogonalTiledMapRenderer(mapSystem.map, batch);

@@ -1,11 +1,7 @@
 package com.hr.highpriestess.game.systems.GameSystems;
 
-import com.artemis.BaseSystem;
 import com.artemis.Entity;
-import com.artemis.managers.GroupManager;
-import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.MapProperties;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
 import com.hr.highpriestess.game.util.EntityMakerGame;
 
@@ -22,13 +18,15 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
         if (entityName.equals("player")) {
             Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y);
             tagManager.register(entityName, player);
+
             Gdx.app.debug(TAG, "Player spawned at X:" + x + " Y:" + y);
         }
         else if (entityName.equals("gate")) {
             String nextLevel = (String) properties.get(entityName);
-            Entity gate = EntityMakerGame.createChanger(this.getWorld(), x, y, nextLevel);
+            Entity gate = EntityMakerGame.createGate(this.getWorld(), x, y, nextLevel);
             groupManager.add(gate, entityName);
             Gdx.app.debug(TAG, "Gate spawned at X:" + x + " Y:" + y);
+            Gdx.app.debug("NEXT LEVEL", nextLevel);
         } else if (entityName.equals("enemy")) {
             Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
             groupManager.add(enemy, entityName);
@@ -37,6 +35,10 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Entity tracker = EntityMakerGame.createTracker(this.getWorld());
             tagManager.register(entityName,tracker);
             Gdx.app.debug(TAG, "Tracker Entity spawned");
+        } else if (entityName.equals("door")) {
+            String nextLevel = (String) properties.get("gate");
+            Gdx.app.debug("NEXT LEVEL", nextLevel);
+            EntityMakerGame.createDoor(this.getWorld(), x, y, nextLevel);
         }
 
     }

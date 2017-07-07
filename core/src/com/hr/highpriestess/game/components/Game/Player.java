@@ -9,5 +9,6 @@ import com.artemis.Entity;
 public class Player extends Component {
 
     public Entity collidingEntity;
+    public Boolean isActiveButtonClicked;
 
 }

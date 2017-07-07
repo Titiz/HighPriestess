@@ -24,7 +24,7 @@ import com.hr.highpriestess.game.systems.GameSystems.DefenceSystems.fightingsyst
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 
 
 
@@ -72,7 +72,7 @@ public class DefenceScreen extends AbstractScreen {
 
 
                         new MakeSelectionSquare(),
-                        new CollisionSystem(),
+                        new CollisionUtilSystem(),
 
 
 

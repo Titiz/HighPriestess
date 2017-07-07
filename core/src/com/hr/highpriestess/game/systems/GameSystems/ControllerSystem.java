@@ -5,9 +5,11 @@ import com.artemis.ComponentMapper;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Anim;
+import com.hr.highpriestess.game.components.Game.ChangeMap;
+import com.hr.highpriestess.game.components.Game.Interactibles.Door;
 import com.hr.highpriestess.game.components.Game.Kinematics;
+import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 
@@ -16,13 +18,16 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
  */
 public class ControllerSystem extends BaseSystem {
 
-
+    String TAG = ControllerSystem.class.getName();
 
     ComponentMapper<Kinematics> kinCm;
     ComponentMapper<Anim> animCm;
     CameraSystem cameraSystem;
     GameMapSystem gameMapSystem;
     ComponentMapper<Bounds> boundsCm;
+    ComponentMapper<Player> playerCm;
+    ComponentMapper<Door> doorCm;
+    ComponentMapper<ChangeMap> changeMapcm;
 
     TagManager tagManager;
 
@@ -31,17 +36,22 @@ public class ControllerSystem extends BaseSystem {
     protected void processSystem() {
         /** Controls player input **/
         int player = tagManager.getEntity("player").getId();
+
+        playerCm.get(player).isActiveButtonClicked = false;
+
         Kinematics entity = kinCm.getSafe(player);
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             entity.setVx(-200 * Gdx.graphics.getDeltaTime());
 
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             entity.setVx(200 * Gdx.graphics.getDeltaTime());
 
         } else
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            G.game.goDefence();
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            Gdx.app.log(TAG, "E was pressed");
+            playerCm.get(player).isActiveButtonClicked = true;
         }
 
         else

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hr.highpriestess.game.components.Menu.*;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.LabelSystem;
 
 
@@ -25,7 +25,7 @@ public class HoverAlphaSystem extends HoverEntitySystem{
     private CameraSystem cameraSystem;
     //passive systems.
     private AssetSystem assetSystem;
-    private CollisionSystem collisionSystem;
+    private CollisionUtilSystem collisionUtilSystem;
     private LabelSystem hoverLabelSystem;
 
     private SpriteBatch batch = new SpriteBatch();

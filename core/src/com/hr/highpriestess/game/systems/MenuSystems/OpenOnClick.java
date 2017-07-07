@@ -16,7 +16,7 @@ import com.hr.highpriestess.game.components.Menu.Layer;
 
 public class OpenOnClick extends IteratingSystem {
 
-    CollisionSystem collisionSystem;
+    CollisionUtilSystem collisionUtilSystem;
     LayerManager layerManager;
     ComponentMapper<ClickOpen> clickOpenCm;
     ComponentMapper<Bounds> boundsCm;

@@ -8,6 +8,8 @@ import com.artemis.Component;
 public class ChangeMap extends Component {
     private String nextMap;
 
+    public ChangeMap() {}
+
     public ChangeMap(String nextMap){
         this.nextMap = nextMap;
     }

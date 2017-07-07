@@ -8,7 +8,7 @@ import com.hr.highpriestess.game.components.Game.Defence.Movement.MoveToDestinat
 import com.hr.highpriestess.game.components.Game.Defence.Target;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 
 /**
  * Created by Titas on 2016-08-06.
@@ -20,7 +20,7 @@ public class MouseTargetSystem extends BaseSystem{
     ComponentMapper<Target> targetCm;
     GroupManager groupmanager;
     CameraSystem cameraSystem;
-    CollisionSystem collisionSystem;
+    CollisionUtilSystem collisionUtilSystem;
     ComponentMapper<Bounds> boundsCm;
     ComponentMapper<MoveToDestination> moveToDestinationCm;
 
@@ -48,7 +48,7 @@ public class MouseTargetSystem extends BaseSystem{
                     int allyID = entity.getId();
                     for (Entity enemy : enemies) {
                         int enemyID = enemy.getId();
-                        if (collisionSystem.collidesWithMouse(enemyID)) {
+                        if (collisionUtilSystem.collidesWithMouse(enemyID)) {
                             if (targetCm.has(allyID)) {
                                 targetCm.get(allyID).setTarget(enemyID);
                             } else {

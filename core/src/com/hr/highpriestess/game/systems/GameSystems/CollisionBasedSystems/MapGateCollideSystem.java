@@ -3,11 +3,13 @@ package com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems;
 import com.artemis.*;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
-import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.hr.highpriestess.game.components.Game.ChangeMap;
+import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
+import com.hr.highpriestess.game.components.Game.Interactibles.Trigger;
+import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.systems.GameSystems.GameMapSystem;
-import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 
 
 public class MapGateCollideSystem extends BaseSystem {
@@ -20,30 +22,35 @@ public class MapGateCollideSystem extends BaseSystem {
 
 
     private GameMapSystem gameMapSystem;
-    private CollisionSystem collisionSystem;
-    private ComponentMapper<ChangeMap> changeMapCm;
-    int playerEntity;
-    int [] changeMapEntities;
+    private CollisionUtilSystem collisionUtilSystem;
 
+
+    private ComponentMapper<ChangeMap> changeMapCm;
+    private ComponentMapper<Trigger> triggerCm;
+    private ComponentMapper<Interactible> interaCm;
+    private ComponentMapper<Player> playerCm;
+
+    int player;
+
+
+    public MapGateCollideSystem() {}
+
+
+    protected void begin() {
+        player = tagManager.getEntity("player").getId();
+    }
 
     @Override
     protected void processSystem() {
-        /** Checks collisions of the changeMapBoxes with the player to see if the map must be changed **/
-         ImmutableBag<Entity> changeMapBoxes = groupManager.getEntities("gate");
-         Entity player = tagManager.getEntity("player");
-
-            for (Entity changeMapBox : changeMapBoxes) {
-                if (collisionSystem.twoEntityCollision(changeMapBox.getId(), player.getId())) {
-                    Gdx.app.debug(TAG, " Collision detected of Player with ChangeBox '" +
-                            changeMapCm.get(changeMapBox.getId()).getNextMap() + "'");
-                    gameMapSystem.setActiveMap(changeMapCm.get(changeMapBox.getId()).getNextMap());
-                    break;
-                }
-
-
+        Entity collidedEntity = playerCm.get(player).collidingEntity;
+        Gdx.app.debug(TAG, playerCm.get(player).isActiveButtonClicked.toString());
+        if (collidedEntity!= null && changeMapCm.has(collidedEntity)) {
+            if (triggerCm.has(collidedEntity)) {
+                gameMapSystem.setActiveMap(changeMapCm.get(collidedEntity).getNextMap());
+            } else if (interaCm.has(collidedEntity) && playerCm.get(player).isActiveButtonClicked) {
+                gameMapSystem.setActiveMap(changeMapCm.get(collidedEntity).getNextMap());
+            }
         }
-
-
 
     }
 
@@ -51,3 +58,7 @@ public class MapGateCollideSystem extends BaseSystem {
 
 
 }
+
+
+
+

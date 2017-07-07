@@ -6,7 +6,7 @@ import com.artemis.systems.IteratingSystem;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.components.Menu.HoverBehavior;
 import com.hr.highpriestess.game.components.Menu.Layer;
-import com.hr.highpriestess.game.systems.MenuSystems.CollisionSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.LayerManager;
 
 
@@ -24,7 +24,7 @@ public class MouseHoverSystem extends IteratingSystem {
 
     ComponentMapper<Bounds> boundsCm;
     ComponentMapper<HoverBehavior> hovCm;
-    CollisionSystem collisionSystem;
+    CollisionUtilSystem collisionUtilSystem;
     ComponentMapper<Layer> layerCm;
     LayerManager layerManager;
 
@@ -33,7 +33,7 @@ public class MouseHoverSystem extends IteratingSystem {
 
         if (activeLayer == layerCm.get(e).getLayer() &&
                 layerManager.isTransitionOver()) {
-            if (collisionSystem.collidesWithMouse(e)) {
+            if (collisionUtilSystem.collidesWithMouse(e)) {
                 hovCm.get(e).setHovered(true);
                 hovCm.get(e).incrementTicks();
             } else {
