@@ -2,6 +2,7 @@ package com.hr.highpriestess.game.systems.GameSystems.Render;
 
 import com.artemis.*;
 import com.artemis.managers.GroupManager;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -9,7 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Anim;
+import com.hr.highpriestess.game.components.Game.Tracker.LayerEntityTracker;
+import com.hr.highpriestess.game.components.Game.Tracker.ShaderHolder;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
@@ -30,8 +35,11 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
     ComponentMapper<Anim> animCm;
     ComponentMapper<Bounds> boundsCm;
+    ComponentMapper<LayerEntityTracker> layCm;
+    ComponentMapper<ShaderHolder> shaderCm;
 
     GroupManager groupManager;
+    TagManager tagManager;
     CameraSystem cameraSystem;
 
     // list that keeps the entities in the order they need to be rendered. Awesome.
@@ -44,32 +52,6 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
     public EntityRenderSystem() {
         super(Aspect.all(Anim.class, Bounds.class));
-
-        final String ambientPixelShader = Gdx.files.internal("ambientPixelShader.glsl").readString();
-        final String vertexShader = Gdx.files.internal("vertexShader.glsl").readString();
-        Gdx.app.debug("AMBIENT:", ambientPixelShader);
-        Gdx.app.debug("VERTEX:", vertexShader);
-
-        currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
-
-        if (currentShader.isCompiled()) {
-            Gdx.app.debug(TAG, "SHADER COMPILED");
-        } else {
-            Gdx.app.debug(TAG, "SHADER FAILED TO COMPILE:" + currentShader.getLog());
-        }
-
-
-
-        Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
-
-
-
-        ShaderProgram.pedantic = false;
-        currentShader.begin();
-        currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-                ambientColor.z, 0.7f);
-        currentShader.end();
-
 
     }
 
@@ -109,13 +91,28 @@ public class EntityRenderSystem extends BaseEntitySystem  {
             entities_mixed = false;
             Collections.sort(sortedEntities, new layerSortComperator());
         }
+        Entity tracker = tagManager.getEntity("tracker");
+
+        HashMap<G.Layer, Array<Integer>> layerMap = layCm.get(tracker).LayerMap;
+        HashMap<G.Layer, ShaderProgram> shaderMap = shaderCm.get(tracker).ShaderMap;
+
         batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.setShader(currentShader);
-        batch.begin();
-        for (int e : sortedEntities) {
-            process(e);
+        for (G.Layer value : G.Layer.values()) {
+            if (shaderMap.containsKey(value)) currentShader = shaderMap.get(value);
+
+            if (layerMap.containsKey(value)) {
+                batch.setShader(currentShader);
+                batch.begin();
+                for (int e : layerMap.get(value)) process(e);
+                batch.end();
+            }
+
         }
-        batch.end();
+
+
+
+
+
 
 
     }

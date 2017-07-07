@@ -1,15 +1,10 @@
-package com.hr.highpriestess.game.systems.GameSystems;
+package com.hr.highpriestess.game.systems.GameSystems.Render;
 
 import com.artemis.*;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Array;
 import com.hr.highpriestess.game.components.Game.Anim;
-import com.hr.highpriestess.game.components.Game.Kinematics;
 import com.hr.highpriestess.game.components.Game.Tracker.LayerEntityTracker;
-import com.hr.highpriestess.game.components.Menu.Bounds;
-
-import java.util.HashMap;
 
 
 /**

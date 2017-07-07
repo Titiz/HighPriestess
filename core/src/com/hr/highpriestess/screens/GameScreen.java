@@ -12,6 +12,7 @@ import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.*;
 import com.hr.highpriestess.game.systems.GameSystems.AnimationSystems.StateSelectSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.MapGateCollideSystem;
+import com.hr.highpriestess.game.systems.GameSystems.Render.EntityLayeringSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
 import com.hr.highpriestess.game.systems.MenuSystems.*;

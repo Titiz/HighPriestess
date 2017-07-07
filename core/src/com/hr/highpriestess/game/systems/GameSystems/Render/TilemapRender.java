@@ -1,6 +1,8 @@
 package com.hr.highpriestess.game.systems.GameSystems.Render;
 
 import com.artemis.BaseSystem;
+import com.artemis.ComponentMapper;
+import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +11,8 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.components.Game.Tracker.ShaderHolder;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
 import com.hr.highpriestess.game.systems.GameSystems.GameMapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
@@ -27,6 +31,10 @@ public class TilemapRender extends BaseSystem{
     }
 
     private MapSystem mapSystem;
+
+    TagManager tagManager;
+    ComponentMapper<ShaderHolder> shaderCm;
+
     private boolean isRendererMade = false;
     ShaderProgram currentShader;
 
@@ -34,12 +42,7 @@ public class TilemapRender extends BaseSystem{
     private void makeRenderer() {
         if (!isRendererMade) {
 
-
-            final String ambientPixelShader = Gdx.files.internal("ambientPixelShader.glsl").readString();
-            final String vertexShader = Gdx.files.internal("vertexShader.glsl").readString();
-
-
-            currentShader = new ShaderProgram(vertexShader, ambientPixelShader);
+            currentShader = shaderCm.get(tagManager.getEntity("tracker")).ShaderMap.get(G.Layer.DEFAULT);
 
             Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
 
