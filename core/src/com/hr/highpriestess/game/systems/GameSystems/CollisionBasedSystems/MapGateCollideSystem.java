@@ -8,6 +8,7 @@ import com.hr.highpriestess.game.components.Game.ChangeMap;
 import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
 import com.hr.highpriestess.game.components.Game.Interactibles.Trigger;
 import com.hr.highpriestess.game.components.Game.Player;
+import com.hr.highpriestess.game.components.Game.Tracker.SpawnGateTracker;
 import com.hr.highpriestess.game.systems.GameSystems.GameMapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 
@@ -29,6 +30,7 @@ public class MapGateCollideSystem extends BaseSystem {
     private ComponentMapper<Trigger> triggerCm;
     private ComponentMapper<Interactible> interaCm;
     private ComponentMapper<Player> playerCm;
+    private ComponentMapper<SpawnGateTracker> spawnGateCm;
 
     int player;
 
@@ -50,6 +52,9 @@ public class MapGateCollideSystem extends BaseSystem {
             } else if (interaCm.has(collidedEntity) && playerCm.get(player).isActiveButtonClicked) {
                 gameMapSystem.setActiveMap(changeMapCm.get(collidedEntity).getNextMap());
             }
+            int tracker = tagManager.getEntity("tracker").getId();
+            spawnGateCm.get(tracker).usedGateDestination = changeMapCm.get(collidedEntity).getExitGateName(); // We store where we are going in the next map.
+            Gdx.app.debug(TAG, "usedGateDestination is: " + spawnGateCm.get(tracker).usedGateDestination);
         }
 
     }

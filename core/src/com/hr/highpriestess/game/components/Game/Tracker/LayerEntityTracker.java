@@ -14,6 +14,10 @@ public class LayerEntityTracker extends Component {
     public HashMap<G.Layer, Array<Integer>> LayerMap; // Layers to a list containing all entities in that render layer.
 
     public LayerEntityTracker() {
+        reset();
+    }
+
+    public void reset() {
         LayerMap = new HashMap<G.Layer, Array<Integer>>();
     }
 

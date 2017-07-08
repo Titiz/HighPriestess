@@ -7,9 +7,4 @@ import com.artemis.Component;
  */
 public class Door extends Component {
 
-    public String nextMap;
-
-    public Door(String nextMap) {
-        this.nextMap = nextMap;
-    }
 }

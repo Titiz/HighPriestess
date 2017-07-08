@@ -11,7 +11,9 @@ import com.hr.highpriestess.game.util.EntityMakerGame;
 public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
 
 
-    String TAG = GameEntitySpawnerSystem.class.getName();
+    String TAG = GameEntitySpawnerSystem.class.getName(); // for debug use
+
+
 
 
     public void spawnEntity(float x, float y, String entityName) {
@@ -23,10 +25,13 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
         }
         else if (entityName.equals("gate")) {
             String nextLevel = (String) properties.get(entityName);
-            Entity gate = EntityMakerGame.createGate(this.getWorld(), x, y, nextLevel);
-            groupManager.add(gate, entityName);
+            String arrivalGate = (String) properties.get("arrivalGate");
+            String name = (String) properties.get("name");
+            EntityMakerGame.createGate(this.getWorld(), x, y, nextLevel, name, arrivalGate);
             Gdx.app.debug(TAG, "Gate spawned at X:" + x + " Y:" + y);
             Gdx.app.debug("NEXT LEVEL", nextLevel);
+            Gdx.app.debug("name", name);
+            Gdx.app.debug("arrivalGate", arrivalGate);
         } else if (entityName.equals("enemy")) {
             Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
             groupManager.add(enemy, entityName);
@@ -38,11 +43,14 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
         } else if (entityName.equals("door")) {
             String nextLevel = (String) properties.get("gate");
             String interactLabel = (String) properties.get("interactLabel");
-            EntityMakerGame.createDoor(this.getWorld(), x, y, nextLevel, interactLabel);
+            String arrivalGate = (String) properties.get("arrivalGate");
+            String name = (String) properties.get("name");
+            EntityMakerGame.createDoor(this.getWorld(), x, y, interactLabel, nextLevel, name, arrivalGate);
             Gdx.app.debug(TAG, "Door spawned at X:" + x + " Y:" + y);
             Gdx.app.debug("nextLevel", nextLevel);
             Gdx.app.debug("interactLabel", interactLabel);
-
+            Gdx.app.debug("name", name);
+            Gdx.app.debug("arrivalGate", arrivalGate);
         }
 
     }

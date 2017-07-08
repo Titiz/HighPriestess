@@ -14,6 +14,10 @@ public class ShaderHolder extends Component {
     public HashMap<G.Layer, ShaderProgram> ShaderMap; // maps layers to their current shader
 
     public ShaderHolder() {
+        reset();
+    }
+
+    public void reset() {
         ShaderMap = new HashMap<G.Layer, ShaderProgram>();
     }
 

@@ -49,7 +49,7 @@ public class ControllerSystem extends BaseSystem {
             entity.setVx(200 * Gdx.graphics.getDeltaTime());
 
         } else
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             Gdx.app.log(TAG, "E was pressed");
             playerCm.get(player).isActiveButtonClicked = true;
         }

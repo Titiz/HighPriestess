@@ -54,4 +54,14 @@ public class Bounds extends Component {
         this.y = centerY - this.height/2;
     }
 
+    public void setXY(float x, float y) {
+        setX(x);
+        setY(y);
+    }
+
+    public void setCenterXY(float centerX, float centerY) {
+        setCenterX(centerX);
+        setCenterY(centerY);
+    }
+
 }

@@ -7,7 +7,6 @@ import com.artemis.managers.GroupManager;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Anim;
 import com.hr.highpriestess.game.components.Game.ChangeMap;
-import com.hr.highpriestess.game.components.Game.Interactibles.Door;
 import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
 import com.hr.highpriestess.game.components.Game.Interactibles.Trigger;
 import com.hr.highpriestess.game.components.Game.Kinematics;
@@ -51,10 +50,10 @@ public class EntityMakerGame {
     }
 
     public static Entity createGate(final World world, final float x, final float y,
-                                    String nextMap) {
+                                    String nextMap, String gateName, String arrivalGateName) {
         Entity entity = createNew(world)
                 .add(new Bounds(x, y, 32, 32))
-                .add(new ChangeMap(nextMap))
+                .add(new ChangeMap(nextMap, gateName, arrivalGateName))
                 .add (new Trigger())
                 .getEntity();
 
@@ -65,15 +64,17 @@ public class EntityMakerGame {
         Entity entity = createNew(world)
                 .add(new LayerEntityTracker())
                 .add(new ShaderHolder())
+                .add(new SpawnGateTracker())
                 .getEntity();
         return entity;
     }
 
-    public static Entity createDoor(final World world, final float x, final float y, String nextMap, String interactLabel) {
+    public static Entity createDoor(final World world, final float x, final float y, String interactLabel,
+                                    String nextMap,  String gateName, String arrivalGateName) {
         Entity entity = createNew(world)
                 .add(new Bounds(x, y, 32, 32))
                 .add(new Interactible(interactLabel))
-                .add(new ChangeMap(nextMap))
+                .add(new ChangeMap(nextMap, gateName, arrivalGateName))
                 .getEntity();
         return entity;
     }

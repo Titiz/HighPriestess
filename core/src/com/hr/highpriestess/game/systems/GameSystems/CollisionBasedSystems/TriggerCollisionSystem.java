@@ -54,8 +54,5 @@ public class TriggerCollisionSystem extends BaseEntitySystem {
 
     }
 
-    protected void process(int e) {
-
-    }
 
 }

@@ -20,14 +20,14 @@ public abstract class EntityClearerSystem extends BaseSystem {
         ImmutableBag<Entity> entities = groupManager.getEntities(identifier);
         for(Entity entity : entities) {
             removeEntityFromWorld(entity);
-            //groupManager.remove(entity, identifier);   not sure if needed
+            groupManager.remove(entity, identifier);
         }
     }
 
     protected final void deleteEntities(String identifier, TagManager tagManager){
         Entity entity = tagManager.getEntity(identifier);
         removeEntityFromWorld(entity);
-        //tagManager.unregister(identifier);  not sure if needed
+        tagManager.unregister(identifier);
 
     }
 

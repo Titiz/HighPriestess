@@ -6,6 +6,7 @@ package com.hr.highpriestess.game.systems.GameSystems;
 
 import com.artemis.BaseSystem;
 
+import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.components.Game.Tracker.SpawnGateTracker;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntityClearerSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
@@ -47,6 +49,10 @@ public class GameMapSystem extends MapSystem {
     GameEntityClearerSystem gameEntityClearerSystem;
 
 
+
+
+
+
     public GameMapSystem(String startingMap) {
         this.activeMapName = startingMap;
     }
@@ -66,8 +72,6 @@ public class GameMapSystem extends MapSystem {
     }
 
     public void setActiveMap(String activeMapName) {
-
-
         Gdx.app.debug(TAG, "activeMap changed");
 
         cameraSystem.reset();
@@ -82,8 +86,15 @@ public class GameMapSystem extends MapSystem {
         width = layers.get(0).getWidth();
         height = layers.get(0).getHeight();
 
+
         isSetup = false;
     }
+
+
+
+
+
+
 
 
     @Override
@@ -98,11 +109,17 @@ public class GameMapSystem extends MapSystem {
 
     private void setup() {
 
+        if (tagManager.getEntity("tracker") == null) {              // If tracker is null, map was never created
+            Gdx.app.debug(TAG, "tracker Entity is about to spawn"); // So NO need to clear entities.
+            gameEntitySpawnerSystem.spawnEntity("tracker");
+        } else {
+            Gdx.app.debug(TAG, "Entities about to be cleared");
+            gameEntityClearerSystem.clearEntities(); // Otherwise we just need to clear entities
+        }
 
-        gameEntitySpawnerSystem.spawnEntity("tracker");
         Entity tracker = tagManager.getEntity("tracker");
-        MapSetupHolder.setup(gameEntityClearerSystem,
-                gameEntitySpawnerSystem,
+
+        MapSetupHolder.setup(gameEntitySpawnerSystem,
                 layers, width, height, tracker);
     }
 }

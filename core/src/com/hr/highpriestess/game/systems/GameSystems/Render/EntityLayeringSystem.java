@@ -29,6 +29,7 @@ public class EntityLayeringSystem extends BaseEntitySystem {
     protected void inserted(int entityId) {
         Gdx.app.debug(TAG, "Inserted Entity with Id: " + entityId);
         Entity tracker = tagManager.getEntity("tracker");
+        Gdx.app.debug(TAG, "tracker " + tracker);
         LayerEntityTracker layerTracker = layerEntityTrackercm.get(tracker);
         layerTracker.add(entityId, animCm.get(entityId).layer);
     }

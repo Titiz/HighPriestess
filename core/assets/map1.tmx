@@ -22,9 +22,13 @@
   </tile>
   <tile id="383">
    <properties>
+    <property name="PixelShader" value="ambientPixelShader.glsl"/>
+    <property name="VertexShader" value="vertexShader.glsl"/>
+    <property name="arrivalGate" value="monasteryWestExit"/>
     <property name="entity" value="door"/>
     <property name="gate" value="Outside"/>
     <property name="interactLabel" value="Enter"/>
+    <property name="name" value="monasteryWestEntrance"/>
    </properties>
   </tile>
  </tileset>
@@ -70,8 +74,10 @@
   <properties>
    <property name="PixelShader" value="ambientPixelShader.glsl"/>
    <property name="VertexShader" value="vertexShader.glsl"/>
+   <property name="arrivalGate" value="monasteryWestExit"/>
    <property name="entity" value="gate"/>
    <property name="gate" value="Outside"/>
+   <property name="name" value="monasteryWestEntrance"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

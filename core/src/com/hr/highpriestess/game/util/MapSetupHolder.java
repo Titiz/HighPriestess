@@ -42,15 +42,13 @@ public class MapSetupHolder {
         }
     }
 
-    public static void setup(EntityClearerSystem entityClearerSystem,
-                             EntitySpawnerSystem entitySpawnerSystem,
+    public static void setup(EntitySpawnerSystem entitySpawnerSystem,
                              Array<TiledMapTileLayer> layers,
                              float width, float height, Entity tracker) {
 
-        entityClearerSystem.clearEntities();
         for (TiledMapTileLayer layer : layers) {
             if (layer.getProperties().containsKey("PixelShader")) {
-                Gdx.app.log("LAYER NAME:", layer.getName());
+                Gdx.app.log("LAYER NAME", layer.getName());
                 Gdx.app.log("VERTEX SHADER NAME", layer.getProperties().get("VertexShader").toString());
                 Gdx.app.log("PIXEL SHADER NAME", layer.getProperties().get("PixelShader").toString());
                 tracker.getComponent(ShaderHolder.class).ShaderMap.put(G.Layer.valueOf(layer.getName()),

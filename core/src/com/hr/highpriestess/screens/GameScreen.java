@@ -47,6 +47,7 @@ public class GameScreen extends AbstractScreen {
 
                         new GameMapSystem("Monastery"),
                         new EntityLayeringSystem(),
+                        new RelocationSystem(),
 
                         new ControllerSystem(),
                         new TriggerCollisionSystem(),
