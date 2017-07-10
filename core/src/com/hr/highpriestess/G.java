@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that stores important constants which can be accessed from anywhere in the  game
+ * Class that stores important constants or static Classes which can be accessed from anywhere in the game
  */
 
 public class G {

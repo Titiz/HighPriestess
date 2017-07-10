@@ -1,13 +1,8 @@
 package com.hr.highpriestess;
 
-import com.artemis.World;
 import com.badlogic.gdx.Application;
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.hr.highpriestess.screens.DefenceScreen;
 import com.hr.highpriestess.screens.GameScreen;
 import com.hr.highpriestess.screens.MenuScreen;

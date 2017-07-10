@@ -5,11 +5,16 @@ import com.artemis.ComponentMapper;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -30,7 +35,7 @@ public class AssetSystem extends BaseSystem {
 
 
     // TODO: Load assets through the assetmanager.
-    AssetManager assetManager;
+    public AssetManager assetManager;
 
     public final BitmapFont font;
     public final BitmapFont fontLarge;
@@ -93,28 +98,57 @@ public class AssetSystem extends BaseSystem {
         return transitions.put(identifier, new Animation(frameDuration, regions));
     }
 
+    public Texture getImage(String identifier) {
+        return assetManager.get(identifier, Texture.class);
+    }
+
+
 
     public AssetSystem() {
+
         assetManager = new AssetManager();
         font = new BitmapFont();
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);
 
 
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
-        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
-        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
-        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, new Texture("Blood3.png"), 0.1f);
-        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, new Texture("background.png"), 1f);
+        FreetypeFontLoader.FreeTypeFontLoaderParameter mySmallFont = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        mySmallFont.fontFileName = "GURU0.ttf";
+        mySmallFont.fontParameters.size = 10;
+        assetManager.load("GURU0.ttf", BitmapFont.class, mySmallFont);
 
-        add("idlePlayer", 0, 0, 1024, 1024, 12, 1, new Texture("Blood.png"), 0.1f);
-        add("movingPlayer", 0, 0, 1024, 1024, 12, 1, new Texture("Blood2.png"), 0.1f);
+        assetManager.load("Blood.png", Texture.class);
+        assetManager.load("Blood2.png", Texture.class);
+        assetManager.load("Blood3.png", Texture.class);
+        assetManager.load("background.png", Texture.class);
+        assetManager.load("trans.png", Texture.class);
+        assetManager.load("nunWalk.png", Texture.class);
 
 
-        add(-1, 0, 0, 80, 1072, 22, 1, new Texture("trans.png"), 0.1f);
+
+        assetManager.finishLoading();
+
+        Gdx.app.debug(TAG, "Primary Assets have loaded");
+
+        assetManager.load("trans.png", Texture.class);
 
 
-        Gdx.app.debug(TAG, "Assets have loaded");
+        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
+        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, getImage("Blood2.png"), 0.1f);
+        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, getImage("Blood3.png"), 0.1f);
+        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, getImage("background.png"), 1f);
+        add(-1, 0, 0, 80, 1072, 22, 1, getImage("trans.png"), 0.1f);
+
+        add("idlePlayer", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
+        add("movingPlayer", 0, 0, 32, 32, 12, 1, getImage("nunWalk.png"), 0.1f);
+
+
+        Gdx.app.debug(TAG, "Custom Assets have loaded");
+
 
     }
 
@@ -123,6 +157,9 @@ public class AssetSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
+        assetManager.update(2);
+        if (assetManager.isLoaded("trans.png")) {
 
+        }
     }
 }

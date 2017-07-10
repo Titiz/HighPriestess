@@ -35,7 +35,7 @@ public class InteractLabelRenderSystem extends BaseSystem {
     int player;
 
     public InteractLabelRenderSystem() {
-        font = G.assetSystem.font;
+        font = G.assetSystem.assetManager.get("GURU0.ttf");
         batch = new SpriteBatch();
     }
 
@@ -50,7 +50,6 @@ public class InteractLabelRenderSystem extends BaseSystem {
         Entity collidedEntity = playerCm.get(player).collidingEntity;
         if (interaCm.has(collidedEntity)) {
             String text = interaCm.get(collidedEntity).label;
-
             font.setColor(255, 255, 255, 1);
             Label.LabelStyle style = new Label.LabelStyle(font, font.getColor());
             Label label = new Label(text, style);
@@ -60,7 +59,6 @@ public class InteractLabelRenderSystem extends BaseSystem {
 
             label.setPosition(boundsCm.get(collidedEntity).x, boundsCm.get(player).y + boundsCm.get(player).height);
 
-            Gdx.app.debug(TAG, "LABEL TEXT: " + text);
 
             batch.begin();
             label.draw(batch, 1.0f);

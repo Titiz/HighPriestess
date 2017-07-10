@@ -54,7 +54,7 @@ public class MapGateCollideSystem extends BaseSystem {
             }
             int tracker = tagManager.getEntity("tracker").getId();
             spawnGateCm.get(tracker).usedGateDestination = changeMapCm.get(collidedEntity).getExitGateName(); // We store where we are going in the next map.
-            Gdx.app.debug(TAG, "usedGateDestination is: " + spawnGateCm.get(tracker).usedGateDestination);
+            //Gdx.app.debug(TAG, "usedGateDestination is: " + spawnGateCm.get(tracker).usedGateDestination);
         }
 
     }

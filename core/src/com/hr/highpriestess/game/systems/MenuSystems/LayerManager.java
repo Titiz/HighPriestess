@@ -71,8 +71,7 @@ public class LayerManager extends BaseEntitySystem {
             if (!trans.getTransition().isAnimationFinished(trans.getEllapsedTime())) {
                 trans.addEllapsedTime(Gdx.graphics.getDeltaTime());
             } else {
-
-                G.menuWorld.getEntity(transitionEntity).deleteFromWorld();
+                this.getWorld().delete(transitionEntity);
                 transitionOver = true;
                 if (this.activeLayer == -1)
                     G.game.goGame();
