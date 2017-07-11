@@ -5,12 +5,9 @@ import com.artemis.EntityEdit;
 import com.artemis.World;
 import com.artemis.managers.GroupManager;
 import com.hr.highpriestess.G;
-import com.hr.highpriestess.game.components.Game.Anim;
-import com.hr.highpriestess.game.components.Game.ChangeMap;
+import com.hr.highpriestess.game.components.Game.*;
 import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
 import com.hr.highpriestess.game.components.Game.Interactibles.Trigger;
-import com.hr.highpriestess.game.components.Game.Kinematics;
-import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Game.Tracker.LayerEntityTracker;
 import com.hr.highpriestess.game.components.Game.Tracker.*;
 import com.hr.highpriestess.game.components.Menu.*;
@@ -85,7 +82,7 @@ public class EntityMakerGame {
                                                  final float width, final float height,
                                                  final String imageName, final G.Layer layer) {
         Entity entity = createNew(world)
-                .add(new Anim(layer, imageName))
+                .add(new Image(imageName, layer))
                 .add(new Bounds(x, y, width, height))
                 .getEntity();
         return entity;

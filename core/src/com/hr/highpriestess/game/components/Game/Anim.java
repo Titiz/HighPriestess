@@ -16,13 +16,7 @@ public class Anim extends Component {
 
 
 
-    public static enum AnimStates
-    {
-        IDLE,
-        WALKING,
-        TALKING,
-        RUNNING
-    }
+
 
 
 

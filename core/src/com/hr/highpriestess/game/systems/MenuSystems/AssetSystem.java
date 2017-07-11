@@ -32,7 +32,7 @@ public class AssetSystem extends BaseSystem {
      */
 
 
-    // TODO: Load assets through the assetmanager.
+
     public AssetManager assetManager;
 
     public final BitmapFont font;
@@ -109,6 +109,10 @@ public class AssetSystem extends BaseSystem {
         fontLarge = new BitmapFont();
         fontLarge.getData().scale(3);
 
+
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        assetManager.load("monastery.tmx", TiledMap.class);
+        assetManager.load("outside.tmx", TiledMap.class);
 
 
 

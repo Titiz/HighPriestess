@@ -4,15 +4,15 @@ import com.artemis.*;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Anim;
+import com.hr.highpriestess.game.components.Game.Image;
 import com.hr.highpriestess.game.components.Game.Tracker.LayerEntityTracker;
 import com.hr.highpriestess.game.components.Game.Tracker.ShaderHolder;
 import com.hr.highpriestess.game.components.Menu.Bounds;
@@ -35,8 +35,10 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
     ComponentMapper<Anim> animCm;
     ComponentMapper<Bounds> boundsCm;
+    ComponentMapper<Image> imageCm;
     ComponentMapper<LayerEntityTracker> layCm;
     ComponentMapper<ShaderHolder> shaderCm;
+
 
     GroupManager groupManager;
     TagManager tagManager;
@@ -51,8 +53,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
 
     public EntityRenderSystem() {
-        super(Aspect.all(Anim.class, Bounds.class));
-
+        super(Aspect.all(Bounds.class).one(Anim.class, Image.class));
     }
 
 //
@@ -103,39 +104,74 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
 
 
+    private void useDefaultSize(int e, Texture currentFrame) {
+        /** This is used for entities with width or height of -1**/
+        if(boundsCm.get(e).width == -1) { // If width of an image is not specified, we had  set it to -1.
+            Gdx.app.debug(TAG, "Bounds: Width Change for entity " + e);
+            boundsCm.get(e).width = currentFrame.getWidth(); // We now change it to the width of the image.
+            Gdx.app.debug(TAG, "New width: " + boundsCm.get(e).width);
+        }
+
+        if(boundsCm.get(e).height == -1) { // If height of an image was not specified, we had set it to -1.
+            Gdx.app.debug(TAG, "Bounds: Height Change for entity " + e);
+            boundsCm.get(e).height = currentFrame.getHeight(); // We now change it to the height of the image.
+            Gdx.app.debug(TAG, "New Height: " + boundsCm.get(e).height);
+        }
+    }
+
     private void useDefaultSize(int e, TextureRegion currentFrame) {
         /** This is used for entities with width or height of -1**/
         if(boundsCm.get(e).width == -1) { // If width of an image is not specified, we had  set it to -1.
             Gdx.app.debug(TAG, "Bounds: Width Change for entity " + e);
-            boundsCm.get(e).width = currentFrame.getTexture().getWidth(); // We now change it to the width of the image.
+            boundsCm.get(e).width = currentFrame.getRegionWidth(); // We now change it to the width of the image.
             Gdx.app.debug(TAG, "New width: " + boundsCm.get(e).width);
         }
 
         if(boundsCm.get(e).height == -1) { // If height of an image was not specified, we had set it to -1.
             Gdx.app.debug(TAG, "Bounds: Height Change for entity " + e);
             boundsCm.get(e).height = currentFrame.getRegionHeight(); // We now change it to the height of the image.
-            Gdx.app.debug(TAG, "New Height: " + currentFrame.getRegionWidth());
+            Gdx.app.debug(TAG, "New Height: " + boundsCm.get(e).height);
         }
     }
 
-
-    protected void process(int e) {
-        Animation animation = assetSystem.get(animCm.get(e).activeId);
-        animation.setPlayMode(Animation.PlayMode.LOOP);
-        TextureRegion currentFrame = animation.getKeyFrame(animCm.get(e).age);
-
-        useDefaultSize(e, currentFrame); // Make sure that entities with animation components have a size
-
+    void draw(int e, Texture image) {
         float x = boundsCm.get(e).x;
         float y = boundsCm.get(e).y;
         float width = boundsCm.get(e).width;
         float height = boundsCm.get(e).height;
 
 
+        batch.draw(image, x, y, width, height);
+    }
+
+    void draw(int e, TextureRegion currentFrame) {
+        float x = boundsCm.get(e).x;
+        float y = boundsCm.get(e).y;
+        float width = boundsCm.get(e).width;
+        float height = boundsCm.get(e).height;
+
 
         batch.draw(currentFrame, x, y, width, height);
+    }
 
-        animCm.get(e).age += Gdx.graphics.getDeltaTime();
+
+    protected void process(int e) {
+        if (animCm.has(e)) { // If we have an animation we will retrieve the current frame
+            Animation animation = assetSystem.get(animCm.get(e).activeId);
+            animation.setPlayMode(Animation.PlayMode.LOOP);
+            TextureRegion currentFrame = animation.getKeyFrame(animCm.get(e).age);
+            useDefaultSize(e, currentFrame); // Make sure that entities with animation components have a size
+            draw(e, currentFrame);
+            animCm.get(e).age += Gdx.graphics.getDeltaTime();
+        } else { // Otherwise we will just proceed with the image
+            Texture image = assetSystem.assetManager.get(imageCm.get(e).imageName + ".png");
+            useDefaultSize(e, image);
+            draw(e, image);
+        }
+
+
+
+
 
     }
 }
