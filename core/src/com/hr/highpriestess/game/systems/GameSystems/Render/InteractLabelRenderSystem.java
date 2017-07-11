@@ -35,7 +35,7 @@ public class InteractLabelRenderSystem extends BaseSystem {
     int player;
 
     public InteractLabelRenderSystem() {
-        font = G.assetSystem.assetManager.get("GURU0.ttf");
+        font = G.assetSystem.assetManager.get("GURU0.fnt");
         batch = new SpriteBatch();
     }
 

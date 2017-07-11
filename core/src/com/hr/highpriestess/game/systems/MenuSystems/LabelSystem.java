@@ -30,7 +30,7 @@ public class LabelSystem extends IteratingSystem {
 
     public void makeLabel(int e) {
 
-        BitmapFont font = assetSystem.assetManager.get("GURU0.ttf");
+        BitmapFont font = assetSystem.assetManager.get("GURU0.fnt");
         font.setColor(255, 255, 255, 1);
         Label.LabelStyle style = new Label.LabelStyle(font, font.getColor());
         Label label = new Label(textCm.get(e).getText(), style);

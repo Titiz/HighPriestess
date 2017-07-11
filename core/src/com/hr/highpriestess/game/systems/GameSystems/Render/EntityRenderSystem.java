@@ -43,7 +43,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
     CameraSystem cameraSystem;
 
     // list that keeps the entities in the order they need to be rendered. Awesome.
-    private List<Integer> sortedEntities = new ArrayList<Integer>();
+    //private List<Integer> sortedEntities = new ArrayList<Integer>();
 
     // boolean to track if entities need to be reorganized
     //    boolean entities_mixed = true;
