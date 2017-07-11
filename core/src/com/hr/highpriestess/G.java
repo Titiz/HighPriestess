@@ -22,9 +22,11 @@ public class G {
 
     public enum Layer
     {
+        BACKGROUND,
         ENEMY,
         PLAYER,
         DEFAULT,
+        FOREGROUND,
     }
 
 

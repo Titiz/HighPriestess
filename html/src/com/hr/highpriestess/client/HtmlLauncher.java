@@ -18,9 +18,7 @@ public class HtmlLauncher extends GwtApplication {
         }
 
         @Override
-        public ApplicationListener createApplicationListener () {
-                return new HighPriestessMain();
-        }
+        public ApplicationListener createApplicationListener () {return new HighPriestessMain();}
 
         @Override
         public Preloader.PreloaderCallback getPreloaderCallback () {

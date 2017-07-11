@@ -88,9 +88,10 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
         batch.setProjectionMatrix(cameraSystem.camera.combined);
         for (G.Layer value : G.Layer.values()) {
-            if (shaderMap.containsKey(value)) currentShader = shaderMap.get(value);
+            if (shaderMap.containsKey(value)) currentShader = shaderMap.get(value); // We get the shader of the layer if it exists
+            else currentShader = null; //Otherwise we apply no shader
 
-            if (layerMap.containsKey(value)) {
+            if (layerMap.containsKey(value) && layerMap.get(value) != null) {
                 batch.setShader(currentShader);
                 batch.begin();
                 for (int e : layerMap.get(value)) process(e);
@@ -98,16 +99,24 @@ public class EntityRenderSystem extends BaseEntitySystem  {
             }
 
         }
-
-
-
-
-
-
-
     }
 
 
+
+    private void useDefaultSize(int e, TextureRegion currentFrame) {
+        /** This is used for entities with width or height of -1**/
+        if(boundsCm.get(e).width == -1) { // If width of an image is not specified, we had  set it to -1.
+            Gdx.app.debug(TAG, "Bounds: Width Change for entity " + e);
+            boundsCm.get(e).width = currentFrame.getTexture().getWidth(); // We now change it to the width of the image.
+            Gdx.app.debug(TAG, "New width: " + boundsCm.get(e).width);
+        }
+
+        if(boundsCm.get(e).height == -1) { // If height of an image was not specified, we had set it to -1.
+            Gdx.app.debug(TAG, "Bounds: Height Change for entity " + e);
+            boundsCm.get(e).height = currentFrame.getRegionHeight(); // We now change it to the height of the image.
+            Gdx.app.debug(TAG, "New Height: " + currentFrame.getRegionWidth());
+        }
+    }
 
 
     protected void process(int e) {
@@ -115,10 +124,14 @@ public class EntityRenderSystem extends BaseEntitySystem  {
         animation.setPlayMode(Animation.PlayMode.LOOP);
         TextureRegion currentFrame = animation.getKeyFrame(animCm.get(e).age);
 
+        useDefaultSize(e, currentFrame); // Make sure that entities with animation components have a size
+
         float x = boundsCm.get(e).x;
         float y = boundsCm.get(e).y;
         float width = boundsCm.get(e).width;
         float height = boundsCm.get(e).height;
+
+
 
         batch.draw(currentFrame, x, y, width, height);
 

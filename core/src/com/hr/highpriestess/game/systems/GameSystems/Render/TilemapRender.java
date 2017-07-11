@@ -8,6 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
@@ -26,11 +27,8 @@ public class TilemapRender extends BaseSystem{
     private CameraSystem cameraSystem;
     OrthogonalTiledMapRenderer renderer;
 
-    public void setMapSystem(MapSystem mapSystem) {
-        this.mapSystem = mapSystem;
-    }
-
     private MapSystem mapSystem;
+
 
     TagManager tagManager;
     ComponentMapper<ShaderHolder> shaderCm;
@@ -65,7 +63,7 @@ public class TilemapRender extends BaseSystem{
     protected void processSystem() {
         makeRenderer();
         for (MapLayer layer : mapSystem.map.getLayers()) {
-            if (layer.isVisible()) {
+            if (layer.isVisible() && layer.getClass() != TiledMapImageLayer.class) {
                     renderLayer((TiledMapTileLayer) layer);
                 }
             }

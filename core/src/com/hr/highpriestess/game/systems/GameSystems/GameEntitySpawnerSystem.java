@@ -20,7 +20,6 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
         if (entityName.equals("player")) {
             Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y);
             tagManager.register(entityName, player);
-
             Gdx.app.debug(TAG, "Player spawned at X:" + x + " Y:" + y);
         }
         else if (entityName.equals("gate")) {
@@ -51,6 +50,22 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Gdx.app.debug("interactLabel", interactLabel);
             Gdx.app.debug("name", name);
             Gdx.app.debug("arrivalGate", arrivalGate);
+        } else if (entityName.equals("foreground")){
+            String imageName = (String) properties.get("imageName");
+            int width = Integer.parseInt( (String) properties.get("width"));
+            int height = Integer.parseInt( (String) properties.get("height"));
+            EntityMakerGame.createGlobalForeground(this.getWorld(), x, y, width, height, imageName);
+            Gdx.app.debug(TAG, "GlobalForeground spawned with image " + imageName);
+        } else if (entityName.equals("background")) {
+            String imageName = (String) properties.get("imageName");
+            if (properties.containsKey("width")) {
+                int width = Integer.parseInt((String) properties.get("width"));
+                int height = Integer.parseInt((String) properties.get("height"));
+                EntityMakerGame.createGlobalBackground(this.getWorld(), x, y, width, height, imageName);
+            } else {
+                EntityMakerGame.createGlobalBackground(this.getWorld(), x, y, -1, -1, imageName);
+            }
+
         }
 
     }

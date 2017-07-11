@@ -69,6 +69,7 @@ public class EntityMakerGame {
         return entity;
     }
 
+
     public static Entity createDoor(final World world, final float x, final float y, String interactLabel,
                                     String nextMap,  String gateName, String arrivalGateName) {
         Entity entity = createNew(world)
@@ -78,6 +79,32 @@ public class EntityMakerGame {
                 .getEntity();
         return entity;
     }
+
+
+    public static Entity createStaticImageEntity(final World world, final float x, final float y,
+                                                 final float width, final float height,
+                                                 final String imageName, final G.Layer layer) {
+        Entity entity = createNew(world)
+                .add(new Anim(layer, imageName))
+                .add(new Bounds(x, y, width, height))
+                .getEntity();
+        return entity;
+    }
+
+    public static Entity createGlobalBackground(final World world, final float x, final float y,
+                                                final float width, final float height,
+                                                final String imageName) {
+        return createStaticImageEntity(world, x, y, width, height, imageName, G.Layer.BACKGROUND);
+    }
+
+
+
+    public static Entity createGlobalForeground(final World world, final float x, final float y,
+                                                final float width, final float height,
+                                                final String imageName) {
+        return createStaticImageEntity(world, x, y, width, height, imageName, G.Layer.FOREGROUND);
+    }
+
 
     private static EntityEdit createNew(final World world) {
         return world.createEntity()

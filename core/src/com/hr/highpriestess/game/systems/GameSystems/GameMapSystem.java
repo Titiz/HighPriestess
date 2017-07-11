@@ -13,6 +13,7 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
@@ -81,6 +82,8 @@ public class GameMapSystem extends MapSystem {
         layers = new Array<TiledMapTileLayer>();
         for ( MapLayer rawLayer : map.getLayers() )
         {
+            if (rawLayer.getClass() == TiledMapImageLayer.class) continue;
+            Gdx.app.debug(TAG, rawLayer.getClass().toString());
             layers.add((TiledMapTileLayer) rawLayer);
         }
         width = layers.get(0).getWidth();
