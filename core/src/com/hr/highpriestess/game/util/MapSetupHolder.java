@@ -63,7 +63,6 @@ public class MapSetupHolder {
                 for (int tx = 0; tx < width; tx++) {
                     final TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
                     if (cell != null) {
-
                         final MapProperties properties = cell.getTile().getProperties();
                         // we use tiles having the key entity to create the entities in the game.
                         if ( properties.containsKey("entity")) {

@@ -13,6 +13,7 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -46,6 +47,7 @@ public class GameMapSystem extends MapSystem {
     CameraSystem cameraSystem;
     TagManager tagManager;
     String activeMapName;
+    AssetSystem assetSystem;
     GameEntitySpawnerSystem gameEntitySpawnerSystem;
     GameEntityClearerSystem gameEntityClearerSystem;
 
@@ -67,14 +69,30 @@ public class GameMapSystem extends MapSystem {
         Gdx.app.debug(TAG, "Initialized with mapName " + activeMapName);
     }
 
-    public void setActiveMap(String activeMapName) {
-        Gdx.app.debug(TAG, "activeMap changed");
-        Gdx.app.debug(TAG, "activeMap is now " + activeMapName);
+    private  void resetLastMap() {
+        assetSystem.assetManager.unload(this.activeMapName);
+        assetSystem.assetManager.load(this.activeMapName, TiledMap.class);
+        assetSystem.assetManager.finishLoading();
+    }
 
+    public void setActiveMap(String activeMapName) {
+        Gdx.app.debug(TAG, "activeMap changing");
+
+
+        Gdx.app.debug(TAG, "resetting Camera ");
         cameraSystem.reset();
 
-        map = G.assetSystem.assetManager.get(activeMapName);
+        Gdx.app.debug(TAG, "resetting old map with name: " + this.activeMapName);
+        resetLastMap(); // We need to reset the map in order to be able to use it again for spawning entities
 
+        Gdx.app.debug(TAG, "chaging the the activeMapName to: " + activeMapName);
+        this.activeMapName = activeMapName;
+
+        Gdx.app.debug(TAG, "retrieving new map with name: " + activeMapName);
+        map = assetSystem.assetManager.get(activeMapName);
+
+
+        Gdx.app.debug(TAG, "going through layers of " + activeMapName);
         layers = new Array<TiledMapTileLayer>();
         for ( MapLayer rawLayer : map.getLayers() )
         {
@@ -82,6 +100,9 @@ public class GameMapSystem extends MapSystem {
             Gdx.app.debug(TAG, rawLayer.getClass().toString());
             layers.add((TiledMapTileLayer) rawLayer);
         }
+        Gdx.app.debug(TAG, "done retrieving layers of " + activeMapName);
+
+        Gdx.app.debug(TAG, "retrieving height and width of " + activeMapName);
         width = layers.get(0).getWidth();
         height = layers.get(0).getHeight();
 
@@ -102,6 +123,7 @@ public class GameMapSystem extends MapSystem {
         if ( !isSetup )
         {
             setup();
+            assetSystem.assetManager.finishLoading();
             isSetup = true;
         }
     }
@@ -117,6 +139,8 @@ public class GameMapSystem extends MapSystem {
         }
 
         Entity tracker = tagManager.getEntity("tracker");
+
+        Gdx.app.debug(TAG, "Setting up new map " + activeMapName);
 
         MapSetupHolder.setup(gameEntitySpawnerSystem,
                 layers, width, height, tracker);

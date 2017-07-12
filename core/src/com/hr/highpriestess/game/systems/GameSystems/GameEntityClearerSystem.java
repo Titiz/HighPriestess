@@ -29,6 +29,7 @@ public class GameEntityClearerSystem extends EntityClearerSystem {
         Gdx.app.debug(TAG, "CLEARING ENTITIES IN WORLD " + this.getWorld().getClass().getName());
 
         int tracker = tagManager.getEntity("tracker").getId();
+        int player = tagManager.getEntity("player").getId();
 
         IntBag entities = world.getAspectSubscriptionManager() // We remove all entities that are not the tracker
                 .get(Aspect.all())
@@ -36,7 +37,9 @@ public class GameEntityClearerSystem extends EntityClearerSystem {
 
         int[] ids = entities.getData();
         for (int i = 0, s = entities.size(); s > i; i++) {
-            if (ids[i] != tracker) world.delete(ids[i]);
+            if (ids[i] != tracker )
+                //if (ids[i] != player)
+                    world.delete(ids[i]);
         }
 
         layCm.get(tracker).reset();

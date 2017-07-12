@@ -168,10 +168,5 @@ public class EntityRenderSystem extends BaseEntitySystem  {
             useDefaultSize(e, image);
             draw(e, image);
         }
-
-
-
-
-
     }
 }
