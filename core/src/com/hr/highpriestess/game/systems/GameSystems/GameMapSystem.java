@@ -11,6 +11,7 @@ import com.artemis.Entity;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.hr.highpriestess.G;
+import com.hr.highpriestess.game.components.Game.Tracker.NeighborMapTracker;
 import com.hr.highpriestess.game.components.Game.Tracker.SpawnGateTracker;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntityClearerSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
@@ -28,6 +30,7 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 import com.hr.highpriestess.game.util.MapSetupHolder;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 
 /**
@@ -46,10 +49,12 @@ public class GameMapSystem extends MapSystem {
     private HashMap<String, String> maps = new HashMap<String, String>();
     CameraSystem cameraSystem;
     TagManager tagManager;
+    ComponentMapper<NeighborMapTracker> neighCm;
     String activeMapName;
     AssetSystem assetSystem;
     GameEntitySpawnerSystem gameEntitySpawnerSystem;
     GameEntityClearerSystem gameEntityClearerSystem;
+    BackgroundAssetSystem backgroundAssetSystem;
 
 
 
@@ -79,14 +84,18 @@ public class GameMapSystem extends MapSystem {
         Gdx.app.debug(TAG, "activeMap changing");
 
 
+
+
         Gdx.app.debug(TAG, "resetting Camera ");
         cameraSystem.reset();
 
         Gdx.app.debug(TAG, "resetting old map with name: " + this.activeMapName);
         resetLastMap(); // We need to reset the map in order to be able to use it again for spawning entities
 
-        Gdx.app.debug(TAG, "chaging the the activeMapName to: " + activeMapName);
+        Gdx.app.debug(TAG, "changing activeMapName of GameMapSytem to: " + activeMapName);
         this.activeMapName = activeMapName;
+
+
 
         Gdx.app.debug(TAG, "retrieving new map with name: " + activeMapName);
         map = assetSystem.assetManager.get(activeMapName);
@@ -106,16 +115,29 @@ public class GameMapSystem extends MapSystem {
         width = layers.get(0).getWidth();
         height = layers.get(0).getHeight();
 
-
+        backgroundAssetSystem.isSetup = false;
         isSetup = false;
     }
 
 
-
-
-
-
-
+    private void finishLoadingMapAssets(String mapName) {
+        /** Used to make sure that assets necessary for the next level are loaded**/
+        Gdx.app.debug(TAG, "finishing loading assets for map with name: " + mapName);
+        NeighborMapTracker mapTracker = neighCm.get(tagManager.getEntity("tracker"));
+        for (String resourceName : mapTracker.neighborMapAssets.get(mapName)) {
+            Gdx.app.debug(TAG, "Adding resource " + resourceName + " to queue");
+            assetSystem.assetManager.load(resourceName, Texture.class); // TODO: this is not only texture
+            if (!assetSystem.assetManager.isLoaded(resourceName)) {
+                Gdx.app.debug(TAG, "Loading resource " + resourceName);
+                assetSystem.assetManager.finishLoadingAsset(resourceName);
+                Gdx.app.debug(TAG, "Resource loaded " + resourceName);
+            } else {
+                Gdx.app.debug(TAG, "Resource already loaded " + resourceName);
+            }
+            assetSystem.assetManager.get(resourceName);
+        }
+        Gdx.app.debug(TAG, "Loading assets finished for map :" + mapName);
+    }
 
     @Override
     protected void processSystem() {
@@ -123,7 +145,7 @@ public class GameMapSystem extends MapSystem {
         if ( !isSetup )
         {
             setup();
-            assetSystem.assetManager.finishLoading();
+            finishLoadingMapAssets(activeMapName);
             isSetup = true;
         }
     }
@@ -140,10 +162,23 @@ public class GameMapSystem extends MapSystem {
 
         Entity tracker = tagManager.getEntity("tracker");
 
+
+        Gdx.app.debug(TAG, "changing the activeMapName of the NeighborMapTracker to " + activeMapName);
+        neighCm.get(tracker).activeMapName = activeMapName;
+
+
         Gdx.app.debug(TAG, "Setting up new map " + activeMapName);
 
+        Gdx.app.log(TAG, "saving current neighbors to lastMapNeighbors");
+        neighCm.get(tracker).lastMapNeighborNames =
+                new HashSet<String>(neighCm.get(tracker).currentNeighborNames); //save the previous neighbors
+        Gdx.app.log(TAG, "clearing current neighbors");
+        neighCm.get(tracker).currentNeighborNames.clear();                      // and clear for new ones to be added
+
+        neighCm.get(tracker).currentNeighborNames.add(activeMapName);
+
         MapSetupHolder.setup(gameEntitySpawnerSystem,
-                layers, width, height, tracker);
+                layers, width, height, tracker, activeMapName);
     }
 }
 

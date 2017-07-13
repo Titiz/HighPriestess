@@ -125,16 +125,20 @@ public class AssetSystem extends BaseSystem {
         assetManager.load("trans.png", Texture.class);
         assetManager.load("nunWalk.png", Texture.class);
         assetManager.load("nunIdle.png", Texture.class);
-        assetManager.load("grass.png", Texture.class);
-        assetManager.load("monasteryGlobalBackground.png", Texture.class);
+
+
+
 
 
 
         assetManager.finishLoading();
+        Gdx.app.debug(TAG, "Primary Assets haves loaded");
 
-        Gdx.app.debug(TAG, "Primary Assets have loaded");
 
-        assetManager.load("trans.png", Texture.class);
+
+
+
+
 
 
         add("menuAnim1", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
@@ -145,8 +149,7 @@ public class AssetSystem extends BaseSystem {
 
         add("idlePlayer", 0, 0, 160, 160, 3, 4, getImage("nunIdle.png"), 0.5f);
         add("movingPlayer", 0, 0, 32, 32, 12, 1, getImage("nunWalk.png"), 0.1f);
-        add("grass", 0, 0, 3200, 32, 1, 1, getImage("grass.png"), 1f);
-        add("monasteryGlobalBackground", 0, 0, 3200, 480, 1, 1, getImage("monasteryGlobalBackground.png"), 1.0f);
+
 
 
         Gdx.app.debug(TAG, "Custom Assets have loaded");

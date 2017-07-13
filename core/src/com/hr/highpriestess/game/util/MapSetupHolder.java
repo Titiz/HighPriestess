@@ -44,7 +44,8 @@ public class MapSetupHolder {
 
     public static void setup(EntitySpawnerSystem entitySpawnerSystem,
                              Array<TiledMapTileLayer> layers,
-                             float width, float height, Entity tracker) {
+                             float width, float height, Entity tracker,
+                             String mapName) {
 
         for (TiledMapTileLayer layer : layers) {
             Gdx.app.log("LAYER NAME", layer.getName());
@@ -59,6 +60,7 @@ public class MapSetupHolder {
                 Gdx.app.log("SHADERS", "LAYER HAS NO SHADERS");
             }
 
+
             for (int ty = 0; ty < height; ty++) {
                 for (int tx = 0; tx < width; tx++) {
                     final TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
@@ -68,10 +70,82 @@ public class MapSetupHolder {
                         if ( properties.containsKey("entity")) {
                             Gdx.app.debug(TAG, "entity found with value "  + properties.get("entity"));
                             entitySpawnerSystem.spawnEntity(tx* G.CELL_SIZE, ty*G.CELL_SIZE, properties);
+                            trackNeighboringMaps(properties, tracker);                  // tracker entity has to track both the
+                            trackResourceUseCount(properties, tracker, mapName);  // neighboring maps and their resources
                             layer.setCell(tx, ty, null);
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public static void getAssetsFromMap(Array<TiledMapTileLayer> layers,
+                             float width, float height, Entity tracker,
+                                        String mapName) {
+        NeighborMapTracker neigh = tracker.getComponent(NeighborMapTracker.class);
+        for (TiledMapTileLayer layer : layers) {
+            for (int ty = 0; ty < height; ty++) {
+                for (int tx = 0; tx < width; tx++) {
+                    final TiledMapTileLayer.Cell cell = layer.getCell(tx, ty);
+                    if (cell != null) {
+                        final MapProperties properties = cell.getTile().getProperties();
+                        if (properties.containsKey("entity")) {
+
+                                trackResourceUseCount(properties, tracker, mapName);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+    private static void trackNeighboringMaps(MapProperties properties, Entity tracker) {
+        if (properties.containsKey("gate")) {
+            Gdx.app.debug(TAG, "gate found with value " + properties.get("gate"));
+            NeighborMapTracker neigh = tracker.getComponent(NeighborMapTracker.class);
+            String nameOfNeighbor = (String) properties.get("gate");
+            if (!neigh.neighborMapAssets.containsKey(nameOfNeighbor)) {
+                Gdx.app.debug(TAG, "found new neighbor with name: " + nameOfNeighbor);
+                neigh.neighborMapAssets.put(nameOfNeighbor, new Array<String>());
+            }
+            Gdx.app.debug(TAG, "adding " + nameOfNeighbor + " to current neighbors");
+            neigh.currentNeighborNames.add(nameOfNeighbor);
+        }
+    }
+
+    private static void trackResourceUseCount(MapProperties properties, Entity tracker, String mapName) {
+        Gdx.app.debug(TAG, "Found entity in cell, checking if it has resources");
+        NeighborMapTracker neigh = tracker.getComponent(NeighborMapTracker.class);
+        for (String name : G.resourceIndentifier) {
+            if (properties.containsKey(name)){
+                String resourceName = (String) properties.get(name);
+                Gdx.app.debug(TAG, "resource found with name: " + resourceName);
+                if (!neigh.assetUseCounter.containsKey(resourceName)) {
+                    neigh.assetUseCounter.put(resourceName, 0);
+                    Gdx.app.debug(TAG, "resource was found to be new");
+                }
+                if (!neigh.lastMapNeighborNames.contains(mapName)) {
+                    neigh.assetUseCounter.put(resourceName, neigh.assetUseCounter.get(resourceName) + 1);
+                    Gdx.app.debug(TAG, "resource use counter is now: " + neigh.assetUseCounter.get(resourceName));
+                } else {
+                    Gdx.app.debug(TAG, "resource already used by this map, resource name: " + resourceName);
+                    Gdx.app.debug(TAG, "resource is in use by " + neigh.assetUseCounter.get(resourceName) + " maps");
+                }
+
+                Gdx.app.debug(TAG, "adding resource to Asset list of: " + mapName);
+                if (!neigh.neighborMapAssets.containsKey(mapName)) {
+                    neigh.neighborMapAssets.put(mapName, new Array<String>());
+                }
+                neigh.neighborMapAssets.get(mapName).add(resourceName);
             }
         }
     }

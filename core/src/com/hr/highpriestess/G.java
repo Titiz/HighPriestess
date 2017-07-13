@@ -28,6 +28,13 @@ public class G {
         RUNNING
     }
 
+    public static final String[] resourceIndentifier = {
+            "imageName",
+            "anim",
+            "walkingAnim",
+            "idleAnim",
+    };
+
     public enum Layer
     {
         BACKGROUND,

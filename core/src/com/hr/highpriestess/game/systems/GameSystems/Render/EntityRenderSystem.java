@@ -164,7 +164,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
             draw(e, currentFrame);
             animCm.get(e).age += Gdx.graphics.getDeltaTime();
         } else { // Otherwise we will just proceed with the image
-            Texture image = assetSystem.assetManager.get(imageCm.get(e).imageName + ".png");
+            Texture image = assetSystem.assetManager.get(imageCm.get(e).imageName);
             useDefaultSize(e, image);
             draw(e, image);
         }

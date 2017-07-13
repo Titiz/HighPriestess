@@ -62,6 +62,7 @@ public class EntityMakerGame {
                 .add(new LayerEntityTracker())
                 .add(new ShaderHolder())
                 .add(new SpawnGateTracker())
+                .add(new NeighborMapTracker())
                 .getEntity();
         return entity;
     }
