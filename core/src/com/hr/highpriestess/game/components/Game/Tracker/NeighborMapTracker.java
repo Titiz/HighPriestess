@@ -23,6 +23,7 @@ public class NeighborMapTracker extends Component {
     public NeighborMapTracker() {
         neighborMapAssets = new HashMap<String, Array<String>>();
         currentNeighborNames = new HashSet<String>();
+        lastMapNeighborNames = new HashSet<String>();
         assetUseCounter = new HashMap<String, Integer>();
     }
 

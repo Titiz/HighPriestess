@@ -46,15 +46,20 @@ public class BackgroundAssetSystem extends BaseSystem {
         HashMap<String, Integer> assetCount = neighborCm.get(tagManager.getEntity("tracker")).assetUseCounter;
 
         for (String mapName : map.keySet()) {
+            Gdx.app.debug(TAG, "Checking map with name: " + mapName);
             if (!neighbors.contains(mapName)) {
+                Gdx.app.debug(TAG, mapName + " is not in neighbors");
                 for (String assetName : map.get(mapName)) {
-                    assetCount.put(mapName, assetCount.get(assetName) - 1);
+                    Gdx.app.debug(TAG, "decrementing by one asset with name " + assetName);
+                    assetCount.put(assetName, assetCount.get(assetName) - 1);
+                    Gdx.app.debug(TAG, "assetCount for " + assetName + " is " + assetCount.get(assetName));
                     if (assetCount.get(assetName) == 0) {
                         assetCount.remove(assetName);
                         Gdx.app.debug(TAG, "Removing asset with name: " + assetName);
                     }
                 }
-
+            } else {
+                Gdx.app.debug(TAG, mapName + " is in neighbors");
             }
         }
     }
@@ -66,8 +71,6 @@ public class BackgroundAssetSystem extends BaseSystem {
         Gdx.app.debug(TAG, "neighboring map count is " + neighborCm.get(tracker).currentNeighborNames.size());
         Array<TiledMapTileLayer> layers = new Array<TiledMapTileLayer>();
         for (String mapName : neighborCm.get(tracker).currentNeighborNames) {
-            if (mapName.equals(neighborCm.get(tracker).activeMapName)) // making sure we do not load resources
-                continue;                                              // of current map which are already loaded.
             layers.clear();
             TiledMap map = assetSystem.assetManager.get(mapName);
             Gdx.app.debug(TAG, "going through layers of " +mapName);
@@ -82,7 +85,9 @@ public class BackgroundAssetSystem extends BaseSystem {
             float width = layers.get(0).getWidth();
             float height = layers.get(0).getHeight();
 
+            Gdx.app.debug(TAG, "getting assets from map " + mapName);
             MapSetupHolder.getAssetsFromMap(layers, width, height, tracker, mapName);
+            Gdx.app.debug(TAG, "getting assets from map finished " + mapName);
         }
     }
 

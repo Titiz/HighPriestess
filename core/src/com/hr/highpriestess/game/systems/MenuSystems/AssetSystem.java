@@ -113,6 +113,7 @@ public class AssetSystem extends BaseSystem {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assetManager.load("monastery.tmx", TiledMap.class);
         assetManager.load("outside.tmx", TiledMap.class);
+        assetManager.load("outside2.tmx", TiledMap.class);
 
 
 
