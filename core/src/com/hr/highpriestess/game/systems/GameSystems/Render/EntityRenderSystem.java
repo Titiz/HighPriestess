@@ -156,6 +156,7 @@ public class EntityRenderSystem extends BaseEntitySystem  {
 
 
     protected void process(int e) {
+
         if (animCm.has(e)) { // If we have an animation we will retrieve the current frame
             Animation animation = assetSystem.get(animCm.get(e).activeId);
             animation.setPlayMode(Animation.PlayMode.LOOP);

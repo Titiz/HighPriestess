@@ -2,6 +2,7 @@ package com.hr.highpriestess.game.systems.GameSystems;
 
 import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
+import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
 import com.hr.highpriestess.game.util.EntityMakerGame;
 
@@ -16,7 +17,7 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
 
 
 
-    public void spawnEntity(float x, float y, String entityName) {
+    public void spawnEntity(float x, float y, String entityName, G.Layer layer) {
         if (entityName.equals("player")) {
             Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y);
             tagManager.register(entityName, player);
@@ -31,10 +32,10 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Gdx.app.debug("NEXT LEVEL", nextLevel);
             Gdx.app.debug("name", name);
             Gdx.app.debug("arrivalGate", arrivalGate);
-        } else if (entityName.equals("enemy")) {
-            Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
-            groupManager.add(enemy, entityName);
-            Gdx.app.debug(TAG, "Enemy spawned at X:" + x + " Y:" + y);
+//        } else if (entityName.equals("enemy")) {
+//            Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
+//            groupManager.add(enemy, entityName);
+//            Gdx.app.debug(TAG, "Enemy spawned at X:" + x + " Y:" + y);
         } else if (entityName.equals("tracker")) {
             Entity tracker = EntityMakerGame.createTracker(this.getWorld());
             tagManager.register(entityName,tracker);
@@ -65,9 +66,18 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             } else {
                 EntityMakerGame.createGlobalBackground(this.getWorld(), x, y, -1, -1, imageName);
             }
-
+        } else if (entityName.equals("staticImage")) {
+            String imageName = (String) properties.get("imageName");
+            if (properties.containsKey("width")) {
+                int width = Integer.parseInt((String) properties.get("width"));
+                int height = Integer.parseInt((String) properties.get("height"));
+                EntityMakerGame.createStaticImageEntity(this.getWorld(), x, y, width, height, imageName, layer);
+            } else {
+                EntityMakerGame.createStaticImageEntity(this.getWorld(), x, y, -1, -1, imageName, layer);
+            }
+            Gdx.app.debug(TAG, "staticImage spawned with picture " + imageName + " at coordinates X:Y : " + x + " : " + y);
+            Gdx.app.debug(TAG, "staticImage is in layer " + layer);
         }
-
     }
 
 

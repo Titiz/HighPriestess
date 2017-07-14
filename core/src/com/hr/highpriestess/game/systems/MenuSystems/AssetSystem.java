@@ -111,47 +111,26 @@ public class AssetSystem extends BaseSystem {
 
 
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("monastery.tmx", TiledMap.class);
-        assetManager.load("outside.tmx", TiledMap.class);
-        assetManager.load("outside2.tmx", TiledMap.class);
+        assetManager.load("test.tmx", TiledMap.class);
+
 
 
 
         assetManager.load("GURU0.fnt", BitmapFont.class);
 
-        assetManager.load("Blood.png", Texture.class);
-        assetManager.load("Blood2.png", Texture.class);
-        assetManager.load("Blood3.png", Texture.class);
-        assetManager.load("background.png", Texture.class);
-        assetManager.load("trans.png", Texture.class);
         assetManager.load("nunWalk.png", Texture.class);
         assetManager.load("nunIdle.png", Texture.class);
 
 
-
-
-
-
         assetManager.finishLoading();
+
+
+
         Gdx.app.debug(TAG, "Primary Assets haves loaded");
 
 
-
-
-
-
-
-
-        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
-        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, getImage("Blood2.png"), 0.1f);
-        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, getImage("Blood3.png"), 0.1f);
-        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, getImage("background.png"), 1f);
-        add(-1, 0, 0, 80, 1072, 22, 1, getImage("trans.png"), 0.1f);
-
         add("idlePlayer", 0, 0, 160, 160, 3, 4, getImage("nunIdle.png"), 0.5f);
         add("movingPlayer", 0, 0, 32, 32, 12, 1, getImage("nunWalk.png"), 0.1f);
-
-
 
         Gdx.app.debug(TAG, "Custom Assets have loaded");
 

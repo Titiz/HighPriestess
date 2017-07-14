@@ -35,16 +35,6 @@ public class EntityMakerGame {
         return entity;
     }
 
-    public static Entity createEnemy(final World world, final float x, final float y
-    ) {
-
-        Entity entity = createNew(world)
-                .add(new Kinematics(5, 5))
-                .add(new Bounds(x, y, 32, 32))
-                .add(new Anim(G.Layer.ENEMY, "menuAnim1Before"))
-                .getEntity();
-        return entity;
-    }
 
     public static Entity createGate(final World world, final float x, final float y,
                                     String nextMap, String gateName, String arrivalGateName) {

@@ -30,22 +30,22 @@ public class EntityMakerDefence {
     }
 
 
-    public static Entity createEnemy(final World world, final float x, final float y
-    ) {
-
-        Entity entity = createNew(world)
-                .add(new Kinematics(0.5f, 0.5f))
-                .add(new Bounds(x, y, G.UNIT_SIZE, G.UNIT_SIZE))
-                .add(new Anim(G.Layer.ENEMY, "menuAnim1Before"))
-                .add(new Selectable(1))
-                .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
-                        2, AttackStats.AttackSpeed.SLOW,
-                        AttackStats.Range.MELEE,
-                        AttackStats.ArmorType.MEDIUM,
-                        AttackStats.MagicalArmorType.NONE))
-                .getEntity();
-        return entity;
-    }
+//    public static Entity createEnemy(final World world, final float x, final float y
+//    ) {
+//
+//        Entity entity = createNew(world)
+//                .add(new Kinematics(0.5f, 0.5f))
+//                .add(new Bounds(x, y, G.UNIT_SIZE, G.UNIT_SIZE))
+//                .add(new Anim(G.Layer.ENEMY, "menuAnim1Before"))
+//                .add(new Selectable(1))
+//                .add(new AttackStats(AttackStats.DamageType.PHYSICAL,
+//                        2, AttackStats.AttackSpeed.SLOW,
+//                        AttackStats.Range.MELEE,
+//                        AttackStats.ArmorType.MEDIUM,
+//                        AttackStats.MagicalArmorType.NONE))
+//                .getEntity();
+//        return entity;
+//    }
 
     public static Entity createAlly(final World world, final float x, final float y
     ) {

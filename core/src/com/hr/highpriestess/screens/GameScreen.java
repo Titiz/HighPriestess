@@ -45,7 +45,7 @@ public class GameScreen extends AbstractScreen {
 
 
 
-                        new GameMapSystem("monastery.tmx"),
+                        new GameMapSystem("test.tmx"),
                         new BackgroundAssetSystem(),
                         new EntityLayeringSystem(),
                         new RelocationSystem(),
@@ -69,7 +69,6 @@ public class GameScreen extends AbstractScreen {
 
 
 
-                        new TilemapRender(),
                         new EntityRenderSystem(),
                         new InteractLabelRenderSystem()
                 ).build();

@@ -4,7 +4,7 @@ import com.artemis.BaseSystem;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.maps.MapProperties;
-
+import com.hr.highpriestess.G;
 
 
 /**
@@ -24,13 +24,23 @@ public abstract class EntitySpawnerSystem extends BaseSystem {
         spawnEntity(x, y, entity);
     }
 
+    public void spawnEntity(float x, float y, MapProperties properties, G.Layer layer) {
+        this.properties = properties;
+        final String entity = (String) properties.get("entity");
+        spawnEntity(x, y, entity, layer);
+    }
+
     public void spawnEntity(MapProperties properties) {
         this.properties = properties;
         final String entity = (String) properties.get("entity");
         spawnEntity(0, 0, entity);
     }
 
-    public abstract void spawnEntity(float x, float y, String entity);
+    public abstract void spawnEntity(float x, float y, String entity, G.Layer layer);
+
+    public  void spawnEntity(float x, float y, String entity) {
+        spawnEntity(x, y, entity, null);
+    };
 
     public void spawnEntity(String entity) {
         spawnEntity(0, 0, entity);

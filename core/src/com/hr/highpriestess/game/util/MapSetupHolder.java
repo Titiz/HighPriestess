@@ -33,7 +33,8 @@ public class MapSetupHolder {
                         final MapProperties properties = cell.getTile().getProperties();
                         // we use tiles having the key entity to create the entities in the game.
                         if ( properties.containsKey("entity")) {
-                            entitySpawnerSystem.spawnEntity(tx* G.CELL_SIZE, ty*G.CELL_SIZE, properties);
+                            G.Layer layerName = G.Layer.valueOf(layer.getProperties().get("Name", String.class));
+                            entitySpawnerSystem.spawnEntity(tx* G.CELL_SIZE, ty*G.CELL_SIZE, properties, layerName);
                             layer.setCell(tx, ty, null);
                         }
                     }
@@ -70,7 +71,9 @@ public class MapSetupHolder {
                         // we use tiles having the key entity to create the entities in the game.
                         if ( properties.containsKey("entity")) {
                             Gdx.app.debug(TAG, "entity found with value "  + properties.get("entity"));
-                            entitySpawnerSystem.spawnEntity(tx* G.CELL_SIZE, ty*G.CELL_SIZE, properties);
+                            G.Layer layerName = G.Layer.valueOf(layer.getName().toUpperCase());
+                            entitySpawnerSystem.spawnEntity(tx* G.CELL_SIZE, ty*G.CELL_SIZE, properties, layerName);
+                            layer.setCell(tx, ty, null);
                             trackNeighboringMaps(properties, tracker);                  // tracker entity has to track both the
                             trackResourceUseCount(properties, tracker, mapName, lastMapContains);  // resource use of the main map
                             layer.setCell(tx, ty, null);
