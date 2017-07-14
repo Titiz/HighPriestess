@@ -175,7 +175,10 @@ public class GameMapSystem extends MapSystem {
         Gdx.app.log(TAG, "clearing current neighbors");
         neighCm.get(tracker).currentNeighborNames.clear();                      // and clear for new ones to be added
 
+        Gdx.app.log(TAG, "adding active map to current neighbors");
         neighCm.get(tracker).currentNeighborNames.add(activeMapName);
+        neighCm.get(tracker).neighborMapAssets.put(activeMapName, new Array<String>());
+
 
         MapSetupHolder.setup(gameEntitySpawnerSystem,
                 layers, width, height, tracker, activeMapName);

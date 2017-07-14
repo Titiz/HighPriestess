@@ -54,10 +54,13 @@ public class BackgroundAssetSystem extends BaseSystem {
                     assetCount.put(assetName, assetCount.get(assetName) - 1);
                     Gdx.app.debug(TAG, "assetCount for " + assetName + " is " + assetCount.get(assetName));
                     if (assetCount.get(assetName) == 0) {
+                        Gdx.app.debug(TAG, "Removing asset from assetUseCounter with name: " + assetName);
                         assetCount.remove(assetName);
-                        Gdx.app.debug(TAG, "Removing asset with name: " + assetName);
+                        Gdx.app.debug(TAG, "Unloading resource with name: " + assetName);
+                        assetSystem.assetManager.unload(assetName);
                     }
                 }
+                map.put(mapName, new Array<String>());
             } else {
                 Gdx.app.debug(TAG, mapName + " is in neighbors");
             }
@@ -71,6 +74,9 @@ public class BackgroundAssetSystem extends BaseSystem {
         Gdx.app.debug(TAG, "neighboring map count is " + neighborCm.get(tracker).currentNeighborNames.size());
         Array<TiledMapTileLayer> layers = new Array<TiledMapTileLayer>();
         for (String mapName : neighborCm.get(tracker).currentNeighborNames) {
+            if (neighborCm.get(tracker).lastMapNeighborNames.contains(mapName) ||
+                    neighborCm.get(tracker).activeMapName.equals(mapName))
+                        continue;
             layers.clear();
             TiledMap map = assetSystem.assetManager.get(mapName);
             Gdx.app.debug(TAG, "going through layers of " +mapName);
@@ -109,17 +115,29 @@ public class BackgroundAssetSystem extends BaseSystem {
     private void debugPrint() {
         if (Gdx.app.getLogLevel() != Gdx.app.LOG_DEBUG)
             return;
-        for (String key : neighborCm.get(tagManager.getEntity("tracker")).assetUseCounter.keySet()) {
-            Gdx.app.debug("Use of resources", key + " : " +neighborCm.get(tagManager.getEntity("tracker")).assetUseCounter.get(key));
+
+        NeighborMapTracker neigh = neighborCm.get(tagManager.getEntity("tracker"));
+        for (String key : neigh.assetUseCounter.keySet()) {
+            Gdx.app.debug("Use of resources", key + " : " +neigh.assetUseCounter.get(key));
         }
         Gdx.app.debug(TAG, "LastMapNeighbors");
-        for (String mapName : neighborCm.get(tagManager.getEntity("tracker")).lastMapNeighborNames) {
+        for (String mapName : neigh.lastMapNeighborNames) {
             Gdx.app.debug("", mapName);
         }
 
         Gdx.app.debug(TAG, "currentNeighbors");
-        for (String mapName : neighborCm.get(tagManager.getEntity("tracker")).currentNeighborNames) {
+        for (String mapName : neigh.currentNeighborNames) {
             Gdx.app.debug("", mapName);
+        }
+
+        Gdx.app.debug(TAG, "assetLists");
+        String mapResources;
+        for (String mapName : neigh.neighborMapAssets.keySet()) {
+            mapResources = "";
+            for (String resourceName : neigh.neighborMapAssets.get(mapName)) {
+                mapResources += resourceName + ", ";
+            }
+            Gdx.app.debug(mapName, mapResources);
         }
 
     }
@@ -128,21 +146,20 @@ public class BackgroundAssetSystem extends BaseSystem {
     protected void processSystem() {
 
         if (!isSetup) {
-            removeUnusedResources();
             getNeighborAssets();
+            removeUnusedResources();
             addAssetsToQueue();
             debugPrint();
             isSetup = true;
             Gdx.app.debug(TAG, "Setup Complete");
         }
 
-        assetSystem.assetManager.update(10); //update the assetSystem for 10 seconds.
 
         if (assetSystem.assetManager.getProgress() != 1) {
             Gdx.app.debug(TAG, "assetManager progress: " + assetSystem.assetManager.getProgress());
         }
 
-
+        assetSystem.assetManager.update(10); //update the assetSystem for 10 milliseconds.
 
 
     }
