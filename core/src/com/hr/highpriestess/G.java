@@ -9,6 +9,7 @@ import com.sun.scenario.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that stores important constants or static Classes which can be accessed from anywhere in the game
@@ -42,6 +43,11 @@ public class G {
         DEFAULT,
         FOREGROUND,
     }
+
+    public static String[] imageFilesEndings = {".png", "jpg"};
+    public static String[] audioFileEndings = {".ogg", ".mp3"};
+    public static String[] atlasFileEndings = {".atlas"};
+    public static String[] fontFileEndings = {".fnt"};
 
 
     public static AssetSystem assetSystem;

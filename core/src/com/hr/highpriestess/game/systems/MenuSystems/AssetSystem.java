@@ -7,16 +7,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.hr.highpriestess.G;
 
 import java.util.HashMap;
 
@@ -116,10 +119,16 @@ public class AssetSystem extends BaseSystem {
 
 
 
-        assetManager.load("GURU0.fnt", BitmapFont.class);
+        load("GURU0.fnt");
 
-        assetManager.load("nunWalk.png", Texture.class);
-        assetManager.load("nunIdle.png", Texture.class);
+        load("nunWalk.png");
+        load("nunIdle.png");
+
+        load("Blood.png");
+        load("Blood2.png");
+        load("Blood3.png");
+        load("background.png");
+        load("trans.png");
 
 
         assetManager.finishLoading();
@@ -132,12 +141,54 @@ public class AssetSystem extends BaseSystem {
         add("idlePlayer", 0, 0, 160, 160, 3, 4, getImage("nunIdle.png"), 0.5f);
         add("movingPlayer", 0, 0, 32, 32, 12, 1, getImage("nunWalk.png"), 0.1f);
 
+        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
+        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, getImage("Blood2.png"), 0.1f);
+        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, getImage("Blood3.png"), 0.1f);
+        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, getImage("background.png"), 1f);
+        add(-1, 0, 0, 80, 1072, 22, 1, getImage("trans.png"), 0.1f);
+
         Gdx.app.debug(TAG, "Custom Assets have loaded");
-
-
     }
 
 
+    public void load(String fileName) {
+        assetManager.load(fileName, getFileType(fileName));
+        Gdx.app.debug(TAG, fileName);
+    }
+
+
+
+
+
+
+    private Class getFileType(String fileName) {
+        Gdx.app.debug(TAG, "getting file type of " + fileName);
+        for (String fileEnding : G.imageFilesEndings) {
+            if (fileName.contains(fileEnding)) {
+                return Texture.class;
+            }
+        }
+        for (String fileEnding: G.audioFileEndings) {
+            if (fileName.contains(fileEnding)) {
+                if (fileName.contains("sound")) {
+                    return Sound.class;
+                } else {
+                    return Music.class;
+                }
+            }
+        }for (String fileEnding: G.atlasFileEndings) {
+            if (fileName.contains(fileEnding)) {
+                return TextureAtlas.class;
+            }
+        }
+        for (String fileEnding: G.fontFileEndings) {
+            if (fileName.contains(fileEnding)) {
+                return BitmapFont.class;
+            }
+        }
+        Gdx.app.debug(TAG, "fileType does not match any of the specified types");
+        return null;
+    }
 
 
     @Override

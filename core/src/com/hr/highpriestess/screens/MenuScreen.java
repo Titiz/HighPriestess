@@ -19,17 +19,20 @@ public class MenuScreen extends AbstractScreen {
     Game game;
     World world;
     public MenuScreen(Game game) {
-
         this.game = game;
-        G.assetSystem = new AssetSystem();
+        if (G.assetSystem == null)
+            G.assetSystem = new AssetSystem();
         WorldConfiguration config = new WorldConfigurationBuilder()
                 .with(
+
+                        G.assetSystem,
+
                         // make the menu
                         new SetupMenu(),
 
                         //setup the necessary Entities
                         new LayerManager(),
-                        G.assetSystem,
+
 
                         new CollisionUtilSystem(),
                         new CameraSystem(),

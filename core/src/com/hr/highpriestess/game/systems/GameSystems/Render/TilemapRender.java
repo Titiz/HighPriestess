@@ -45,17 +45,19 @@ public class TilemapRender extends BaseSystem{
             Vector3 ambientColor = new Vector3(0.3f, 0.3f, 0.7f);
 
             ShaderProgram.pedantic = false;
-            currentShader.begin();
-            currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
-                    ambientColor.z, 0.8f);
-            currentShader.end();
+
+            if (currentShader != null) {
+                currentShader.begin();
+                currentShader.setUniformf("ambientColor", ambientColor.x, ambientColor.y,
+                        ambientColor.z, 0.8f);
+                currentShader.end();
+            }
             SpriteBatch batch = new SpriteBatch();
             batch.setShader(currentShader);
             renderer = new OrthogonalTiledMapRenderer(mapSystem.map, batch);
             isRendererMade = true;
         }
     }
-
 
 
 

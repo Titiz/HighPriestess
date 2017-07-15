@@ -68,7 +68,7 @@ public class GameScreen extends AbstractScreen {
                         new KinematicsSystem(),
 
 
-
+                        new TilemapRender(),
                         new EntityRenderSystem(),
                         new InteractLabelRenderSystem()
                 ).build();

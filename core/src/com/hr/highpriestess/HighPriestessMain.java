@@ -15,14 +15,19 @@ public class HighPriestessMain extends Game {
 	@Override
 	public void create() {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.debug(TAG, "creating the GameObject");
 		Gdx.graphics.setWindowedMode(640, 480);
 		G.game = this;
-		G.assetSystem = new AssetSystem();
-		goGame();
+
+		goMenu();
 	}
 
 	public void goMenu() {
+		Gdx.app.debug(TAG, "Preparing to switch to menuScreen");
+		disposeOldScreen();
+		Gdx.app.debug(TAG, "Disposed of old screen");
 		setScreen(new MenuScreen(this));
+		Gdx.app.debug(TAG, "MenuScreen is now the current screen");
 	}
 
 
