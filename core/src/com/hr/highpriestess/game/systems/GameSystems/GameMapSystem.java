@@ -4,30 +4,22 @@ package com.hr.highpriestess.game.systems.GameSystems;
  * Created by Titas on 2016-07-27.
  */
 
-import com.artemis.BaseSystem;
-
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
-import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
-import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.Tracker.NeighborMapTracker;
-import com.hr.highpriestess.game.components.Game.Tracker.SpawnGateTracker;
-import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntityClearerSystem;
-import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
-import com.hr.highpriestess.game.util.MapSetupHolder;
+import com.hr.highpriestess.game.util.MapSetupUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -54,7 +46,9 @@ public class GameMapSystem extends MapSystem {
     AssetSystem assetSystem;
     GameEntitySpawnerSystem gameEntitySpawnerSystem;
     GameEntityClearerSystem gameEntityClearerSystem;
+
     BackgroundAssetSystem backgroundAssetSystem;
+    AnimationTrackingSystem animationTrackingSystem;
 
 
 
@@ -116,6 +110,7 @@ public class GameMapSystem extends MapSystem {
         height = layers.get(0).getHeight();
 
         backgroundAssetSystem.isSetup = false;
+        animationTrackingSystem.isSetup = false;
         isSetup = false;
     }
 
@@ -124,9 +119,11 @@ public class GameMapSystem extends MapSystem {
         /** Used to make sure that assets necessary for the next level are loaded**/
         Gdx.app.debug(TAG, "finishing loading assets for map with name: " + mapName);
         NeighborMapTracker mapTracker = neighCm.get(tagManager.getEntity("tracker"));
+          // We make sure that the map's assets were not already loaded.
         for (String resourceName : mapTracker.neighborMapAssets.get(mapName)) {
-            Gdx.app.debug(TAG, "Adding resource " + resourceName + " to queue");
-            assetSystem.assetManager.load(resourceName, Texture.class); // TODO: this is not only texture
+            if (!mapTracker.lastMapNeighborNames.contains(mapName)) {
+                Gdx.app.debug(TAG, "Adding resource " + resourceName + " to queue");
+                assetSystem.load(resourceName);}
             if (!assetSystem.assetManager.isLoaded(resourceName)) {
                 Gdx.app.debug(TAG, "Loading resource " + resourceName);
                 assetSystem.assetManager.finishLoadingAsset(resourceName);
@@ -179,8 +176,12 @@ public class GameMapSystem extends MapSystem {
         neighCm.get(tracker).currentNeighborNames.add(activeMapName);
         neighCm.get(tracker).neighborMapAssets.put(activeMapName, new Array<String>());
 
+        MapProperties activeMapProperties = assetSystem.assetManager.get(activeMapName, TiledMap.class).getProperties();
 
-        MapSetupHolder.setup(gameEntitySpawnerSystem,
+        MapSetupUtils.getAssetsFromMap(activeMapName, activeMapProperties, tracker);
+
+        Gdx.app.log(TAG, "setup of the map begins");
+        MapSetupUtils.setup(gameEntitySpawnerSystem,
                 layers, width, height, tracker, activeMapName);
     }
 }

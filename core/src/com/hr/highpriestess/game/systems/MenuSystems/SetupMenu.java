@@ -31,9 +31,9 @@ public class SetupMenu extends BaseEntitySystem {
          */
         float multiplier = cameraSystem.getZOOM();
         Animation[] anims = new Animation[3];
-        anims[1] = assetSystem.sprites.get("menuAnim1");
-        anims[0] = assetSystem.sprites.get("menuAnim1Before");
-        anims[2] = assetSystem.sprites.get("menuAnim1After");
+        anims[1] = assetSystem.animations.get("menuAnim1");
+        anims[0] = assetSystem.animations.get("menuAnim1Before");
+        anims[2] = assetSystem.animations.get("menuAnim1After");
         EntityMakerMenu.createBackground(G.menuWorld, 0, 0, "background.png");
         EntityMakerMenu.createHoverTextAnimation(G.menuWorld, 100, 100, "Play", anims, "Play", new int[] {0, 2});
         EntityMakerMenu.createHoverTextAnimation(G.menuWorld, 300, 300, "margin", anims, "margin", new int[] {0, 2});

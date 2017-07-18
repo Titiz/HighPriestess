@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.MapSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
-import com.hr.highpriestess.game.util.MapSetupHolder;
+import com.hr.highpriestess.game.util.MapSetupUtils;
 
 /**
  * Created by Titas on 2016-08-03.
@@ -66,7 +66,7 @@ public class DefenceMapSystem extends MapSystem {
         if ( !isSetup )
         {
             isSetup = true;
-            MapSetupHolder.setup(defenceEntityClearerSystem,
+            MapSetupUtils.setup(defenceEntityClearerSystem,
                     defenceEntitySpawnerSystem,
                     layers, width, height);
         }

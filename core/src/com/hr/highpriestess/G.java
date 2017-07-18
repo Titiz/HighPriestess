@@ -29,12 +29,19 @@ public class G {
         RUNNING
     }
 
+    public static final String[] animationIds = {
+            "anim",
+            "animWalking",
+            "animIdle"
+    };
+
     public static final String[] resourceIndentifier = {
             "imageName",
-            "anim",
-            "walkingAnim",
             "idleAnim",
+            "walkingAnim",
     };
+
+
 
     public enum Layer
     {

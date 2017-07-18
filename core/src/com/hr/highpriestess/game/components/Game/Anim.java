@@ -14,12 +14,6 @@ public class Anim extends Component {
 
     public boolean flippedX;
 
-
-
-
-
-
-
     public String activeId;
     public G.Layer layer = G.Layer.DEFAULT;
     public String ids[]; // This will store all of the animations.

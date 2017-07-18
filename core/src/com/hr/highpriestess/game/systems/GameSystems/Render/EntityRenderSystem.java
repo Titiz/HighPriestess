@@ -21,6 +21,8 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 
 import java.util.*;
 
+import static com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap.get;
+
 /**
  * This is supposed to render all entities in the world.
  */

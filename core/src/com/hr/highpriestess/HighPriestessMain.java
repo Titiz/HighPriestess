@@ -18,8 +18,7 @@ public class HighPriestessMain extends Game {
 		Gdx.app.debug(TAG, "creating the GameObject");
 		Gdx.graphics.setWindowedMode(640, 480);
 		G.game = this;
-
-		goMenu();
+		goGame();
 	}
 
 	public void goMenu() {

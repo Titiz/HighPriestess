@@ -5,16 +5,15 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapImageLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Queue;
 import com.hr.highpriestess.game.components.Game.Tracker.NeighborMapTracker;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
-import com.hr.highpriestess.game.util.MapSetupHolder;
+import com.hr.highpriestess.game.util.MapSetupUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,7 +40,7 @@ public class BackgroundAssetSystem extends BaseSystem {
 
     private void removeUnusedResources() {
         Gdx.app.debug(TAG, "Removing unused resources");
-        HashMap<String, Array<String>> map = neighborCm.get(tagManager.getEntity("tracker")).neighborMapAssets;
+        HashMap<String, Array<String >> map = neighborCm.get(tagManager.getEntity("tracker")).neighborMapAssets;
         HashSet<String> neighbors = neighborCm.get(tagManager.getEntity("tracker")).currentNeighborNames;
         HashMap<String, Integer> assetCount = neighborCm.get(tagManager.getEntity("tracker")).assetUseCounter;
 
@@ -56,8 +55,12 @@ public class BackgroundAssetSystem extends BaseSystem {
                     if (assetCount.get(assetName) == 0) {
                         Gdx.app.debug(TAG, "Removing asset from assetUseCounter with name: " + assetName);
                         assetCount.remove(assetName);
+                        Gdx.app.debug(TAG, String.valueOf(assetSystem.assetManager.isLoaded(assetName)));
                         Gdx.app.debug(TAG, "Unloading resource with name: " + assetName);
                         assetSystem.assetManager.unload(assetName);
+                        Gdx.app.debug(TAG, String.valueOf(assetSystem.assetManager.isLoaded(assetName)));
+                        if (assetSystem.assetManager.isLoaded(assetName))
+                            Gdx.app.debug(TAG, "references " + assetSystem.assetManager.getReferenceCount(assetName));
                     }
                 }
                 map.put(mapName, new Array<String>());
@@ -68,48 +71,66 @@ public class BackgroundAssetSystem extends BaseSystem {
     }
 
 
+//    private void getNeighborAssets() {
+//        Gdx.app.debug(TAG, "getting ready to rerieve assets of all neighboring maps");
+//        Entity tracker = tagManager.getEntity("tracker");
+//        Gdx.app.debug(TAG, "neighboring map count is " + neighborCm.get(tracker).currentNeighborNames.size());
+//        Array<TiledMapTileLayer> layers = new Array<TiledMapTileLayer>();
+//        for (String mapName : neighborCm.get(tracker).currentNeighborNames) {
+//            if (neighborCm.get(tracker).lastMapNeighborNames.contains(mapName) ||
+//                    neighborCm.get(tracker).activeMapName.equals(mapName))
+//                        continue;
+//            layers.clear();
+//            TiledMap map = assetSystem.assetManager.get(mapName);
+//            Gdx.app.debug(TAG, "going through layers of " +mapName);
+//            for (MapLayer rawLayer : map.getLayers()) {
+//                if (rawLayer.getClass() == TiledMapImageLayer.class) continue;
+//                Gdx.app.debug(TAG, rawLayer.getClass().toString());
+//                layers.add((TiledMapTileLayer) rawLayer);
+//            }
+//            Gdx.app.debug(TAG, "done retrieving layers of " + mapName);
+//
+//            Gdx.app.debug(TAG, "retrieving height and width of " + mapName);
+//            float width = layers.get(0).getWidth();
+//            float height = layers.get(0).getHeight();
+//
+//            Gdx.app.debug(TAG, "getting assets from map " + mapName);
+//            MapSetupUtils.getAssetsFromMap(layers, width, height, tracker, mapName);
+//            Gdx.app.debug(TAG, "getting assets from map finished " + mapName);
+//        }
+//    }
+
     private void getNeighborAssets() {
         Gdx.app.debug(TAG, "getting ready to rerieve assets of all neighboring maps");
         Entity tracker = tagManager.getEntity("tracker");
         Gdx.app.debug(TAG, "neighboring map count is " + neighborCm.get(tracker).currentNeighborNames.size());
-        Array<TiledMapTileLayer> layers = new Array<TiledMapTileLayer>();
         for (String mapName : neighborCm.get(tracker).currentNeighborNames) {
             if (neighborCm.get(tracker).lastMapNeighborNames.contains(mapName) ||
                     neighborCm.get(tracker).activeMapName.equals(mapName))
-                        continue;
-            layers.clear();
+                continue;
             TiledMap map = assetSystem.assetManager.get(mapName);
-            Gdx.app.debug(TAG, "going through layers of " +mapName);
-            for (MapLayer rawLayer : map.getLayers()) {
-                if (rawLayer.getClass() == TiledMapImageLayer.class) continue;
-                Gdx.app.debug(TAG, rawLayer.getClass().toString());
-                layers.add((TiledMapTileLayer) rawLayer);
-            }
-            Gdx.app.debug(TAG, "done retrieving layers of " + mapName);
-
-            Gdx.app.debug(TAG, "retrieving height and width of " + mapName);
-            float width = layers.get(0).getWidth();
-            float height = layers.get(0).getHeight();
-
-            Gdx.app.debug(TAG, "getting assets from map " + mapName);
-            MapSetupHolder.getAssetsFromMap(layers, width, height, tracker, mapName);
-            Gdx.app.debug(TAG, "getting assets from map finished " + mapName);
+            Gdx.app.debug(TAG, "about to get assets from neighboring map" + mapName);
+            MapSetupUtils.getAssetsFromMap(mapName, map.getProperties(), tracker);
         }
     }
 
 
 
     private void addAssetsToQueue() {
-        Gdx.app.debug(TAG, "Adding assets to Background system Queue");
-        HashMap<String, Array<String>> map = neighborCm.get(tagManager.getEntity("tracker")).neighborMapAssets;
+        Gdx.app.debug(TAG, "Adding assets to BackgroundAssetSystem Queue");
+        NeighborMapTracker neighTracker = neighborCm.get(tagManager.getEntity("tracker"));
+        HashMap<String, Array<String>> map = neighTracker.neighborMapAssets;
         for (String key : map.keySet()) {
-            for (int i = 0; i < map.get(key).size; i++) {
-                if (!assetSystem.assetManager.isLoaded(map.get(key).get(i))) {
-                    assetSystem.assetManager.load(map.get(key).get(i), Texture.class); // For now we only load textures
+            if (neighTracker.lastMapNeighborNames.contains(key)) continue; // map was in lastNeighbors => resources already in queue
+            if (neighTracker.activeMapName.equals(key)) continue; // map is active => resources were loaded prior
+            Gdx.app.debug(TAG, "adding assets of the map " + key + " to the queue");
+            for (String value : map.get(key)) {
+                if (!assetSystem.assetManager.isLoaded(value)) {
+                    Gdx.app.debug(TAG, "adding asset " + value + " to the loading queue");
+                    assetSystem.load(value);
                 }
             }
         }
-
     }
 
     private void debugPrint() {
@@ -139,6 +160,7 @@ public class BackgroundAssetSystem extends BaseSystem {
             }
             Gdx.app.debug(mapName, mapResources);
         }
+        Gdx.app.debug(TAG, "current amount of resources loaded is: " +assetSystem.assetManager.getLoadedAssets());
 
     }
 
@@ -150,13 +172,14 @@ public class BackgroundAssetSystem extends BaseSystem {
             removeUnusedResources();
             addAssetsToQueue();
             debugPrint();
+
             isSetup = true;
             Gdx.app.debug(TAG, "Setup Complete");
         }
 
 
         if (assetSystem.assetManager.getProgress() != 1) {
-            Gdx.app.debug(TAG, "assetManager progress: " + assetSystem.assetManager.getProgress());
+            Gdx.app.debug(TAG, "assetManager backgroundAssetLoading progress: " + assetSystem.assetManager.getProgress());
         }
 
         assetSystem.assetManager.update(10); //update the assetSystem for 10 milliseconds.

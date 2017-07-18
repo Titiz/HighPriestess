@@ -35,6 +35,8 @@ public class GameScreen extends AbstractScreen {
         Gdx.app.debug(TAG, "New GameScreen has been made");
         this.game = game;
         Gdx.app.debug(TAG, "Game reference made");
+        if (G.assetSystem == null)
+            G.assetSystem = new AssetSystem();
         WorldConfiguration config = new WorldConfigurationBuilder()
                 .with(
 
@@ -45,8 +47,9 @@ public class GameScreen extends AbstractScreen {
 
 
 
-                        new GameMapSystem("test.tmx"),
+                        new GameMapSystem("monastery.tmx"),
                         new BackgroundAssetSystem(),
+                        new AnimationTrackingSystem(),
                         new EntityLayeringSystem(),
                         new RelocationSystem(),
 

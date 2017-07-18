@@ -1,24 +1,18 @@
 package com.hr.highpriestess.game.systems.MenuSystems;
 
 import com.artemis.BaseSystem;
-import com.artemis.ComponentMapper;
-import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.hr.highpriestess.G;
 
 import java.util.HashMap;
@@ -42,19 +36,21 @@ public class AssetSystem extends BaseSystem {
     public final BitmapFont fontLarge;
 
     public Texture tileset;
-    public HashMap<String, Animation> sprites = new HashMap<String, Animation>();
+    public HashMap<String, Animation> animations = new HashMap<String, Animation>();
     public HashMap<String, Sound> sounds = new HashMap<String, Sound>();
     public HashMap<Integer, Animation> transitions = new HashMap<Integer, Animation>();
 
 
 
     public Animation get(final String identifier) {
-        return sprites.get(identifier);
+        return animations.get(identifier);
     }
 
     public Sound getSfx(final String identifier) {
         return sounds.get(identifier);
     }
+
+
 
     public Animation add(final String identifier, int x1, int y1, int w, int h, int repeatX) {
         return add(identifier, x1, y1, w, h, repeatX, 1, tileset);
@@ -81,7 +77,7 @@ public class AssetSystem extends BaseSystem {
             }
         }
 
-        return sprites.put(identifier, new Animation(frameDuration, regions));
+        return animations.put(identifier, new Animation(frameDuration, regions));
     }
 
     public Animation add(final int identifier, int x1, int y1, int w, int h, int repeatX, int repeatY, Texture texture, float frameDuration) {
@@ -99,6 +95,19 @@ public class AssetSystem extends BaseSystem {
         return transitions.put(identifier, new Animation(frameDuration, regions));
     }
 
+
+    public void addAnim(int fps, String atlasName, String imageName) {
+        Gdx.app.debug(TAG, "add anim called with atlas: " + atlasName + " and imageName: "  + imageName);
+        String regionName = imageName.split(":")[1];
+        Gdx.app.debug(TAG, "regionName found to be: " + regionName);
+        float secondsPerFrame = (float) 1/fps;
+        Gdx.app.debug(TAG, "seconds per frame set to " + secondsPerFrame);
+        Gdx.app.debug(TAG, "frame count is: " + assetManager.get(atlasName, TextureAtlas.class).findRegions(regionName).size);
+        Animation animation = new Animation( secondsPerFrame, assetManager.get(atlasName,
+                TextureAtlas.class).findRegions(regionName), Animation.PlayMode.LOOP);
+        animations.put(imageName, animation);
+    }
+
     public Texture getImage(String identifier) {
         return assetManager.get(identifier, Texture.class);
     }
@@ -114,21 +123,22 @@ public class AssetSystem extends BaseSystem {
 
 
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("test.tmx", TiledMap.class);
+        assetManager.load("monastery.tmx", TiledMap.class);
+        assetManager.load("outside.tmx", TiledMap.class);
+        assetManager.load("outside2.tmx", TiledMap.class);
 
 
 
 
         load("GURU0.fnt");
 
-        load("nunWalk.png");
-        load("nunIdle.png");
 
-        load("Blood.png");
-        load("Blood2.png");
-        load("Blood3.png");
-        load("background.png");
-        load("trans.png");
+//        load("Blood.png");
+//        load("Blood2.png");
+//        load("Blood3.png");
+//        load("background.png");
+//        load("trans.png");
+
 
 
         assetManager.finishLoading();
@@ -138,26 +148,26 @@ public class AssetSystem extends BaseSystem {
         Gdx.app.debug(TAG, "Primary Assets haves loaded");
 
 
-        add("idlePlayer", 0, 0, 160, 160, 3, 4, getImage("nunIdle.png"), 0.5f);
-        add("movingPlayer", 0, 0, 32, 32, 12, 1, getImage("nunWalk.png"), 0.1f);
-
-        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
-        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, getImage("Blood2.png"), 0.1f);
-        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, getImage("Blood3.png"), 0.1f);
-        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, getImage("background.png"), 1f);
-        add(-1, 0, 0, 80, 1072, 22, 1, getImage("trans.png"), 0.1f);
+//        add("menuAnim1", 0, 0, 1024, 1024, 12, 1, getImage("Blood.png"), 0.1f);
+//        add("menuAnim1Before", 0, 0, 1024, 1024, 12, 1, getImage("Blood2.png"), 0.1f);
+//        add("menuAnim1After", 0, 0, 1024, 1024, 12, 1, getImage("Blood3.png"), 0.1f);
+//        add("menuMainBackground", 0, 0, 1280, 960, 1, 1, getImage("background.png"), 1f);
+//
+//        add(-1, 0, 0, 80, 1072, 22, 1, getImage("trans.png"), 0.1f);
 
         Gdx.app.debug(TAG, "Custom Assets have loaded");
     }
 
 
     public void load(String fileName) {
-        assetManager.load(fileName, getFileType(fileName));
-        Gdx.app.debug(TAG, fileName);
+        Class fileType = getFileType(fileName);
+        if (!assetManager.isLoaded(fileName, fileType)) {
+            assetManager.load(fileName, fileType);
+            Gdx.app.debug(TAG, fileName + " has been added to the loading queue");
+        } else {
+            Gdx.app.debug(TAG, fileName + " is already loaded");
+        }
     }
-
-
-
 
 
 

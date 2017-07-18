@@ -2,9 +2,11 @@ package com.hr.highpriestess.game.systems.GameSystems;
 
 import com.artemis.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.MapProperties;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.Abstract.EntitySpawnerSystem;
 import com.hr.highpriestess.game.util.EntityMakerGame;
+
 
 /**
  * Used in  the GameMapSystem to spawn certain entities based on description on map.
@@ -16,12 +18,15 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
 
 
 
-
     public void spawnEntity(float x, float y, String entityName, G.Layer layer) {
         if (entityName.equals("player")) {
-            Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y);
+            String animWalking = properties.get("animWalking", String.class);
+            String animIdle = properties.get("animIdle", String.class);
+            Entity player = EntityMakerGame.createPlayer(this.getWorld(), x, y, animIdle, animWalking);
             tagManager.register(entityName, player);
             Gdx.app.debug(TAG, "Player spawned at X:" + x + " Y:" + y);
+            Gdx.app.debug(TAG, "Player animWalking: " + animWalking);
+            Gdx.app.debug(TAG, "Player animIdle: " + animIdle);
         }
         else if (entityName.equals("gate")) {
             String nextLevel = (String) properties.get(entityName);
@@ -32,15 +37,13 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Gdx.app.debug("NEXT LEVEL", nextLevel);
             Gdx.app.debug("name", name);
             Gdx.app.debug("arrivalGate", arrivalGate);
-//        } else if (entityName.equals("enemy")) {
-//            Entity enemy = EntityMakerGame.createEnemy(this.getWorld(), x, y);
-//            groupManager.add(enemy, entityName);
-//            Gdx.app.debug(TAG, "Enemy spawned at X:" + x + " Y:" + y);
-        } else if (entityName.equals("tracker")) {
+        }
+        else if (entityName.equals("tracker")) {
             Entity tracker = EntityMakerGame.createTracker(this.getWorld());
             tagManager.register(entityName,tracker);
             Gdx.app.debug(TAG, "Tracker Entity spawned");
-        } else if (entityName.equals("door")) {
+        }
+        else if (entityName.equals("door")) {
             String nextLevel = (String) properties.get("gate");
             String interactLabel = (String) properties.get("interactLabel");
             String arrivalGate = (String) properties.get("arrivalGate");
@@ -51,13 +54,15 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Gdx.app.debug("interactLabel", interactLabel);
             Gdx.app.debug("name", name);
             Gdx.app.debug("arrivalGate", arrivalGate);
-        } else if (entityName.equals("foreground")){
+        }
+        else if (entityName.equals("foreground")){
             String imageName = (String) properties.get("imageName");
             int width = Integer.parseInt( (String) properties.get("width"));
             int height = Integer.parseInt( (String) properties.get("height"));
             EntityMakerGame.createGlobalForeground(this.getWorld(), x, y, width, height, imageName);
             Gdx.app.debug(TAG, "GlobalForeground spawned with image " + imageName);
-        } else if (entityName.equals("background")) {
+        }
+        else if (entityName.equals("background")) {
             String imageName = (String) properties.get("imageName");
             if (properties.containsKey("width")) {
                 int width = Integer.parseInt((String) properties.get("width"));
@@ -66,7 +71,8 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             } else {
                 EntityMakerGame.createGlobalBackground(this.getWorld(), x, y, -1, -1, imageName);
             }
-        } else if (entityName.equals("staticImage")) {
+        }
+        else if (entityName.equals("staticImage")) {
             String imageName = (String) properties.get("imageName");
             if (properties.containsKey("width")) {
                 int width = Integer.parseInt((String) properties.get("width"));

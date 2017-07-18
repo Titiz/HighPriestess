@@ -23,13 +23,12 @@ public class EntityMakerGame {
     AssetSystem assetSystem;
 
 
-    public static Entity createPlayer(final World world, final float x, final float y
-    ) {
-
+    public static Entity createPlayer(final World world, final float x, final float y,
+                                      final String... animNames) {
         Entity entity = createNew(world)
                 .add(new Kinematics(5, 5))
                 .add(new Bounds(x, y, 32, 32))
-                .add(new Anim(G.Layer.PLAYER, "idlePlayer", "movingPlayer"))
+                .add(new Anim(G.Layer.PLAYER, animNames))
                 .add(new Player())
                 .getEntity();
         return entity;
@@ -53,6 +52,7 @@ public class EntityMakerGame {
                 .add(new ShaderHolder())
                 .add(new SpawnGateTracker())
                 .add(new NeighborMapTracker())
+                .add(new AnimationTracker())
                 .getEntity();
         return entity;
     }
