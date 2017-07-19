@@ -13,6 +13,7 @@ import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
 import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
+import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 
 /**
  * Created by Titas on 2017-07-07.
@@ -28,6 +29,7 @@ public class InteractLabelRenderSystem extends BaseSystem {
     ComponentMapper<Player> playerCm;
     ComponentMapper<Bounds> boundsCm;
     AssetSystem assetSystem;
+    CameraSystem cameraSystem;
     BitmapFont font;
     SpriteBatch batch;
 
@@ -57,9 +59,11 @@ public class InteractLabelRenderSystem extends BaseSystem {
             label.setWidth(boundsCm.get(collidedEntity).width);
             label.setHeight(boundsCm.get(collidedEntity).height);
 
+            label.setFontScale(1.0f);
+
             label.setPosition(boundsCm.get(collidedEntity).x, boundsCm.get(player).y + boundsCm.get(player).height);
 
-
+            batch.setProjectionMatrix(cameraSystem.camera.combined);
             batch.begin();
             label.draw(batch, 1.0f);
             batch.end();

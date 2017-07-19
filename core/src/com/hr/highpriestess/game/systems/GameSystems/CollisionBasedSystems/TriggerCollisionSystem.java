@@ -7,6 +7,8 @@ import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.artemis.systems.IteratingSystem;
 import com.artemis.utils.IntBag;
+import com.badlogic.gdx.Gdx;
+import com.hr.highpriestess.game.components.Game.Interactibles.Dialogue;
 import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
 import com.hr.highpriestess.game.components.Game.Interactibles.Trigger;
 import com.hr.highpriestess.game.components.Game.Player;
@@ -14,7 +16,8 @@ import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CollisionUtilSystem;
 
 /**
- * Created by Titas on 2017-07-07.
+ * Gives us the entity that  has either the interactible or trigger components
+ * and collides with the player.
  */
 public class TriggerCollisionSystem extends BaseEntitySystem {
 
@@ -29,8 +32,7 @@ public class TriggerCollisionSystem extends BaseEntitySystem {
     int player;
 
     ComponentMapper<Player> playerCm;
-    ComponentMapper<Interactible> interactibleCm;
-    ComponentMapper<Interactible> triggerCm;
+    ComponentMapper<Dialogue> dialogueCm;
     TagManager tagManager;
     GroupManager groupManager;
 
@@ -51,8 +53,6 @@ public class TriggerCollisionSystem extends BaseEntitySystem {
                 break;
             }
         }
-
     }
-
 
 }

@@ -129,8 +129,10 @@ public class AssetSystem extends BaseSystem {
 
 
 
-
         load("GURU0.fnt");
+        load("smallFont.fnt");
+        load("mediumFont.fnt");
+        load("largeFont.fnt");
 
 
 //        load("Blood.png");

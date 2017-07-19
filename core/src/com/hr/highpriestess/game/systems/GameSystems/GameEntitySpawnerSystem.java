@@ -27,6 +27,9 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             Gdx.app.debug(TAG, "Player spawned at X:" + x + " Y:" + y);
             Gdx.app.debug(TAG, "Player animWalking: " + animWalking);
             Gdx.app.debug(TAG, "Player animIdle: " + animIdle);
+        } else if (entityName.equals("talkingNPC")){
+            String animIdle = properties.get("animIdle", String.class);
+            EntityMakerGame.createTalkingNPC(this.getWorld(), x, y, animIdle);
         }
         else if (entityName.equals("gate")) {
             String nextLevel = (String) properties.get(entityName);

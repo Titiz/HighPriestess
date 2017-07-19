@@ -6,6 +6,7 @@ import com.artemis.World;
 import com.artemis.managers.GroupManager;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.components.Game.*;
+import com.hr.highpriestess.game.components.Game.Interactibles.Dialogue;
 import com.hr.highpriestess.game.components.Game.Interactibles.Interactible;
 import com.hr.highpriestess.game.components.Game.Interactibles.Trigger;
 import com.hr.highpriestess.game.components.Game.Tracker.LayerEntityTracker;
@@ -34,6 +35,18 @@ public class EntityMakerGame {
         return entity;
     }
 
+    public static Entity createTalkingNPC(final  World world, final float x, final float y,
+                                            final String idleAnim)
+    {
+        Entity entity = createNew(world)
+                .add(new Bounds(x, y, 32, 32))
+                .add(new Anim(G.Layer.DEFAULT, idleAnim))
+                .add(new Dialogue())
+                .add(new Interactible())
+                .getEntity();
+        return entity;
+    }
+
 
     public static Entity createGate(final World world, final float x, final float y,
                                     String nextMap, String gateName, String arrivalGateName) {
@@ -46,6 +59,8 @@ public class EntityMakerGame {
         return entity;
     }
 
+
+
     public static Entity createTracker(final World world) {
         Entity entity = createNew(world)
                 .add(new LayerEntityTracker())
@@ -53,6 +68,7 @@ public class EntityMakerGame {
                 .add(new SpawnGateTracker())
                 .add(new NeighborMapTracker())
                 .add(new AnimationTracker())
+                .add(new DialogueTracker())
                 .getEntity();
         return entity;
     }

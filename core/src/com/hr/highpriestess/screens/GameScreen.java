@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.hr.highpriestess.G;
 import com.hr.highpriestess.game.systems.GameSystems.*;
 import com.hr.highpriestess.game.systems.GameSystems.AnimationSystems.StateSelectSystem;
+import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.DialogueCollisionSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.MapGateCollideSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.TriggerCollisionSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.EntityLayeringSystem;
@@ -56,6 +57,7 @@ public class GameScreen extends AbstractScreen {
                         new ControllerSystem(),
                         new TriggerCollisionSystem(),
                         new MapGateCollideSystem(),
+                        new DialogueCollisionSystem(),
 
                         new GameEntityClearerSystem(),
                         new GameEntitySpawnerSystem(),
