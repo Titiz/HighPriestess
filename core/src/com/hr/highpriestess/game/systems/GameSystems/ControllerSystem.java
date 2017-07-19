@@ -39,6 +39,7 @@ public class ControllerSystem extends BaseSystem {
 
         playerCm.get(player).isActiveButtonClicked = false;
 
+
         Kinematics entity = kinCm.getSafe(player);
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -53,10 +54,9 @@ public class ControllerSystem extends BaseSystem {
             Gdx.app.log(TAG, "E was pressed");
             playerCm.get(player).isActiveButtonClicked = true;
         }
-
         else
-
             entity.setVx(0*Gdx.graphics.getDeltaTime());
+
 
         cameraSystem.camera.position.x = boundsCm.get(player).x;
         if (cameraSystem.camera.position.x <= cameraSystem.camera.viewportWidth/2)

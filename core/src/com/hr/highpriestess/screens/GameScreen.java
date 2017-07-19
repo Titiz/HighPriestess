@@ -14,10 +14,7 @@ import com.hr.highpriestess.game.systems.GameSystems.AnimationSystems.StateSelec
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.DialogueCollisionSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.MapGateCollideSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.TriggerCollisionSystem;
-import com.hr.highpriestess.game.systems.GameSystems.Render.EntityLayeringSystem;
-import com.hr.highpriestess.game.systems.GameSystems.Render.EntityRenderSystem;
-import com.hr.highpriestess.game.systems.GameSystems.Render.InteractLabelRenderSystem;
-import com.hr.highpriestess.game.systems.GameSystems.Render.TilemapRender;
+import com.hr.highpriestess.game.systems.GameSystems.Render.*;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
 
 /**
@@ -75,7 +72,8 @@ public class GameScreen extends AbstractScreen {
 
                         new TilemapRender(),
                         new EntityRenderSystem(),
-                        new InteractLabelRenderSystem()
+                        new InteractLabelRenderSystem(),
+                        new DialogueRenderSystem()
                 ).build();
         Gdx.app.debug(TAG, "Configuration for the world created");
         G.gameWorld = new World(config);
