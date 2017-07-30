@@ -1,6 +1,8 @@
 package com.hr.highpriestess.game.components.Game.Interactibles;
 
 import com.artemis.Component;
+import com.badlogic.gdx.utils.Array;
+import com.hr.highpriestess.game.util.Node;
 
 /**
  * Created by Titas on 2017-07-07.
@@ -8,15 +10,14 @@ import com.artemis.Component;
 public class Dialogue extends Component {
 
 
-    private String conversation;
-    public Boolean stopsTime;
+    private String dialogueFile;
+
 
     public Dialogue() {
-        conversation = "High Priestess, these are not times in which the gods can help us. They have surely abandoned us.";
-        stopsTime = false;
+        dialogueFile = "filename.xml";
     }
 
-    public String getConversation() {
-        return conversation;
+    public String getDialogueFile() {
+        return dialogueFile;
     }
 }

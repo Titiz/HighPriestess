@@ -20,11 +20,6 @@ public class HighPriestessMain extends Game {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Gdx.app.debug(TAG, "creating the GameObject");
 		Gdx.graphics.setWindowedMode(640, 480);
-		Array<Node> nodes = new Array<Node>();
-		DialogueUtils.getDialogue("filename.xml", nodes);
-		for (Node node : nodes) {
-			Gdx.app.debug(TAG, "node with text: " + node.text);
-		}
 		G.game = this;
 		goGame();
 	}

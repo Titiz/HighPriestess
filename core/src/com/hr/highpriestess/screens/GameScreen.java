@@ -55,6 +55,7 @@ public class GameScreen extends AbstractScreen {
                         new TriggerCollisionSystem(),
                         new MapGateCollideSystem(),
                         new DialogueCollisionSystem(),
+                        new DialogueProgressSystem(),
 
                         new GameEntityClearerSystem(),
                         new GameEntitySpawnerSystem(),
@@ -73,7 +74,7 @@ public class GameScreen extends AbstractScreen {
                         new TilemapRender(),
                         new EntityRenderSystem(),
                         new InteractLabelRenderSystem(),
-                        new DialogueRenderSystem()
+                        new PassiveDialogueRenderSystem()
                 ).build();
         Gdx.app.debug(TAG, "Configuration for the world created");
         G.gameWorld = new World(config);

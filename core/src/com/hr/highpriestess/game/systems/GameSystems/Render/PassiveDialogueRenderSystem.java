@@ -5,7 +5,6 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,12 +21,12 @@ import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 /**
  * Created by Titas on 2017-07-19.
  */
-public class DialogueRenderSystem extends BaseSystem {
+public class PassiveDialogueRenderSystem extends BaseSystem {
 
     ComponentMapper<Player> playerCm;
     ComponentMapper<DialogueTracker> dialogueTrackerCm;
     ComponentMapper<Dialogue> dialogueCm;
-     TagManager tagmanager;
+    TagManager tagmanager;
 
     BitmapFont font;
 
@@ -47,7 +46,7 @@ public class DialogueRenderSystem extends BaseSystem {
     float secondsPerCharacter = baseSecondsPerCharacter;
     final int maxDialogueLines = 3;
 
-    int currentlyTalkingEntity;
+
 
 
 
@@ -55,10 +54,10 @@ public class DialogueRenderSystem extends BaseSystem {
 
     Array<String> words;
 
-    String TAG = DialogueRenderSystem.class.toString();
+    String TAG = PassiveDialogueRenderSystem.class.toString();
 
 
-    public DialogueRenderSystem() {
+    public PassiveDialogueRenderSystem() {
         font = G.assetSystem.assetManager.get("smallFont.fnt");
         batch = new SpriteBatch();
         timer = 0;
@@ -78,16 +77,9 @@ public class DialogueRenderSystem extends BaseSystem {
         activeLabel.setX(x);
     }
 
-
-
-    @Override
-    protected void processSystem() {
-        Entity tracker = tagmanager.getEntity("tracker");
-        DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
-        if (!dialogueTracker.inDialogue) return;
-
-
+    private void makeLabelIfNull() {
         if (activeLabel == null) {
+            Gdx.app.debug(TAG, "label found to be null");
             Gdx.app.debug(TAG, "making new label");
             Label.LabelStyle style = new Label.LabelStyle(font, font.getColor());
             activeLabel = new Label("", style);
@@ -96,20 +88,75 @@ public class DialogueRenderSystem extends BaseSystem {
             cameraSystem.reset();
             shapeActiveLabel();
         }
+    }
 
+    @Override
+    protected void processSystem() {
+        Entity tracker = tagmanager.getEntity("tracker");
+        DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
 
+        if (!dialogueTracker.inDialogue) return;
+        if (dialogueTracker.isMakingDecision) return;
+
+        makeLabelIfNull();
 
         int dialogueEntity = dialogueTracker.dialogueEntity;
-        String text = dialogueCm.get(dialogueEntity).getConversation();
-
-
+        String text = dialogueTrackerCm.get(tracker).nodes.get(dialogueTrackerCm.get(tracker).currentNode).text;
         char[] charText = text.toCharArray();
         String string = activeLabel.getText().toString();
         int currentChar = dialogueTracker.dialoguePointer;
-
         int player = tagmanager.getEntity("player").getId();
 
 
+
+
+        // This here is for passive dialogue, that just goes on.
+        updateLabelText(currentChar, charText, string, dialogueTracker);
+        trackPlayerClicks(player, currentChar);
+
+
+        batch.setProjectionMatrix(cameraSystem.camera.combined);
+        batch.begin();
+        activeLabel.draw(batch, 1);
+        for (Label label : labelQueue) {
+            label.draw(batch, 1);
+        }
+        batch.end();
+
+        gotoNextNode(currentChar, charText, dialogueTracker, player, dialogueEntity);
+
+        timer += Gdx.graphics.getDeltaTime();
+    }
+
+
+
+    private void gotoNextNode(int currentChar, char [] charText, DialogueTracker dialogueTracker, int player, int dialogueEntity) {
+        if (currentChar > charText.length && playerCm.get(player).isActiveButtonClicked) {
+            activeLabel = null;
+            int neighborId = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors[0];
+            if (!dialogueTracker.nodes.get(dialogueTracker.currentNode).text.equals("#EXIT")) {
+                String neighborSpeaker = dialogueTracker.nodes.get(neighborId).speaker;
+                if (neighborSpeaker == null) {
+                    reset(dialogueTracker);
+                    return;
+                }
+                if (neighborSpeaker.equals("Player")) {
+                    Gdx.app.debug(TAG, "player is making decision");
+                    dialogueTracker.isMakingDecision = true;
+                }
+                dialogueTracker.continueConversation(dialogueEntity, neighborId);
+            }
+        }
+
+        if (currentChar == charText.length) {
+            Gdx.app.debug(TAG, "currentChar is the last Char");
+            dialogueTracker.dialoguePointer ++;
+            isStringFinished = true;
+            Gdx.app.debug(TAG, "currently one-click away from going to the next node");
+        }
+    }
+
+    private void trackPlayerClicks(int player, int currentChar) {
         if (playerCm.get(player).isActiveButtonClicked && currentChar != 0) {
             if (!this.isStringFinished){
                 secondsPerCharacter = 0;
@@ -120,11 +167,12 @@ public class DialogueRenderSystem extends BaseSystem {
                 isStringFinished = false;
                 labelQueue.clear();
                 shapeActiveLabel();
-                string = "";
-                activeLabel.setText(string);
+                activeLabel.setText("");
             }
         }
+    }
 
+    private void updateLabelText(int currentChar, char[] charText, String string, DialogueTracker dialogueTracker) {
         if (timer > secondsPerCharacter) {
             timer = 0;
             if (!this.isStringFinished && currentChar < charText.length) {
@@ -153,27 +201,8 @@ public class DialogueRenderSystem extends BaseSystem {
                 dialogueTracker.dialoguePointer = currentChar;
             }
         }
-
-        batch.setProjectionMatrix(cameraSystem.camera.combined);
-        batch.begin();
-        activeLabel.draw(batch, 1);
-        for (Label label : labelQueue) {
-            label.draw(batch, 1);
-        }
-        batch.end();
-
-
-        if (currentChar > charText.length && playerCm.get(player).isActiveButtonClicked) {
-            reset(dialogueTracker);
-        }
-
-        if (currentChar == charText.length) {
-            Gdx.app.debug(TAG, "currentChar is the last Char");
-            dialogueTracker.dialoguePointer ++;
-            Gdx.app.debug(TAG, "currently one-click away from finishing dialogue");
-        }
-        timer += Gdx.graphics.getDeltaTime();
     }
+
 
     private void reset(DialogueTracker dialogueTracker) {
         Gdx.app.debug(TAG, "Resetting the Dialogue Render System");

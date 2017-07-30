@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.hr.highpriestess.game.components.Game.Interactibles.Dialogue;
 import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Game.Tracker.DialogueTracker;
+import com.hr.highpriestess.game.util.DialogueUtils;
 
 /**
  * Created by Titas on 2017-07-19.
@@ -30,7 +31,6 @@ public class DialogueCollisionSystem extends BaseSystem {
 
         int tracker = tagmanager.getEntity("tracker").getId();
         if (dialogueTrackerCm.get(tracker).inDialogue) return;
-
 
         int dialogueEntity = playerCm.get(player).collidingEntity.getId();
         dialogueTrackerCm.get(tracker).startNewConversation(dialogueEntity);
