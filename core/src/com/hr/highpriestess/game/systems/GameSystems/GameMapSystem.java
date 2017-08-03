@@ -38,7 +38,6 @@ public class GameMapSystem extends MapSystem {
 
     private Array<TiledMapTileLayer> layers;
     private boolean isSetup = false;
-    private HashMap<String, String> maps = new HashMap<String, String>();
     CameraSystem cameraSystem;
     TagManager tagManager;
     ComponentMapper<NeighborMapTracker> neighCm;
@@ -76,9 +75,6 @@ public class GameMapSystem extends MapSystem {
 
     public void setActiveMap(String activeMapName) {
         Gdx.app.debug(TAG, "activeMap changing");
-
-
-
 
         Gdx.app.debug(TAG, "resetting Camera ");
         cameraSystem.reset();

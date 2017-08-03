@@ -1,4 +1,4 @@
-package com.hr.highpriestess.game.systems.GameSystems.Render;
+package com.hr.highpriestess.game.systems.GameSystems.Render.Dialogue;
 
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
@@ -134,18 +134,16 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
         if (currentChar > charText.length && playerCm.get(player).isActiveButtonClicked) {
             activeLabel = null;
             int neighborId = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors[0];
-            if (!dialogueTracker.nodes.get(dialogueTracker.currentNode).text.equals("#EXIT")) {
                 String neighborSpeaker = dialogueTracker.nodes.get(neighborId).speaker;
-                if (neighborSpeaker == null) {
-                    reset(dialogueTracker);
-                    return;
-                }
-                if (neighborSpeaker.equals("Player")) {
-                    Gdx.app.debug(TAG, "player is making decision");
-                    dialogueTracker.isMakingDecision = true;
-                }
-                dialogueTracker.continueConversation(dialogueEntity, neighborId);
+            if (neighborSpeaker == null) {
+                reset(dialogueTracker);
+                return;
             }
+            if (neighborSpeaker.equals("Player")) {
+                Gdx.app.debug(TAG, "player is making decision");
+                dialogueTracker.isMakingDecision = true;
+            }
+            dialogueTracker.continueConversation(dialogueEntity, neighborId);
         }
 
         if (currentChar == charText.length) {

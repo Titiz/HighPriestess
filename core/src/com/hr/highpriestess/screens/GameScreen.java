@@ -15,6 +15,8 @@ import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.Dialo
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.MapGateCollideSystem;
 import com.hr.highpriestess.game.systems.GameSystems.CollisionBasedSystems.TriggerCollisionSystem;
 import com.hr.highpriestess.game.systems.GameSystems.Render.*;
+import com.hr.highpriestess.game.systems.GameSystems.Render.Dialogue.ActiveDialogueRenderSystem;
+import com.hr.highpriestess.game.systems.GameSystems.Render.Dialogue.PassiveDialogueRenderSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.*;
 
 /**
@@ -74,7 +76,8 @@ public class GameScreen extends AbstractScreen {
                         new TilemapRender(),
                         new EntityRenderSystem(),
                         new InteractLabelRenderSystem(),
-                        new PassiveDialogueRenderSystem()
+                        new PassiveDialogueRenderSystem(),
+                        new ActiveDialogueRenderSystem()
                 ).build();
         Gdx.app.debug(TAG, "Configuration for the world created");
         G.gameWorld = new World(config);

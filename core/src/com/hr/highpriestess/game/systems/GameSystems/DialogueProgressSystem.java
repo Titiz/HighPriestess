@@ -55,11 +55,12 @@ public class DialogueProgressSystem extends BaseSystem {
             if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
                 currentDecision ++;
                 currentDecision %= dialogueTracker.decisions.length;
-                Gdx.app.debug(TAG, "" + currentDecision);
+                dialogueTracker.currentDecisionId = currentDecision;
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
                 Gdx.app.debug(TAG, "Pressed E with " + dialogueTracker.getNeighbor(dialogueTracker.currentNode, currentDecision).text);
                 dialogueTracker.continueConversation(dialogueEntity, dialogueTracker.getNeighborId(dialogueTracker.currentNode, currentDecision));
                 dialogueTracker.isMakingDecision = false;
+                dialogueTracker.currentDecisionId = currentDecision;
             }
         }
 

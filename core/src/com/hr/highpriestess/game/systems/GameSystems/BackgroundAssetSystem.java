@@ -34,8 +34,6 @@ public class BackgroundAssetSystem extends BaseSystem {
     String TAG = BackgroundAssetSystem.class.getName();
 
     public boolean isSetup = false;
-    private boolean assetsLoaded = false;
-
 
 
     private void removeUnusedResources() {
