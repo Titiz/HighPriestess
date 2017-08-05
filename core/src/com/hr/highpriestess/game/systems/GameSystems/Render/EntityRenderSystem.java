@@ -164,6 +164,8 @@ public class EntityRenderSystem extends BaseEntitySystem  {
             animation.setPlayMode(Animation.PlayMode.LOOP);
             TextureRegion currentFrame = animation.getKeyFrame(animCm.get(e).age);
             useDefaultSize(e, currentFrame); // Make sure that entities with animation components have a size
+            if (animCm.get(e).flippedX) if (!currentFrame.isFlipX()) currentFrame.flip(true, false); //flip animation according to their movement
+            if (!animCm.get(e).flippedX) if (currentFrame.isFlipX()) currentFrame.flip(true, false); //flip animation according to their movement
             draw(e, currentFrame);
             animCm.get(e).age += Gdx.graphics.getDeltaTime();
         } else { // Otherwise we will just proceed with the image

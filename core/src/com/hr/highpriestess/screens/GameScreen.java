@@ -70,6 +70,8 @@ public class GameScreen extends AbstractScreen {
                         new CameraSystem(),
                         new StateSelectSystem(),
 
+
+                        new TweenSystem(),
                         new KinematicsSystem(),
 
 

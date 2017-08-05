@@ -27,5 +27,13 @@ public class KinematicsSystem extends IteratingSystem {
         ebounds.changeX(eKin.getVx());
         ebounds.changeY(eKin.getVy());
 
+        if (animCm.has(e)) {
+            if (eKin.getVx() < 0) {
+                animCm.get(e).flippedX = true;
+            } else {
+                animCm.get(e).flippedX = false;
+            }
+        }
+
     }
 }

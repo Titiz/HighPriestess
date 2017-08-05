@@ -5,11 +5,8 @@ import com.artemis.ComponentMapper;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.hr.highpriestess.game.components.Game.Anim;
-import com.hr.highpriestess.game.components.Game.ChangeMap;
+import com.hr.highpriestess.game.components.Game.*;
 import com.hr.highpriestess.game.components.Game.Interactibles.Door;
-import com.hr.highpriestess.game.components.Game.Kinematics;
-import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
 
@@ -28,6 +25,7 @@ public class ControllerSystem extends BaseSystem {
     ComponentMapper<Player> playerCm;
     ComponentMapper<Door> doorCm;
     ComponentMapper<ChangeMap> changeMapcm;
+    ComponentMapper<Tween> tweenCm;
 
     TagManager tagManager;
 
@@ -56,6 +54,14 @@ public class ControllerSystem extends BaseSystem {
         }
         else
             entity.setVx(0*Gdx.graphics.getDeltaTime());
+
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            Tween tween = tweenCm.create(player);
+            tween.destination.set(600, 32);
+        }
+
+
 
 
         cameraSystem.camera.position.x = boundsCm.get(player).x;

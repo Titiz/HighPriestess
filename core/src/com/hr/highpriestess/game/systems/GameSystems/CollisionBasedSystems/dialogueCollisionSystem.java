@@ -24,15 +24,19 @@ public class DialogueCollisionSystem extends BaseSystem {
 
     @Override
     protected void processSystem() {
+
+        int tracker = tagmanager.getEntity("tracker").getId();
+        if (dialogueTrackerCm.get(tracker).inDialogue) return;
+
         int player = tagmanager.getEntity("player").getId();
         if (playerCm.get(player).collidingEntity == null) return;
         if (!dialogueCm.has(playerCm.get(player).collidingEntity)) return;
         if (!playerCm.get(player).isActiveButtonClicked) return;
 
-        int tracker = tagmanager.getEntity("tracker").getId();
-        if (dialogueTrackerCm.get(tracker).inDialogue) return;
+
 
         int dialogueEntity = playerCm.get(player).collidingEntity.getId();
+        playerCm.get(player).currentState = Player.States.DIALOGUE;
         dialogueTrackerCm.get(tracker).startNewConversation(dialogueEntity);
 
         Gdx.app.debug(TAG, "dialogue found with entity " + dialogueEntity);
