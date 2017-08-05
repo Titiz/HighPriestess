@@ -14,8 +14,13 @@ public class Dialogue extends Component {
 
 
     public Dialogue() {
-        dialogueFile = "filename.xml";
+
     }
+
+    public Dialogue(String dialogueFile) {
+        this.dialogueFile = dialogueFile;
+    }
+
 
     public String getDialogueFile() {
         return dialogueFile;

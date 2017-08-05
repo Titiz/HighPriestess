@@ -6,6 +6,7 @@ import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.hr.highpriestess.game.components.Game.Interactibles.Dialogue;
+import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Game.Tracker.DialogueTracker;
 import com.hr.highpriestess.game.util.DialogueUtils;
 
@@ -18,8 +19,10 @@ public class DialogueProgressSystem extends BaseSystem {
 
     ComponentMapper<Dialogue> dialogueCm;
     ComponentMapper<DialogueTracker> dialogueTrackerCm;
+    ComponentMapper<Player> playerCm;
 
     TagManager tagManager;
+
 
     private int currentDecision = 0;
 
@@ -32,6 +35,8 @@ public class DialogueProgressSystem extends BaseSystem {
         int dialogueEntity = dialogueTrackerCm.get(tracker).dialogueEntity;
         if (!dialogueTracker.inDialogue) return;
 
+        Player player = playerCm.get(tagManager.getEntity("player"));
+        if (player.currentState != Player.States.DIALOGUE) player.currentState = Player.States.DIALOGUE;
 
         if (dialogueTracker.nodes.size == 0) {
             // Here we make the dialogue nodes. No conversation has 0 nodes.

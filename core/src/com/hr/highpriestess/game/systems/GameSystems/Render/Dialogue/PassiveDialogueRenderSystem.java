@@ -68,10 +68,22 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
 
     private void shapeActiveLabel() {
         activeLabel.setFontScale(1.0f);
-        float y = boundsCm.get(tagmanager.getEntity("player")).y +
-                boundsCm.get(tagmanager.getEntity("player")).height -
+
+        Entity tracker = tagmanager.getEntity("tracker");
+        DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
+
+        String speakerName = dialogueTracker.getCurrentNode().speaker;
+        if (speakerName == null) speakerName = "player";
+        else speakerName = dialogueTracker.getCurrentNode().speaker.toLowerCase();
+
+
+
+        Gdx.app.debug(TAG, "current speaker is: " + speakerName);
+
+        float y = boundsCm.get(tagmanager.getEntity(speakerName)).y +
+                boundsCm.get(tagmanager.getEntity(speakerName)).height -
                 activeLabel.getPrefHeight() * (labelQueue.size - maxDialogueLines );
-        float x = boundsCm.get(tagmanager.getEntity("player")).x;
+        float x = boundsCm.get(tagmanager.getEntity(speakerName)).x;
         Gdx.app.debug(TAG, "activeLabelY: " + y);
         activeLabel.setY(y);
         activeLabel.setX(x);
@@ -208,6 +220,7 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
         dialogueTracker.inDialogue = false;
         dialogueTracker.dialoguePointer = 0;
         this.isStringFinished = false;
+        playerCm.get(tagmanager.getEntity("player")).currentState = Player.States.DEFAULT; // for now we go back to default
 
         //camera stuff
         cameraSystem.setZOOM(1.0f);

@@ -36,12 +36,12 @@ public class EntityMakerGame {
     }
 
     public static Entity createTalkingNPC(final  World world, final float x, final float y,
-                                            final String idleAnim)
+                                            final String idleAnim, final String dialogueFile)
     {
         Entity entity = createNew(world)
                 .add(new Bounds(x, y, 32, 32))
                 .add(new Anim(G.Layer.DEFAULT, idleAnim))
-                .add(new Dialogue())
+                .add(new Dialogue(dialogueFile))
                 .add(new Interactible())
                 .getEntity();
         return entity;

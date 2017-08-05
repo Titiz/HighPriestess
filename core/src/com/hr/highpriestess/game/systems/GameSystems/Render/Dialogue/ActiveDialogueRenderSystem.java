@@ -3,7 +3,6 @@ package com.hr.highpriestess.game.systems.GameSystems.Render.Dialogue;
 import com.artemis.BaseSystem;
 import com.artemis.ComponentMapper;
 import com.artemis.managers.TagManager;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -60,8 +59,9 @@ public class ActiveDialogueRenderSystem extends BaseSystem {
     @Override
     protected void processSystem() {
         int tracker = tagmanager.getEntity("tracker").getId();
+        Player player = playerCm.get(tagmanager.getEntity("player").getId());
         DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
-        if (playerCm.get(tagmanager.getEntity("player")).isActiveButtonClicked) labels.clear();
+        if (player.isActiveButtonClicked) labels.clear();
         if (!dialogueTracker.inDialogue) return;
         if (!dialogueTracker.isMakingDecision) return;
         if (dialogueTracker.decisions == null) return;
@@ -71,7 +71,5 @@ public class ActiveDialogueRenderSystem extends BaseSystem {
         batch.begin();
         labels.get(dialogueTracker.currentDecisionId).draw(batch, 1.0f);
         batch.end();
-
-
     }
 }
