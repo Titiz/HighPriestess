@@ -2,9 +2,10 @@ package com.hr.highpriestess.game.util;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
+import com.hr.highpriestess.game.util.Nodes.DialogueNode;
+import com.hr.highpriestess.game.util.Nodes.Node;
 
 import java.io.IOException;
 
@@ -52,8 +53,8 @@ public class DialogueUtils {
                     }
                 }
                 Gdx.app.debug(TAG, "neighbors: " + neighbors);
-                Node newNode = new Node(tag, text, speaker, neighbors);
-                nodes.add(newNode);
+                DialogueNode newDialogueNode = new DialogueNode(tag, text, speaker, neighbors);
+                nodes.add(newDialogueNode);
             }
         } catch (IOException e)  {
             Gdx.app.debug(TAG, e.toString());

@@ -17,6 +17,8 @@ import com.hr.highpriestess.game.components.Game.Tracker.DialogueTracker;
 import com.hr.highpriestess.game.components.Menu.Bounds;
 import com.hr.highpriestess.game.systems.MenuSystems.AssetSystem;
 import com.hr.highpriestess.game.systems.MenuSystems.CameraSystem;
+import com.hr.highpriestess.game.util.Nodes.DialogueNode;
+import com.hr.highpriestess.game.util.Nodes.TweenNode;
 
 /**
  * Created by Titas on 2017-07-19.
@@ -44,7 +46,9 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
     float heighOfBubble = 0;
     float baseSecondsPerCharacter = 0.02f;
     float secondsPerCharacter = baseSecondsPerCharacter;
-    final int maxDialogueLines = 3;
+    final int maxDialogueLines = 2;
+
+    String currentSpeakerName = null;
 
 
 
@@ -71,23 +75,39 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
 
         Entity tracker = tagmanager.getEntity("tracker");
         DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
+        DialogueNode currentNode = (DialogueNode) dialogueTracker.getCurrentNode();
+        currentSpeakerName = currentNode.speaker;
+        if (currentSpeakerName == null) currentSpeakerName = "player";
+        else currentSpeakerName = currentNode.speaker.toLowerCase();
 
-        String speakerName = dialogueTracker.getCurrentNode().speaker;
-        if (speakerName == null) speakerName = "player";
-        else speakerName = dialogueTracker.getCurrentNode().speaker.toLowerCase();
 
 
+        Gdx.app.debug(TAG, "current speaker is: " + currentSpeakerName);
 
-        Gdx.app.debug(TAG, "current speaker is: " + speakerName);
+        setActiveLabelPosition(currentSpeakerName);
+    }
 
+    private void setActiveLabelPosition(String speakerName) {
         float y = boundsCm.get(tagmanager.getEntity(speakerName)).y +
                 boundsCm.get(tagmanager.getEntity(speakerName)).height -
-                activeLabel.getPrefHeight() * (labelQueue.size - maxDialogueLines );
+                activeLabel.getPrefHeight() * (labelQueue.size - maxDialogueLines);
         float x = boundsCm.get(tagmanager.getEntity(speakerName)).x;
         Gdx.app.debug(TAG, "activeLabelY: " + y);
         activeLabel.setY(y);
         activeLabel.setX(x);
     }
+
+    private void setAllLabelPosition(String speakerName) {
+        float y = boundsCm.get(tagmanager.getEntity(speakerName)).y +
+                boundsCm.get(tagmanager.getEntity(speakerName)).height;
+        float x = boundsCm.get(tagmanager.getEntity(speakerName)).x;
+        for (int i = 0; i < labelQueue.size; i++) {
+            y += activeLabel.getPrefHeight() * (maxDialogueLines - i);
+            labelQueue.get(i).setPosition(x, y);
+        }
+        setActiveLabelPosition(speakerName);
+    }
+
 
     private void makeLabelIfNull() {
         if (activeLabel == null) {
@@ -108,12 +128,14 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
         DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
 
         if (!dialogueTracker.inDialogue) return;
+        if (dialogueTracker.dialogueStopped) return;
         if (dialogueTracker.isMakingDecision) return;
 
         makeLabelIfNull();
 
         int dialogueEntity = dialogueTracker.dialogueEntity;
-        String text = dialogueTrackerCm.get(tracker).nodes.get(dialogueTrackerCm.get(tracker).currentNode).text;
+        DialogueNode dialogueNode = (DialogueNode) dialogueTrackerCm.get(tracker).nodes.get(dialogueTrackerCm.get(tracker).currentNode);
+        String text =  dialogueNode.text;
         char[] charText = text.toCharArray();
         String string = activeLabel.getText().toString();
         int currentChar = dialogueTracker.dialoguePointer;
@@ -125,6 +147,8 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
         // This here is for passive dialogue, that just goes on.
         updateLabelText(currentChar, charText, string, dialogueTracker);
         trackPlayerClicks(player, currentChar);
+
+        setAllLabelPosition(currentSpeakerName);
 
 
         batch.setProjectionMatrix(cameraSystem.camera.combined);
@@ -146,7 +170,16 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
         if (currentChar > charText.length && playerCm.get(player).isActiveButtonClicked) {
             activeLabel = null;
             int neighborId = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors[0];
-                String neighborSpeaker = dialogueTracker.nodes.get(neighborId).speaker;
+            if (dialogueTracker.nodes.get(neighborId).getClass() == TweenNode.class) {
+                TweenNode tweenNode = (TweenNode) dialogueTracker.nodes.get(neighborId);
+                if (tweenNode.stopsDialogue) {
+                    dialogueTracker.dialogueStopped = true;
+                    Gdx.app.debug(TAG, "Dialogue stopped due to tween");
+                }
+                return;
+            }
+            DialogueNode neighborNode = (DialogueNode) dialogueTracker.nodes.get(neighborId);
+            String neighborSpeaker = neighborNode.speaker;
             if (neighborSpeaker == null) {
                 reset(dialogueTracker);
                 return;

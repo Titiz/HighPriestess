@@ -9,6 +9,7 @@ import com.hr.highpriestess.game.components.Game.Interactibles.Dialogue;
 import com.hr.highpriestess.game.components.Game.Player;
 import com.hr.highpriestess.game.components.Game.Tracker.DialogueTracker;
 import com.hr.highpriestess.game.util.DialogueUtils;
+import com.hr.highpriestess.game.util.Nodes.DialogueNode;
 
 /**
  * Created by Titas on 2017-07-25.
@@ -35,7 +36,9 @@ public class DialogueProgressSystem extends BaseSystem {
         int dialogueEntity = dialogueTrackerCm.get(tracker).dialogueEntity;
         if (!dialogueTracker.inDialogue) return;
 
+
         Player player = playerCm.get(tagManager.getEntity("player"));
+
         if (player.currentState != Player.States.DIALOGUE) player.currentState = Player.States.DIALOGUE;
 
         if (dialogueTracker.nodes.size == 0) {
@@ -49,10 +52,12 @@ public class DialogueProgressSystem extends BaseSystem {
             int neighborCount = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors.length;
             int neighbors [] = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors;
             String [] neighborTexts = new String[neighborCount];
-            Gdx.app.debug(TAG, "the currentNode has the text: " + dialogueTracker.nodes.get(dialogueTracker.currentNode).text);
+            DialogueNode currentNode = (DialogueNode) dialogueTracker.getCurrentNode();
+            Gdx.app.debug(TAG, "the currentNode has the text: " + currentNode.text);
             Gdx.app.debug(TAG, "selections for dialogue: ");
             for (int i = 0; i < neighborCount; i++) {
-                neighborTexts[i] = dialogueTracker.nodes.get(neighbors[i]).text;
+                DialogueNode neighborNode = (DialogueNode) dialogueTracker.getCurrentNodeNeighbor(i);
+                neighborTexts[i] = neighborNode.text;
                 Gdx.app.debug(String.valueOf(i), neighborTexts[i]);
             }
             dialogueTracker.decisions = neighborTexts;
@@ -62,7 +67,7 @@ public class DialogueProgressSystem extends BaseSystem {
                 currentDecision %= dialogueTracker.decisions.length;
                 dialogueTracker.currentDecisionId = currentDecision;
             } else if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-                Gdx.app.debug(TAG, "Pressed E with " + dialogueTracker.getNeighbor(dialogueTracker.currentNode, currentDecision).text);
+                //Gdx.app.debug(TAG, "Pressed E with " + dialogueTracker.getNeighbor(dialogueTracker.currentNode, currentDecision).text);
                 dialogueTracker.continueConversation(dialogueEntity, dialogueTracker.getNeighborId(dialogueTracker.currentNode, currentDecision));
                 dialogueTracker.isMakingDecision = false;
                 dialogueTracker.currentDecisionId = currentDecision;

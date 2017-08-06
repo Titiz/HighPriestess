@@ -64,6 +64,7 @@ public class ActiveDialogueRenderSystem extends BaseSystem {
         if (player.isActiveButtonClicked) labels.clear();
         if (!dialogueTracker.inDialogue) return;
         if (!dialogueTracker.isMakingDecision) return;
+        if (dialogueTracker.dialogueStopped) return;
         if (dialogueTracker.decisions == null) return;
         if (labels.size == 0)
             makeLabelsForDecisions(dialogueTracker);

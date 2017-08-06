@@ -62,7 +62,7 @@ public class MyGraph implements IndexedGraph {
                 }
             }
             this.connections.add(connections);
-            //System.out.println("Node: " + node + " connectionLength: " + connections.size);
+            //System.out.println("DialogueNode: " + node + " connectionLength: " + connections.size);
             //System.out.println("connected to nodes: ");
             //for (Connection connection : connections) {
             //    System.out.print(connection.getToNode() + ", " + "\n");
