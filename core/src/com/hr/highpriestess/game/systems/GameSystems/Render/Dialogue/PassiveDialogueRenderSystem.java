@@ -43,7 +43,6 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
     float timer;
     boolean isStringFinished;
     float width = 100;
-    float heighOfBubble = 0;
     float baseSecondsPerCharacter = 0.02f;
     float secondsPerCharacter = baseSecondsPerCharacter;
     final int maxDialogueLines = 2;
@@ -130,12 +129,16 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
         if (!dialogueTracker.inDialogue) return;
         if (dialogueTracker.dialogueStopped) return;
         if (dialogueTracker.isMakingDecision) return;
+        if (dialogueTracker.getCurrentNode().getClass() != DialogueNode.class) return;
 
-        makeLabelIfNull();
+
 
         int dialogueEntity = dialogueTracker.dialogueEntity;
         DialogueNode dialogueNode = (DialogueNode) dialogueTrackerCm.get(tracker).nodes.get(dialogueTrackerCm.get(tracker).currentNode);
         String text =  dialogueNode.text;
+
+        makeLabelIfNull();
+
         char[] charText = text.toCharArray();
         String string = activeLabel.getText().toString();
         int currentChar = dialogueTracker.dialoguePointer;
@@ -143,8 +146,8 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
 
 
 
-
         // This here is for passive dialogue, that just goes on.
+
         updateLabelText(currentChar, charText, string, dialogueTracker);
         trackPlayerClicks(player, currentChar);
 
@@ -174,6 +177,7 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
                 TweenNode tweenNode = (TweenNode) dialogueTracker.nodes.get(neighborId);
                 if (tweenNode.stopsDialogue) {
                     dialogueTracker.dialogueStopped = true;
+                    dialogueTracker.currentNode = dialogueTracker.getCurrentNodeNeighborId();
                     Gdx.app.debug(TAG, "Dialogue stopped due to tween");
                 }
                 return;

@@ -40,25 +40,29 @@ public class ControllerSystem extends BaseSystem {
 
         Kinematics entity = kinCm.getSafe(player);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            entity.setVx(-200 * Gdx.graphics.getDeltaTime());
+        if (playerCm.get(player).currentState == Player.States.DEFAULT) {
+
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                entity.setVx(-200 * Gdx.graphics.getDeltaTime());
+
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                entity.setVx(200 * Gdx.graphics.getDeltaTime());
+
+
+            } else
+                entity.setVx(0 * Gdx.graphics.getDeltaTime());
 
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            entity.setVx(200 * Gdx.graphics.getDeltaTime());
 
-        } else
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             Gdx.app.log(TAG, "E was pressed");
             playerCm.get(player).isActiveButtonClicked = true;
         }
-        else
-            entity.setVx(0*Gdx.graphics.getDeltaTime());
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             Tween tween = tweenCm.create(player);
-            tween.destination.set(600, 32);
+
         }
 
 

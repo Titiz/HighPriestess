@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.hr.highpriestess.game.util.Nodes.DialogueNode;
 import com.hr.highpriestess.game.util.Nodes.Node;
+import com.hr.highpriestess.game.util.Nodes.TweenNode;
 
 import java.io.IOException;
 
@@ -34,16 +35,6 @@ public class DialogueUtils {
                     tag =  Integer.parseInt(currentNodeXml.getChildByName("tag").getText());
                 }
 
-                String text = null;
-                if (currentNodeXml.getChildByName("text").getText() != null) {
-                    text =  (currentNodeXml.getChildByName("text").getText());
-                }
-
-                String speaker = null;
-                if (currentNodeXml.getChildByName("speaker").getText() != null) {
-                    speaker = currentNodeXml.getChildByName("speaker").getText();
-                }
-
                 int[] neighbors = null;
                 if (currentNodeXml.getChildByName("neighbors").getText() != null) {
                     String[] neighborStrings = currentNodeXml.getChildByName("neighbors").getText().split(", ");
@@ -52,9 +43,35 @@ public class DialogueUtils {
                         neighbors[i] = Integer.parseInt(neighborStrings[i]);
                     }
                 }
-                Gdx.app.debug(TAG, "neighbors: " + neighbors);
-                DialogueNode newDialogueNode = new DialogueNode(tag, text, speaker, neighbors);
-                nodes.add(newDialogueNode);
+
+                if (currentNodeXml.getChildByName("type").getText().equals("DialogueNode")) {
+
+                    String text = null;
+                    if (currentNodeXml.getChildByName("text").getText() != null) {
+                        text = (currentNodeXml.getChildByName("text").getText());
+                    }
+
+                    String speaker = null;
+                    if (currentNodeXml.getChildByName("speaker").getText() != null) {
+                        speaker = currentNodeXml.getChildByName("speaker").getText();
+                    }
+
+
+                    Gdx.app.debug(TAG, "neighbors: " + neighbors);
+                    DialogueNode newDialogueNode = new DialogueNode(tag, text, speaker, neighbors);
+                    nodes.add(newDialogueNode);
+                }
+
+                else if (currentNodeXml.getChildByName("type").getText().equals("TweenNode")) {
+
+                    String destination = (currentNodeXml.getChildByName("destination").getText());
+                    String actor = currentNodeXml.getChildByName("actor").getText();
+                    Boolean stopsDialogue = Boolean.valueOf(currentNodeXml.getChildByName("stopsDialogue").getText());
+                    Boolean stopsNextTween = Boolean.valueOf(currentNodeXml.getChildByName("stopsNextTween").getText());
+
+                    TweenNode newTweenNode = new TweenNode(actor, destination, neighbors, stopsDialogue, stopsNextTween);
+                    nodes.add(newTweenNode);
+                }
             }
         } catch (IOException e)  {
             Gdx.app.debug(TAG, e.toString());

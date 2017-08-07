@@ -45,6 +45,7 @@ public class DialogueProgressSystem extends BaseSystem {
             // Here we make the dialogue nodes. No conversation has 0 nodes.
             Gdx.app.debug(TAG, "making dialogue with file  " + dialogueCm.get(dialogueEntity).getDialogueFile());
             DialogueUtils.createDialogueNodes(dialogueCm.get(dialogueEntity).getDialogueFile(), dialogueTracker.nodes);
+            dialogueTracker.currentNode = dialogueTracker.getCurrentNodeNeighborId();
         }
 
 

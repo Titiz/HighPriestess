@@ -2,7 +2,8 @@ package com.hr.highpriestess.game.components.Game.Tracker;
 
 import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;
-import com.hr.highpriestess.game.util.Node;
+import com.hr.highpriestess.game.util.Nodes.DialogueNode;
+import com.hr.highpriestess.game.util.Nodes.Node;
 
 /**
  * Created by Titas on 2017-07-19.
@@ -18,6 +19,7 @@ public class DialogueTracker extends Component
     public String currentString = "";
     public Boolean isMakingDecision = false;
     public String[] decisions;
+    public boolean dialogueStopped = false;
 
     public int currentDecisionId;
 
@@ -76,4 +78,10 @@ public class DialogueTracker extends Component
     public Node getNeighbor(int id) {
         return getNeighbor(id, 0);
     }
+
+    public Node getCurrentNodeNeighbor(int neighborIndex) {return getNeighbor(currentNode, neighborIndex);}
+    public int getCurrentNodeNeighborId(int neighborIndex) {return getNeighborId(currentNode, neighborIndex);}
+
+    public Node getCurrentNodeNeighbor() {return getNeighbor(currentNode);}
+    public int getCurrentNodeNeighborId() {return getNeighborId(currentNode);}
 }

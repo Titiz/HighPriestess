@@ -37,7 +37,8 @@ public class DialogueCollisionSystem extends BaseSystem {
 
         int dialogueEntity = playerCm.get(player).collidingEntity.getId();
         playerCm.get(player).currentState = Player.States.DIALOGUE;
-        dialogueTrackerCm.get(tracker).startNewConversation(dialogueEntity);
+        DialogueTracker dialogueTracker = dialogueTrackerCm.get(tracker);
+        dialogueTracker.startNewConversation(dialogueEntity);
 
         Gdx.app.debug(TAG, "dialogue found with entity " + dialogueEntity);
     }
