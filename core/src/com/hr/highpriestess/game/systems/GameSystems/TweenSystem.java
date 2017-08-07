@@ -39,15 +39,15 @@ public class TweenSystem extends IteratingSystem {
         Tween tween = tweenCm.get(e);
         Bounds bounds = boundsCm.get(e);
         Kinematics kin = kinCm.get(e);
-        if (playerCm.has(e)) {
-            Player player = playerCm.get(e);
-            player.currentState = Player.States.TWEEN;
-        }
-        float v_x = kin.getMax_vx(), v_y = kin.getMax_vy();
+
+        float v_x = kin.getMax_vx() , v_y = kin.getMax_vy();
 
 
         float differenceX = tween.destination.x - bounds.x,
                 differenceY = tween.destination.y - bounds.y;
+
+        Gdx.app.debug("differenceX", "" +differenceX);
+        Gdx.app.debug("v_x", "" + v_x);
 
         if (differenceX < 0) {
             v_x *= -1;
@@ -57,15 +57,14 @@ public class TweenSystem extends IteratingSystem {
             v_y *= -1;
         }
 
-        if (differenceX < v_x) {
+        if (Math.abs(differenceX) < Math.abs(v_x)) {
             bounds.setX(tween.destination.x);
             kin.setVx(0);
         } else {
             kin.setVx(v_x);
-
         }
 
-        if (differenceY < v_y) {
+        if (Math.abs(differenceY) < Math.abs(v_y)) {
             bounds.setY(tween.destination.y);
             kin.setVy(0);
         } else {

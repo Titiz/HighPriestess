@@ -170,15 +170,15 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
 
 
     private void gotoNextNode(int currentChar, char [] charText, DialogueTracker dialogueTracker, int player, int dialogueEntity) {
+        Gdx.app.debug(TAG, "gotoNextNode called");
         if (currentChar > charText.length && playerCm.get(player).isActiveButtonClicked) {
             activeLabel = null;
             int neighborId = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors[0];
             if (dialogueTracker.nodes.get(neighborId).getClass() == TweenNode.class) {
                 TweenNode tweenNode = (TweenNode) dialogueTracker.nodes.get(neighborId);
                 if (tweenNode.stopsDialogue) {
-                    dialogueTracker.dialogueStopped = true;
                     dialogueTracker.currentNode = dialogueTracker.getCurrentNodeNeighborId();
-                    Gdx.app.debug(TAG, "Dialogue stopped due to tween");
+                    Gdx.app.debug(TAG, "Dialogue moved to a tween");
                 }
                 return;
             }

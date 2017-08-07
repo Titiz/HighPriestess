@@ -32,6 +32,7 @@ public class GameEntitySpawnerSystem extends EntitySpawnerSystem {
             String dialogueFile = properties.get("dialogueFile", String.class);
             String speakerName = properties.get("speakerName", String.class);
             Entity e = EntityMakerGame.createTalkingNPC(this.getWorld(), x, y, animIdle, dialogueFile);
+            Gdx.app.debug(TAG, "spawned talkingNPC with name " + speakerName + " at X:" + x + " Y:" + y );
             tagManager.register(speakerName.toLowerCase(), e);
         }
         else if (entityName.equals("gate")) {

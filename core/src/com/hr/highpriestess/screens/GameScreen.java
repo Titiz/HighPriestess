@@ -58,6 +58,7 @@ public class GameScreen extends AbstractScreen {
                         new MapGateCollideSystem(),
                         new DialogueCollisionSystem(),
                         new DialogueProgressSystem(),
+                        new DialogueTweenSystem(),
 
                         new GameEntityClearerSystem(),
                         new GameEntitySpawnerSystem(),
