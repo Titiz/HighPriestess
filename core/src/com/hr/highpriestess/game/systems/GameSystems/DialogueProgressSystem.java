@@ -37,6 +37,9 @@ public class DialogueProgressSystem extends BaseSystem {
         if (!dialogueTracker.inDialogue) return;
 
 
+        // TODO: need to make a clear way to distinguish the states of the system.
+        // TODO: make booleans of tweenNodes only 1
+
         Player player = playerCm.get(tagManager.getEntity("player"));
 
         if (player.currentState != Player.States.DIALOGUE) player.currentState = Player.States.DIALOGUE;

@@ -65,7 +65,7 @@ public class DialogueUtils {
                 else if (currentNodeXml.getChildByName("type").getText().equals("TweenNode")) {
 
                     String destination = (currentNodeXml.getChildByName("destination").getText());
-                    String actor = currentNodeXml.getChildByName("actor").getText();
+                    String actor = currentNodeXml.getChildByName("actor").getText().toLowerCase();
                     Boolean stopsDialogue = Boolean.valueOf(currentNodeXml.getChildByName("stopsDialogue").getText());
                     Boolean stopsNextTween = Boolean.valueOf(currentNodeXml.getChildByName("stopsNextTween").getText());
 

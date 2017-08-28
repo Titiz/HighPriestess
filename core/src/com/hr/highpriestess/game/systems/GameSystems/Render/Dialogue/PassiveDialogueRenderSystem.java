@@ -91,7 +91,6 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
                 boundsCm.get(tagmanager.getEntity(speakerName)).height -
                 activeLabel.getPrefHeight() * (labelQueue.size - maxDialogueLines);
         float x = boundsCm.get(tagmanager.getEntity(speakerName)).x;
-        Gdx.app.debug(TAG, "activeLabelY: " + y);
         activeLabel.setY(y);
         activeLabel.setX(x);
     }
@@ -170,7 +169,6 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
 
 
     private void gotoNextNode(int currentChar, char [] charText, DialogueTracker dialogueTracker, int player, int dialogueEntity) {
-        Gdx.app.debug(TAG, "gotoNextNode called");
         if (currentChar > charText.length && playerCm.get(player).isActiveButtonClicked) {
             activeLabel = null;
             int neighborId = dialogueTracker.nodes.get(dialogueTracker.currentNode).neighbors[0];
@@ -210,7 +208,7 @@ public class PassiveDialogueRenderSystem extends BaseSystem {
                 Gdx.app.debug(TAG, "finishing sentence");
             } else {
                 secondsPerCharacter = baseSecondsPerCharacter;
-                Gdx.app.debug(TAG, "going to next sentence");
+                Gdx.app.debug(TAG, "going to next Node");
                 isStringFinished = false;
                 labelQueue.clear();
                 shapeActiveLabel();

@@ -43,6 +43,9 @@ public class DialogueTweenSystem extends BaseSystem {
         TweenNode currentTweenNode = (TweenNode) dialogueTracker.getCurrentNode();
         int entity = tagManager.getEntity(currentTweenNode.actor).getId();
 
+        Gdx.app.debug(TAG, "ProcessSystem called: " + currentTweenNode.actor);
+        Gdx.app.debug(TAG, "Current Node used = " + this.currentNodeUsed.toString());
+
         if (!this.currentNodeUsed) {
             Tween tweenEntity = tweenCm.create(entity);
             activeTweenEntityIds.add(entity);
@@ -54,21 +57,33 @@ public class DialogueTweenSystem extends BaseSystem {
         if (currentTweenNode.stopsNextTween) {
                 if (activeTweenEntityIds.size == 0) {
                     Gdx.app.debug(TAG, "there are no more activeTweens");
-                    Gdx.app.debug(TAG, "going to the next Tween");
+                    Gdx.app.debug(TAG, "going to the next Node");
                     dialogueTracker.currentNode = dialogueTracker.getCurrentNodeNeighborId();
                     currentNodeUsed = false;
-                }
-                for (int i = activeTweenEntityIds.size - 1; i >= 0; i--) {
-                    if (!tweenCm.has(activeTweenEntityIds.get(i))) {
-                        Gdx.app.debug(TAG, "removing tween for entity: " + activeTweenEntityIds.get(i));
-                        activeTweenEntityIds.removeIndex(i);
+                    Gdx.app.debug(TAG, "current node type is: " + dialogueTracker.getCurrentNode().getClass().toString());
+                    if (dialogueTracker.getCurrentNode().getClass() == DialogueNode.class) {
+                        DialogueNode dialogueNode = (DialogueNode) dialogueTracker.getCurrentNode();
+                        Gdx.app.debug(TAG, "speaker " + dialogueNode.speaker);
+                        if (dialogueNode.speaker.equals("Player")) {
+                            dialogueTracker.isMakingDecision = true;
+                            Gdx.app.debug(TAG, "isMakingDecision = true");
+                        }
+                        return;
                     }
+                    currentNodeUsed = false;
                 }
             }
         else {
             Gdx.app.debug(TAG, "going to the next Tween");
             dialogueTracker.currentNode = dialogueTracker.getCurrentNodeNeighborId();
             currentNodeUsed = false;
+        }
+
+        for (int i = activeTweenEntityIds.size - 1; i >= 0; i--) {
+            if (!tweenCm.has(activeTweenEntityIds.get(i))) {
+                Gdx.app.debug(TAG, "removing tween for entity: " + activeTweenEntityIds.get(i));
+                activeTweenEntityIds.removeIndex(i);
+            }
         }
     }
 
@@ -84,6 +99,10 @@ public class DialogueTweenSystem extends BaseSystem {
             Gdx.app.debug(TAG, "placing entity left of " + splitString[1] );
             x -= 10; //arbitrary for now
             x -= boundsCm.get(destinationEntity).width;
+        } else if (splitString[0].equals("rightOf")) {
+            Gdx.app.debug(TAG, "placing entity right of " + splitString[1] );
+            x += boundsCm.get(destinationEntity).width * 2;
+            x -= 10;
         }
         Gdx.app.debug(TAG, "Returning vector with X: " + x + ",  Y: " + y);
         return new Vector2(x, y);
